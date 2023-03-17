@@ -16,6 +16,8 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
 import org.codehaus.plexus.util.xml.XmlStreamReader;
+import org.codehaus.plexus.util.xml.XmlStreamReaderException;
+
 
 //TODO best handling of interning issues
 //   have isAllNewStringInterned ???
@@ -121,6 +123,7 @@ public class MXParser
     // private String elValue[];
     private int elNamespaceCount[];
 
+    private String fileEncoding = null;
 
     /**
      * Make sure that we have enough space to keep element stack if passed size. It will always create one additional
@@ -678,13 +681,25 @@ public class MXParser
             }
             else
             {
-                reader = new XmlStreamReader( inputStream );
+                reader = new XmlStreamReader( inputStream, false );
             }
         }
         catch ( UnsupportedEncodingException une )
         {
             throw new XmlPullParserException( "could not create reader for encoding " + inputEncoding + " : " + une,
                                               this, une );
+        }
+        catch ( XmlStreamReaderException e )
+        {
+            if ( "UTF-8".equals( e.getBomEncoding() ) )
+            {
+                throw new XmlPullParserException( "UTF-8 BOM plus xml decl of " + e.getXmlEncoding() + " is incompatible", this, e );
+            }
+            if ( e.getBomEncoding() != null && e.getBomEncoding().startsWith( "UTF-16" ) )
+            {
+                throw new XmlPullParserException( "UTF-16 BOM in a " + e.getXmlEncoding() + " encoded file is incompatible", this, e );
+            }
+            throw new XmlPullParserException( "could not create reader : " + e, this, e );
         }
         catch ( IOException e )
         {
@@ -3414,7 +3429,7 @@ public class MXParser
             final int encodingEnd = pos - 1;
 
             // TODO reconcile with setInput encodingName
-            // inputEncoding = newString( buf, encodingStart, encodingEnd - encodingStart );
+            inputEncoding = newString( buf, encodingStart, encodingEnd - encodingStart );
 
             lastParsedAttr = "encoding";
 
