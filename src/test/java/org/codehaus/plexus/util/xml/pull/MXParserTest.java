@@ -20,6 +20,7 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
@@ -27,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.codehaus.plexus.util.xml.ReaderFactory;
+import org.codehaus.plexus.util.xml.XmlStreamReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -895,6 +897,76 @@ class MXParserTest {
             MXParser parser = new MXParser();
             String xmlFileContents = readAllFrom(reader);
             parser.setInput(new StringReader(xmlFileContents));
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
+                ;
+            assertTrue(true);
+        } catch (XmlPullParserException e) {
+            fail("should not raise exception: " + e);
+        }
+    }
+
+    /**
+     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
+     *
+     * Another case of bug #163: Reader generated with ReaderFactory.newReader and the right file encoding.
+     *
+     * @throws IOException if IO error.
+     *
+     * @since 3.5.2
+     */
+    @Test
+    void encodingISO88591newReader() throws IOException {
+        // NOTE: if using Files.newBufferedReader(path, StandardCharsets.UTF-8), the reader will throw an exception
+        // because the decoder created by new InputStreamReader() is lenient while the one created by
+        // Files.newBufferedReader() is not.
+        try (Reader reader = new InputStreamReader(
+                Files.newInputStream(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml")),
+                StandardCharsets.UTF_8)) {
+            MXParser parser = new MXParser();
+            parser.setInput(reader);
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
+                ;
+            assertTrue(true);
+        } catch (XmlPullParserException e) {
+            fail("should not raise exception: " + e);
+        }
+    }
+
+    /**
+     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
+     *
+     * Another case of bug #163: InputStream supplied with the right file encoding.
+     *
+     * @throws IOException if IO error.
+     *
+     * @since 3.5.2
+     */
+    @Test
+    void encodingISO88591setInputStreamEncoded() throws IOException {
+        try (InputStream input =
+                Files.newInputStream(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
+            MXParser parser = new MXParser();
+            parser.setInput(input, StandardCharsets.UTF_8.name());
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
+                ;
+            assertTrue(true);
+        } catch (XmlPullParserException e) {
+            fail("should not raise exception: " + e);
+        }
+    }
+
+    /**
+     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
+     *
+     * @throws IOException if IO error.
+     *
+     * @since 3.4.1
+     */
+    @Test
+    void encodingUTF8newXmlReader() throws IOException {
+        try (Reader reader = new XmlStreamReader(new File("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
+            MXParser parser = new MXParser();
+            parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
             assertTrue(true);
