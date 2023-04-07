@@ -16,10 +16,6 @@ package org.codehaus.plexus.util.xml;
  * limitations under the License.
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -30,9 +26,14 @@ import java.util.NoSuchElementException;
 import javax.swing.text.html.HTML.Tag;
 
 import org.codehaus.plexus.util.StringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test of {@link org.codehaus.plexus.util.xml.PrettyPrintXMLWriter}
@@ -51,7 +52,7 @@ public class PrettyPrintXMLWriterTest
     /**
      * <p>setUp.</p>
      */
-    @Before
+    @BeforeEach
     public void setUp()
     {
         initWriter();
@@ -60,7 +61,7 @@ public class PrettyPrintXMLWriterTest
     /**
      * <p>tearDown.</p>
      */
-    @After
+    @AfterEach
     public void tearDown()
     {
         writer = null;
@@ -161,18 +162,12 @@ public class PrettyPrintXMLWriterTest
     @Test
     public void testendElementAlreadyClosed()
     {
-        try
-        {
+        assertThrows(NoSuchElementException.class, () -> {
             writer.startElement( Tag.DIV.toString() );
             writer.addAttribute( "class", "someattribute" );
             writer.endElement(); // Tag.DIV closed
             writer.endElement(); // Tag.DIV already closed, and there is no other outer tag!
-            fail( "Should throw a NoSuchElementException" );
-        }
-        catch ( NoSuchElementException e )
-        {
-            assert ( true );
-        }
+        });
     }
 
     /**
@@ -190,16 +185,15 @@ public class PrettyPrintXMLWriterTest
         File dir = new File( "target/test-xml" );
         if ( !dir.exists() )
         {
-            assertTrue( "cannot create directory test-xml", dir.mkdir() );
+            assertTrue( dir.mkdir(), "cannot create directory test-xml" );
         }
         File xmlFile = new File( dir, "test-issue-51.xml" );
-        OutputStreamWriter osw = new OutputStreamWriter( Files.newOutputStream( xmlFile.toPath() ), "UTF-8" );
-        writer = new PrettyPrintXMLWriter( osw );
 
         int iterations = 20000;
 
-        try
+        try ( OutputStreamWriter osw = new OutputStreamWriter( Files.newOutputStream( xmlFile.toPath() ), "UTF-8" ) )
         {
+            writer = new PrettyPrintXMLWriter( osw );
             for ( int i = 0; i < iterations; ++i )
             {
                 writer.startElement( Tag.DIV.toString() + i );
@@ -213,13 +207,6 @@ public class PrettyPrintXMLWriterTest
         catch ( NoSuchElementException e )
         {
             fail( "Should not throw a NoSuchElementException" );
-        }
-        finally
-        {
-            if ( osw != null )
-            {
-                osw.close();
-            }
         }
     }
 

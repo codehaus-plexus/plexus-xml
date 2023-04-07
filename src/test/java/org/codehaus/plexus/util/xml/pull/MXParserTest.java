@@ -16,14 +16,8 @@ package org.codehaus.plexus.util.xml.pull;
  * limitations under the License.
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.EOFException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,7 +29,9 @@ import java.nio.file.Paths;
 
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.XmlStreamReader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * <p>MXParserTest class.</p>
@@ -1132,8 +1128,8 @@ public class MXParserTest
 
     private static void assertPosition( int row, int col, MXParser parser )
     {
-        assertEquals( "Current line", row, parser.getLineNumber() );
-        assertEquals( "Current column", col, parser.getColumnNumber() );
+        assertEquals( row, parser.getLineNumber(), "Current line" );
+        assertEquals( col, parser.getColumnNumber(), "Current column" );
     }
 
     /**

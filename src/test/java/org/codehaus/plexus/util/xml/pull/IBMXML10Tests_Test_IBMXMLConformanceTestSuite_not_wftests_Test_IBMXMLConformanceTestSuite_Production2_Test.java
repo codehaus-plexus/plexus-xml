@@ -1,8 +1,5 @@
 package org.codehaus.plexus.util.xml.pull;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,8 +12,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test class that execute a particular set of tests associated to a TESCASES tag from the XML W3C Conformance Tests.
@@ -36,7 +36,7 @@ public class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMX
     /**
      * <p>setUp.</p>
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         parser = new MXParser();
     }

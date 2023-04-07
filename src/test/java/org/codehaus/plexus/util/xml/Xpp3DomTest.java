@@ -16,14 +16,6 @@ package org.codehaus.plexus.util.xml;
  * limitations under the License.
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -35,7 +27,9 @@ import org.apache.maven.api.xml.XmlNode;
 import org.apache.maven.internal.xml.XmlNodeImpl;
 import org.codehaus.plexus.util.xml.pull.XmlPullParser;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * <p>Xpp3DomTest class.</p>
