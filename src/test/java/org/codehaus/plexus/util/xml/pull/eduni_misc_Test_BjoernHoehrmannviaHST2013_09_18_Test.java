@@ -257,9 +257,6 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * Version:
      *
      * @throws java.io.IOException if there is an I/O error
-     *
-     * NOTE: This test is SKIPPED as MXParser is unable to detect UTF-16 BOM detection when chars are read as
-     * UTF-8.
      */
     @Test
     public void testhst_lhs_009()
