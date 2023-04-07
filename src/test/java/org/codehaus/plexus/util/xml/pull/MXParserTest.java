@@ -23,8 +23,10 @@ import static org.junit.Assert.fail;
 
 import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
@@ -1058,8 +1060,12 @@ public class MXParserTest
     public void testEncodingISO_8859_1_newReader()
         throws IOException
     {
-        try ( Reader reader = Files.newBufferedReader( Paths.get( "src/test/resources/xml", "test-encoding-ISO-8859-1.xml" ),
-                                     StandardCharsets.UTF_8 ) )
+        // NOTE: if using Files.newBufferedReader(path, StandardCharsets.UTF-8), the reader will throw an exception
+        // because the decoder created by new InputStreamReader() is lenient while the one created by
+        // Files.newBufferedReader() is not.
+        try ( Reader reader = new InputStreamReader( Files.newInputStream(
+                Paths.get( "src/test/resources/xml", "test-encoding-ISO-8859-1.xml" ) ),
+                      StandardCharsets.UTF_8 ) )
         {
             MXParser parser = new MXParser();
             parser.setInput( reader );
