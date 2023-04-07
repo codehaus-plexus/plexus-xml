@@ -1058,9 +1058,8 @@ public class MXParserTest
     public void testEncodingISO_8859_1_newReader()
         throws IOException
     {
-        try ( Reader reader =
-            ReaderFactory.newReader( new File( "src/test/resources/xml", "test-encoding-ISO-8859-1.xml" ),
-                                     StandardCharsets.UTF_8.name() ) )
+        try ( Reader reader = Files.newBufferedReader( Paths.get( "src/test/resources/xml", "test-encoding-ISO-8859-1.xml" ),
+                                     StandardCharsets.UTF_8 ) )
         {
             MXParser parser = new MXParser();
             parser.setInput( reader );
@@ -1111,8 +1110,7 @@ public class MXParserTest
     public void testEncodingUTF8_newXmlReader()
         throws IOException
     {
-        try ( Reader reader =
-            ReaderFactory.newXmlReader( new File( "src/test/resources/xml", "test-encoding-ISO-8859-1.xml" ) ) )
+        try ( Reader reader = new XmlStreamReader( Paths.get( "src/test/resources/xml", "test-encoding-ISO-8859-1.xml" ) ) )
         {
             MXParser parser = new MXParser();
             parser.setInput( reader );
