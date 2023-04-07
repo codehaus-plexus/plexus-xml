@@ -1,3 +1,18 @@
+/*
+ * Copyright The Codehaus Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.codehaus.plexus.util.xml;
 
 /*
@@ -16,23 +31,20 @@ package org.codehaus.plexus.util.xml;
  * limitations under the License.
  */
 
-import org.apache.maven.api.xml.XmlNode;
-import org.apache.maven.internal.xml.XmlNodeImpl;
-import org.codehaus.plexus.util.xml.pull.XmlSerializer;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.maven.api.xml.XmlNode;
+import org.apache.maven.internal.xml.XmlNodeImpl;
+import org.codehaus.plexus.util.xml.pull.XmlSerializer;
 
 /**
  *  NOTE: remove all the util code in here when separated, this class should be pure data.
  */
-public class Xpp3Dom
-    implements Serializable
-{
+public class Xpp3Dom implements Serializable {
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     public static final String CHILDREN_COMBINATION_MODE_ATTRIBUTE = "combine.children";
@@ -67,9 +79,8 @@ public class Xpp3Dom
     private ChildrenTracking childrenTracking;
     private XmlNode dom;
 
-    public Xpp3Dom( String name )
-    {
-        this.dom = new XmlNodeImpl( name );
+    public Xpp3Dom(String name) {
+        this.dom = new XmlNodeImpl(name);
     }
 
     /**
@@ -77,18 +88,16 @@ public class Xpp3Dom
      * @param inputLocation The input location.
      * @param name The name of the Dom.
      */
-    public Xpp3Dom( String name, Object inputLocation )
-    {
-        this.dom = new XmlNodeImpl( name, null, null, null, inputLocation );
+    public Xpp3Dom(String name, Object inputLocation) {
+        this.dom = new XmlNodeImpl(name, null, null, null, inputLocation);
     }
 
     /**
      * Copy constructor.
      * @param src The source Dom.
      */
-    public Xpp3Dom( Xpp3Dom src )
-    {
-        this( src, src.getName() );
+    public Xpp3Dom(Xpp3Dom src) {
+        this(src, src.getName());
     }
 
     /**
@@ -96,30 +105,25 @@ public class Xpp3Dom
      * @param src The source Dom.
      * @param name The name of the Dom.
      */
-    public Xpp3Dom( Xpp3Dom src, String name )
-    {
-        this.dom = new XmlNodeImpl( src.dom, name );
+    public Xpp3Dom(Xpp3Dom src, String name) {
+        this.dom = new XmlNodeImpl(src.dom, name);
     }
 
-    public Xpp3Dom( XmlNode dom )
-    {
+    public Xpp3Dom(XmlNode dom) {
         this.dom = dom;
     }
 
-    public Xpp3Dom( XmlNode dom, Xpp3Dom parent )
-    {
+    public Xpp3Dom(XmlNode dom, Xpp3Dom parent) {
         this.dom = dom;
         this.childrenTracking = parent::replace;
     }
 
-    public Xpp3Dom( XmlNode dom, ChildrenTracking childrenTracking )
-    {
+    public Xpp3Dom(XmlNode dom, ChildrenTracking childrenTracking) {
         this.dom = dom;
         this.childrenTracking = childrenTracking;
     }
 
-    public XmlNode getDom()
-    {
+    public XmlNode getDom() {
         return dom;
     }
 
@@ -127,8 +131,7 @@ public class Xpp3Dom
     // Name handling
     // ----------------------------------------------------------------------
 
-    public String getName()
-    {
+    public String getName() {
         return dom.getName();
     }
 
@@ -136,28 +139,24 @@ public class Xpp3Dom
     // Value handling
     // ----------------------------------------------------------------------
 
-    public String getValue()
-    {
+    public String getValue() {
         return dom.getValue();
     }
 
-    public void setValue( String value )
-    {
-        update( new XmlNodeImpl( dom.getName(), value, dom.getAttributes(), dom.getChildren(), dom.getInputLocation() ) );
+    public void setValue(String value) {
+        update(new XmlNodeImpl(dom.getName(), value, dom.getAttributes(), dom.getChildren(), dom.getInputLocation()));
     }
 
     // ----------------------------------------------------------------------
     // Attribute handling
     // ----------------------------------------------------------------------
 
-    public String[] getAttributeNames()
-    {
-        return dom.getAttributes().keySet().toArray( EMPTY_STRING_ARRAY );
+    public String[] getAttributeNames() {
+        return dom.getAttributes().keySet().toArray(EMPTY_STRING_ARRAY);
     }
 
-    public String getAttribute( String name )
-    {
-        return dom.getAttribute( name );
+    public String getAttribute(String name) {
+        return dom.getAttribute(name);
     }
 
     /**
@@ -166,10 +165,8 @@ public class Xpp3Dom
      * @return <code>true</code> if the attribute has been removed
      * @since 3.4.0
      */
-    public boolean removeAttribute( String name )
-    {
-        if ( name != null && !name.isEmpty() )
-        {
+    public boolean removeAttribute(String name) {
+        if (name != null && !name.isEmpty()) {
             Map<String, String> attrs = new HashMap<>(dom.getAttributes());
             boolean ret = attrs.remove(name) != null;
             if (ret) {
@@ -183,18 +180,15 @@ public class Xpp3Dom
 
     /**
      * Set the attribute value
-     * 
+     *
      * @param name String not null
      * @param value String not null
      */
-    public void setAttribute( String name, String value )
-    {
-        if ( null == value )
-        {
-            throw new NullPointerException( "Attribute value can not be null" );
+    public void setAttribute(String name, String value) {
+        if (null == value) {
+            throw new NullPointerException("Attribute value can not be null");
         }
-        if ( null == name )
-        {
+        if (null == name) {
             throw new NullPointerException("Attribute name can not be null");
         }
         Map<String, String> attrs = new HashMap<>(dom.getAttributes());
@@ -206,69 +200,58 @@ public class Xpp3Dom
     // Child handling
     // ----------------------------------------------------------------------
 
-    public Xpp3Dom getChild( int i )
-    {
-        return new Xpp3Dom( dom.getChildren().get(i), this );
+    public Xpp3Dom getChild(int i) {
+        return new Xpp3Dom(dom.getChildren().get(i), this);
     }
 
-    public Xpp3Dom getChild( String name )
-    {
-        XmlNode child = dom.getChild( name );
-        return child != null ? new Xpp3Dom( child, this ) : null;
+    public Xpp3Dom getChild(String name) {
+        XmlNode child = dom.getChild(name);
+        return child != null ? new Xpp3Dom(child, this) : null;
     }
 
-    public void addChild( Xpp3Dom xpp3Dom )
-    {
-        List<XmlNode> children = new ArrayList<>( dom.getChildren() );
-        children.add( xpp3Dom.dom );
+    public void addChild(Xpp3Dom xpp3Dom) {
+        List<XmlNode> children = new ArrayList<>(dom.getChildren());
+        children.add(xpp3Dom.dom);
         xpp3Dom.childrenTracking = this::replace;
-        update( new XmlNodeImpl( dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation() ) );
+        update(new XmlNodeImpl(dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation()));
     }
 
-    public Xpp3Dom[] getChildren()
-    {
+    public Xpp3Dom[] getChildren() {
         return dom.getChildren().stream().map(d -> new Xpp3Dom(d, this)).toArray(Xpp3Dom[]::new);
     }
 
-    public Xpp3Dom[] getChildren( String name )
-    {
+    public Xpp3Dom[] getChildren(String name) {
         return dom.getChildren().stream()
-                .filter( c -> c.getName().equals( name ) )
-                .map( d -> new Xpp3Dom( d, this ) )
-                .toArray( Xpp3Dom[]::new );
+                .filter(c -> c.getName().equals(name))
+                .map(d -> new Xpp3Dom(d, this))
+                .toArray(Xpp3Dom[]::new);
     }
 
-    public int getChildCount()
-    {
+    public int getChildCount() {
         return dom.getChildren().size();
     }
 
-    public void removeChild( int i )
-    {
-        List<XmlNode> children = new ArrayList<>( dom.getChildren() );
-        children.remove( i );
-        update( new XmlNodeImpl( dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation() ) );
+    public void removeChild(int i) {
+        List<XmlNode> children = new ArrayList<>(dom.getChildren());
+        children.remove(i);
+        update(new XmlNodeImpl(dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation()));
     }
 
-    public void removeChild( Xpp3Dom child )
-    {
-        List<XmlNode> children = new ArrayList<>( dom.getChildren() );
-        children.remove( child.dom );
-        update( new XmlNodeImpl( dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation() ) );
+    public void removeChild(Xpp3Dom child) {
+        List<XmlNode> children = new ArrayList<>(dom.getChildren());
+        children.remove(child.dom);
+        update(new XmlNodeImpl(dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation()));
     }
 
     // ----------------------------------------------------------------------
     // Parent handling
     // ----------------------------------------------------------------------
 
-    public Xpp3Dom getParent()
-    {
+    public Xpp3Dom getParent() {
         throw new UnsupportedOperationException();
     }
 
-    public void setParent( Xpp3Dom parent )
-    {
-    }
+    public void setParent(Xpp3Dom parent) {}
 
     // ----------------------------------------------------------------------
     // Input location handling
@@ -278,8 +261,7 @@ public class Xpp3Dom
      * @since 3.2.0
      * @return input location
      */
-    public Object getInputLocation()
-    {
+    public Object getInputLocation() {
         return dom.getInputLocation();
     }
 
@@ -287,24 +269,21 @@ public class Xpp3Dom
      * @since 3.2.0
      * @param inputLocation input location to set
      */
-    public void setInputLocation( Object inputLocation )
-    {
-        update( new XmlNodeImpl( dom.getName(), dom.getValue(), dom.getAttributes(), dom.getChildren(), inputLocation ) );
+    public void setInputLocation(Object inputLocation) {
+        update(new XmlNodeImpl(dom.getName(), dom.getValue(), dom.getAttributes(), dom.getChildren(), inputLocation));
     }
 
     // ----------------------------------------------------------------------
     // Helpers
     // ----------------------------------------------------------------------
 
-    public void writeToSerializer( String namespace, XmlSerializer serializer ) throws IOException
-    {
+    public void writeToSerializer(String namespace, XmlSerializer serializer) throws IOException {
         // TODO: WARNING! Later versions of plexus-utils psit out an <?xml ?> header due to thinking this is a new
         // document - not the desired behaviour!
-        SerializerXMLWriter xmlWriter = new SerializerXMLWriter( namespace, serializer );
-        Xpp3DomWriter.write( xmlWriter, this );
-        if ( xmlWriter.getExceptions().size() > 0 )
-        {
-            throw (IOException) xmlWriter.getExceptions().get( 0 );
+        SerializerXMLWriter xmlWriter = new SerializerXMLWriter(namespace, serializer);
+        Xpp3DomWriter.write(xmlWriter, this);
+        if (xmlWriter.getExceptions().size() > 0) {
+            throw (IOException) xmlWriter.getExceptions().get(0);
         }
     }
 
@@ -345,14 +324,12 @@ public class Xpp3Dom
      *   </ol></li>
      * </ol>
      */
-    private static void mergeIntoXpp3Dom( Xpp3Dom dominant, Xpp3Dom recessive, Boolean childMergeOverride )
-    {
+    private static void mergeIntoXpp3Dom(Xpp3Dom dominant, Xpp3Dom recessive, Boolean childMergeOverride) {
         // TODO: share this as some sort of assembler, implement a walk interface?
-        if ( recessive == null )
-        {
+        if (recessive == null) {
             return;
         }
-        dominant.dom = dominant.dom.merge( recessive.dom, childMergeOverride );
+        dominant.dom = dominant.dom.merge(recessive.dom, childMergeOverride);
     }
 
     /**
@@ -366,11 +343,9 @@ public class Xpp3Dom
      *            dominant DOM
      * @return merged DOM
      */
-    public static Xpp3Dom mergeXpp3Dom( Xpp3Dom dominant, Xpp3Dom recessive, Boolean childMergeOverride )
-    {
-        if ( dominant != null )
-        {
-            mergeIntoXpp3Dom( dominant, recessive, childMergeOverride );
+    public static Xpp3Dom mergeXpp3Dom(Xpp3Dom dominant, Xpp3Dom recessive, Boolean childMergeOverride) {
+        if (dominant != null) {
+            mergeIntoXpp3Dom(dominant, recessive, childMergeOverride);
             return dominant;
         }
         return recessive;
@@ -386,11 +361,9 @@ public class Xpp3Dom
      * @param recessive The recessive DOM, which will be merged into the dominant DOM
      * @return merged DOM
      */
-    public static Xpp3Dom mergeXpp3Dom( Xpp3Dom dominant, Xpp3Dom recessive )
-    {
-        if ( dominant != null )
-        {
-            mergeIntoXpp3Dom( dominant, recessive, null );
+    public static Xpp3Dom mergeXpp3Dom(Xpp3Dom dominant, Xpp3Dom recessive) {
+        if (dominant != null) {
+            mergeIntoXpp3Dom(dominant, recessive, null);
             return dominant;
         }
         return recessive;
@@ -401,73 +374,61 @@ public class Xpp3Dom
     // ----------------------------------------------------------------------
 
     @Override
-    public boolean equals( Object obj )
-    {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
 
-        if ( !( obj instanceof Xpp3Dom ) )
-        {
+        if (!(obj instanceof Xpp3Dom)) {
             return false;
         }
 
-        Xpp3Dom dom = ( Xpp3Dom ) obj;
-        return this.dom.equals( dom.dom );
+        Xpp3Dom dom = (Xpp3Dom) obj;
+        return this.dom.equals(dom.dom);
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return dom.hashCode();
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return dom.toString();
     }
 
-    public String toUnescapedString()
-    {
-        return ( ( Xpp3Dom ) dom ).toUnescapedString();
+    public String toUnescapedString() {
+        return ((Xpp3Dom) dom).toUnescapedString();
     }
 
-    public static boolean isNotEmpty( String str )
-    {
-        return ( ( str != null ) && ( str.length() > 0 ) );
+    public static boolean isNotEmpty(String str) {
+        return ((str != null) && (str.length() > 0));
     }
 
-    public static boolean isEmpty( String str )
-    {
-        return ( ( str == null ) || ( str.trim().length() == 0 ) );
+    public static boolean isEmpty(String str) {
+        return ((str == null) || (str.trim().length() == 0));
     }
 
-    private void update(XmlNode dom)
-    {
-        if ( childrenTracking != null )
-        {
-            childrenTracking.replace( this.dom, dom );
+    private void update(XmlNode dom) {
+        if (childrenTracking != null) {
+            childrenTracking.replace(this.dom, dom);
         }
         this.dom = dom;
     }
 
-    private boolean replace(Object prevChild, Object newChild)
-    {
-        List<XmlNode> children = new ArrayList<>( dom.getChildren() );
-        children.replaceAll( d -> d == prevChild ? (XmlNode) newChild : d );
-        update( new XmlNodeImpl( dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation() ) );
+    private boolean replace(Object prevChild, Object newChild) {
+        List<XmlNode> children = new ArrayList<>(dom.getChildren());
+        children.replaceAll(d -> d == prevChild ? (XmlNode) newChild : d);
+        update(new XmlNodeImpl(dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation()));
         return true;
     }
 
-    public void setChildrenTracking( ChildrenTracking childrenTracking )
-    {
+    public void setChildrenTracking(ChildrenTracking childrenTracking) {
         this.childrenTracking = childrenTracking;
     }
 
     @FunctionalInterface
-    public interface ChildrenTracking
-    {
-        boolean replace( Object oldDelegate, Object newDelegate );
+    public interface ChildrenTracking {
+        boolean replace(Object oldDelegate, Object newDelegate);
     }
 }

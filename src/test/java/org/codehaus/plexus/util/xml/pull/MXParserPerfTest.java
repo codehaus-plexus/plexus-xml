@@ -1,3 +1,18 @@
+/*
+ * Copyright The Codehaus Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.codehaus.plexus.util.xml.pull;
 
 /*
@@ -20,7 +35,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
-
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -51,20 +65,18 @@ import org.openjdk.jmh.runner.options.TimeValue;
 public class MXParserPerfTest {
 
     @State(Scope.Benchmark)
-    static public class AdditionState {
+    public static class AdditionState {
 
         byte[] data;
 
         @Setup(Level.Iteration)
         public void setUp() throws IOException, XmlPullParserException {
-            try (InputStream buf = getClass().getResourceAsStream( "/xml/pom.xml" ) )
-            {
-                data = new byte[ buf.available() ];
-                buf.read( data, 0, data.length );
+            try (InputStream buf = getClass().getResourceAsStream("/xml/pom.xml")) {
+                data = new byte[buf.available()];
+                buf.read(data, 0, data.length);
             }
         }
     }
-
 
     /**
      * <p>benchmarkBuild.</p>
@@ -75,9 +87,8 @@ public class MXParserPerfTest {
      * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.
      */
     @Benchmark
-    public Xpp3Dom benchmarkBuild( AdditionState state ) throws IOException, XmlPullParserException
-    {
-        return Xpp3DomBuilder.build( new ByteArrayInputStream( state.data ), null );
+    public Xpp3Dom benchmarkBuild(AdditionState state) throws IOException, XmlPullParserException {
+        return Xpp3DomBuilder.build(new ByteArrayInputStream(state.data), null);
     }
 
     /**
@@ -86,15 +97,13 @@ public class MXParserPerfTest {
      * @param args a {@link java.lang.String} object.
      * @throws org.openjdk.jmh.runner.RunnerException if any.
      */
-    public static void main( String... args )
-            throws RunnerException
-    {
+    public static void main(String... args) throws RunnerException {
         Options opts = new OptionsBuilder()
-                .measurementIterations( 3 )
-                .measurementTime( TimeValue.milliseconds( 3000 ) )
-                .forks( 1 )
-                .include( "org.codehaus.plexus.util.xml.pull.MXParserPerfTest" )
+                .measurementIterations(3)
+                .measurementTime(TimeValue.milliseconds(3000))
+                .forks(1)
+                .include("org.codehaus.plexus.util.xml.pull.MXParserPerfTest")
                 .build();
-        new Runner( opts ).run();
+        new Runner(opts).run();
     }
 }

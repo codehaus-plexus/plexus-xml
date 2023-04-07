@@ -1,5 +1,5 @@
 /*
- * Copyright 2004 Sun Microsystems, Inc.
+ * Copyright The Codehaus Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,12 +12,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 package org.codehaus.plexus.util.xml;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * The XmlReaderException is thrown by the XmlReader constructors if the charset encoding can not be determined
@@ -31,9 +30,7 @@ import java.io.IOException;
  * @version revision 1.1 taken on 26/06/2007 from Rome (see
  *          https://rome.dev.java.net/source/browse/rome/src/java/com/sun/syndication/io/XmlReaderException.java)
  */
-public class XmlReaderException
-    extends IOException
-{
+public class XmlReaderException extends IOException {
     private String _bomEncoding;
 
     private String _xmlGuessEncoding;
@@ -58,9 +55,8 @@ public class XmlReaderException
      * @param xmlEnc XML prolog encoding.
      * @param is the unconsumed InputStream.
      */
-    public XmlReaderException( String msg, String bomEnc, String xmlGuessEnc, String xmlEnc, InputStream is )
-    {
-        this( msg, null, null, bomEnc, xmlGuessEnc, xmlEnc, is );
+    public XmlReaderException(String msg, String bomEnc, String xmlGuessEnc, String xmlEnc, InputStream is) {
+        this(msg, null, null, bomEnc, xmlGuessEnc, xmlEnc, is);
     }
 
     /**
@@ -77,10 +73,9 @@ public class XmlReaderException
      * @param xmlEnc XML prolog encoding.
      * @param is the unconsumed InputStream.
      */
-    public XmlReaderException( String msg, String ctMime, String ctEnc, String bomEnc, String xmlGuessEnc,
-                               String xmlEnc, InputStream is )
-    {
-        super( msg );
+    public XmlReaderException(
+            String msg, String ctMime, String ctEnc, String bomEnc, String xmlGuessEnc, String xmlEnc, InputStream is) {
+        super(msg);
         _contentTypeMime = ctMime;
         _contentTypeEncoding = ctEnc;
         _bomEncoding = bomEnc;
@@ -95,8 +90,7 @@ public class XmlReaderException
      *
      * @return the BOM encoding, null if none.
      */
-    public String getBomEncoding()
-    {
+    public String getBomEncoding() {
         return _bomEncoding;
     }
 
@@ -106,8 +100,7 @@ public class XmlReaderException
      *
      * @return the encoding guess, null if it couldn't be guessed.
      */
-    public String getXmlGuessEncoding()
-    {
+    public String getXmlGuessEncoding() {
         return _xmlGuessEncoding;
     }
 
@@ -117,8 +110,7 @@ public class XmlReaderException
      *
      * @return the encoding of the XML prolog, null if none.
      */
-    public String getXmlEncoding()
-    {
+    public String getXmlEncoding() {
         return _xmlEncoding;
     }
 
@@ -129,8 +121,7 @@ public class XmlReaderException
      * @return the MIME type in the content-type, null if there was not content-type or the encoding detection did not
      *         involve HTTP.
      */
-    public String getContentTypeMime()
-    {
+    public String getContentTypeMime() {
         return _contentTypeMime;
     }
 
@@ -141,8 +132,7 @@ public class XmlReaderException
      * @return the encoding in the content-type, null if there was not content-type, no encoding in it or the encoding
      *         detection did not involve HTTP.
      */
-    public String getContentTypeEncoding()
-    {
+    public String getContentTypeEncoding() {
         return _contentTypeEncoding;
     }
 
@@ -153,8 +143,7 @@ public class XmlReaderException
      *
      * @return the unconsumed InputStream.
      */
-    public InputStream getInputStream()
-    {
+    public InputStream getInputStream() {
         return _is;
     }
 }

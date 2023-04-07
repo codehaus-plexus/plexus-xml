@@ -1,55 +1,17 @@
-/* ====================================================================
- * The Apache Software License, Version 1.1
+/*
+ * Copyright The Codehaus Foundation.
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
- * reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- *
- * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowledgement:
- *       "This product includes software developed by the
- *        Apache Software Foundation (http://www.codehaus.org/)."
- *    Alternately, this acknowledgement may appear in the software itself,
- *    if and wherever such third-party acknowledgements normally appear.
- *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
- *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
- *    permission, please contact codehaus@codehaus.org.
- *
- * 5. Products derived from this software may not be called "Apache"
- *    nor may "Apache" appear in their names without prior written
- *    permission of the Apache Software Foundation.
- *
- * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR
- * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
- * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals on behalf of the Apache Software Foundation.  For more
- * information on the Apache Software Foundation, please see
- * <http://www.codehaus.org/>.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.codehaus.plexus.util.xml;
 
@@ -77,8 +39,7 @@ import java.util.StringTokenizer;
  * @since 1.0
  *
  */
-class StringUtils
-{
+class StringUtils {
     /**
      * <p>
      * <code>StringUtils</code> instances should NOT be constructed in standard programming. Instead, the class should
@@ -88,9 +49,7 @@ class StringUtils
      * This constructor is public to permit tools that require a JavaBean manager to operate.
      * </p>
      */
-    private StringUtils()
-    {
-    }
+    private StringUtils() {}
 
     /**
      * Checks if a String is <code>null</code> or empty.
@@ -102,9 +61,8 @@ class StringUtils
      * @param str the String to check
      * @return <code>true</code> if the String is <code>null</code>, or length zero
      */
-    public static boolean isEmpty( String str )
-    {
-        return ( ( str == null ) || ( str.isEmpty() ) );
+    public static boolean isEmpty(String str) {
+        return ((str == null) || (str.isEmpty()));
     }
 
     // Splitting
@@ -115,9 +73,8 @@ class StringUtils
      * @param separator Characters used as the delimiters. If <code>null</code>, splits on whitespace.
      * @return an array of parsed Strings
      */
-    public static String[] split( String text, String separator )
-    {
-        return split( text, separator, -1 );
+    public static String[] split(String text, String separator) {
+        return split(text, separator, -1);
     }
 
     /**
@@ -138,23 +95,18 @@ class StringUtils
      * @param max The maximum number of elements to include in the array. A zero or negative value implies no limit.
      * @return an array of parsed Strings
      */
-    private static String[] split( String str, String separator, int max )
-    {
+    private static String[] split(String str, String separator, int max) {
         StringTokenizer tok;
-        if ( separator == null )
-        {
+        if (separator == null) {
             // Null separator means we're using StringTokenizer's default
             // delimiter, which comprises all whitespace characters.
-            tok = new StringTokenizer( str );
-        }
-        else
-        {
-            tok = new StringTokenizer( str, separator );
+            tok = new StringTokenizer(str);
+        } else {
+            tok = new StringTokenizer(str, separator);
         }
 
         int listSize = tok.countTokens();
-        if ( ( max > 0 ) && ( listSize > max ) )
-        {
+        if ((max > 0) && (listSize > max)) {
             listSize = max;
         }
 
@@ -162,22 +114,18 @@ class StringUtils
         int i = 0;
         int lastTokenBegin;
         int lastTokenEnd = 0;
-        while ( tok.hasMoreTokens() )
-        {
-            if ( ( max > 0 ) && ( i == listSize - 1 ) )
-            {
+        while (tok.hasMoreTokens()) {
+            if ((max > 0) && (i == listSize - 1)) {
                 // In the situation where we hit the max yet have
                 // tokens left over in our input, the last list
                 // element gets all remaining text.
                 String endToken = tok.nextToken();
-                lastTokenBegin = str.indexOf( endToken, lastTokenEnd );
-                list[i] = str.substring( lastTokenBegin );
+                lastTokenBegin = str.indexOf(endToken, lastTokenEnd);
+                list[i] = str.substring(lastTokenBegin);
                 break;
-            }
-            else
-            {
+            } else {
                 list[i] = tok.nextToken();
-                lastTokenBegin = str.indexOf( list[i], lastTokenEnd );
+                lastTokenBegin = str.indexOf(list[i], lastTokenEnd);
                 lastTokenEnd = lastTokenBegin + list[i].length();
             }
             i++;
@@ -196,12 +144,10 @@ class StringUtils
      * @throws NegativeArraySizeException if <code>repeat &lt; 0</code>
      * @throws NullPointerException if str is <code>null</code>
      */
-    public static String repeat( String str, int repeat )
-    {
-        StringBuilder buffer = new StringBuilder( repeat * str.length() );
-        for ( int i = 0; i < repeat; i++ )
-        {
-            buffer.append( str );
+    public static String repeat(String str, int repeat) {
+        StringBuilder buffer = new StringBuilder(repeat * str.length());
+        for (int i = 0; i < repeat; i++) {
+            buffer.append(str);
         }
         return buffer.toString();
     }
@@ -213,18 +159,15 @@ class StringUtils
      * @return a string with unique whitespace.
      * @since 1.5.7
      */
-    public static String removeDuplicateWhitespace( String s )
-    {
+    public static String removeDuplicateWhitespace(String s) {
         StringBuilder result = new StringBuilder();
         int length = s.length();
         boolean isPreviousWhiteSpace = false;
-        for ( int i = 0; i < length; i++ )
-        {
-            char c = s.charAt( i );
-            boolean thisCharWhiteSpace = Character.isWhitespace( c );
-            if ( !( isPreviousWhiteSpace && thisCharWhiteSpace ) )
-            {
-                result.append( c );
+        for (int i = 0; i < length; i++) {
+            char c = s.charAt(i);
+            boolean thisCharWhiteSpace = Character.isWhitespace(c);
+            if (!(isPreviousWhiteSpace && thisCharWhiteSpace)) {
+                result.append(c);
             }
             isPreviousWhiteSpace = thisCharWhiteSpace;
         }
@@ -240,44 +183,33 @@ class StringUtils
      * @throws IllegalArgumentException if ls is not '\n', '\r' and '\r\n' characters.
      * @since 1.5.7
      */
-    public static String unifyLineSeparators( String s, String ls )
-    {
-        if ( s == null )
-        {
+    public static String unifyLineSeparators(String s, String ls) {
+        if (s == null) {
             return null;
         }
 
-        if ( ls == null )
-        {
-            ls = System.getProperty( "line.separator" );
+        if (ls == null) {
+            ls = System.getProperty("line.separator");
         }
 
-        if ( !( ls.equals( "\n" ) || ls.equals( "\r" ) || ls.equals( "\r\n" ) ) )
-        {
-            throw new IllegalArgumentException( "Requested line separator is invalid." );
+        if (!(ls.equals("\n") || ls.equals("\r") || ls.equals("\r\n"))) {
+            throw new IllegalArgumentException("Requested line separator is invalid.");
         }
 
         int length = s.length();
 
-        StringBuilder buffer = new StringBuilder( length );
-        for ( int i = 0; i < length; i++ )
-        {
-            if ( s.charAt( i ) == '\r' )
-            {
-                if ( ( i + 1 ) < length && s.charAt( i + 1 ) == '\n' )
-                {
+        StringBuilder buffer = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            if (s.charAt(i) == '\r') {
+                if ((i + 1) < length && s.charAt(i + 1) == '\n') {
                     i++;
                 }
 
-                buffer.append( ls );
-            }
-            else if ( s.charAt( i ) == '\n' )
-            {
-                buffer.append( ls );
-            }
-            else
-            {
-                buffer.append( s.charAt( i ) );
+                buffer.append(ls);
+            } else if (s.charAt(i) == '\n') {
+                buffer.append(ls);
+            } else {
+                buffer.append(s.charAt(i));
             }
         }
 

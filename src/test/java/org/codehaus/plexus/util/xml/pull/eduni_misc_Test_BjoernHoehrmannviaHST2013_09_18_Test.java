@@ -1,4 +1,22 @@
+/*
+ * Copyright The Codehaus Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.codehaus.plexus.util.xml.pull;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,12 +24,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test class that execute a particular set of tests associated to a TESCASES tag from the XML W3C Conformance Tests.
@@ -22,10 +36,9 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @version $Id: $Id
  * @since 3.4.0
  */
-public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
-{
+public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
 
-    final static File testResourcesDir = new File("src/test/resources/", "xmlconf/eduni/misc/");
+    static final File testResourcesDir = new File("src/test/resources/", "xmlconf/eduni/misc/");
 
     MXParser parser;
 
@@ -33,8 +46,7 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * <p>setUp.</p>
      */
     @BeforeEach
-    public void setUp()
-    {
+    public void setUp() {
         parser = new MXParser();
     }
 
@@ -48,19 +60,14 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    public void testhst_bh_001()
-        throws IOException
-    {
-        try ( Reader reader = new FileReader( new File( testResourcesDir, "001.xml" ) ) )
-        {
-            parser.setInput( reader );
-            while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
+    public void testhst_bh_001() throws IOException {
+        try (Reader reader = new FileReader(new File(testResourcesDir, "001.xml"))) {
+            parser.setInput(reader);
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            fail( "decimal charref > 10FFFF, indeed > max 32 bit integer, checking for recovery from possible overflow" );
-        }
-        catch ( XmlPullParserException e )
-        {
-            assertTrue( e.getMessage().contains( "character reference (with hex value FF000000F6) is invalid" ) );
+            fail("decimal charref > 10FFFF, indeed > max 32 bit integer, checking for recovery from possible overflow");
+        } catch (XmlPullParserException e) {
+            assertTrue(e.getMessage().contains("character reference (with hex value FF000000F6) is invalid"));
         }
     }
 
@@ -74,19 +81,14 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    public void testhst_bh_002()
-        throws IOException
-    {
-        try ( Reader reader = new FileReader( new File( testResourcesDir, "002.xml" ) ) )
-        {
-            parser.setInput( reader );
-            while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
+    public void testhst_bh_002() throws IOException {
+        try (Reader reader = new FileReader(new File(testResourcesDir, "002.xml"))) {
+            parser.setInput(reader);
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            fail( "hex charref > 10FFFF, indeed > max 32 bit integer, checking for recovery from possible overflow" );
-        }
-        catch ( XmlPullParserException e )
-        {
-            assertTrue( e.getMessage().contains( "character reference (with decimal value 4294967542) is invalid" ) );
+            fail("hex charref > 10FFFF, indeed > max 32 bit integer, checking for recovery from possible overflow");
+        } catch (XmlPullParserException e) {
+            assertTrue(e.getMessage().contains("character reference (with decimal value 4294967542) is invalid"));
         }
     }
 
@@ -100,19 +102,14 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    public void testhst_bh_003()
-        throws IOException
-    {
-        try ( Reader reader = new FileReader( new File( testResourcesDir, "003.xml" ) ) )
-        {
-            parser.setInput( reader );
-            while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
+    public void testhst_bh_003() throws IOException {
+        try (Reader reader = new FileReader(new File(testResourcesDir, "003.xml"))) {
+            parser.setInput(reader);
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            fail( "decimal charref > 10FFFF, indeed > max 64 bit integer, checking for recovery from possible overflow" );
-        }
-        catch ( XmlPullParserException e )
-        {
-            assertTrue( e.getMessage().contains( "character reference (with hex value FFFFFFFF000000F6) is invalid" ) );
+            fail("decimal charref > 10FFFF, indeed > max 64 bit integer, checking for recovery from possible overflow");
+        } catch (XmlPullParserException e) {
+            assertTrue(e.getMessage().contains("character reference (with hex value FFFFFFFF000000F6) is invalid"));
         }
     }
 
@@ -126,19 +123,15 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    public void testhst_bh_004()
-        throws IOException
-    {
-        try ( Reader reader = new FileReader( new File( testResourcesDir, "004.xml" ) ) )
-        {
-            parser.setInput( reader );
-            while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
+    public void testhst_bh_004() throws IOException {
+        try (Reader reader = new FileReader(new File(testResourcesDir, "004.xml"))) {
+            parser.setInput(reader);
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            fail( "hex charref > 10FFFF, indeed > max 64 bit integer, checking for recovery from possible overflow" );
-        }
-        catch ( XmlPullParserException e )
-        {
-            assertTrue( e.getMessage().contains( "character reference (with decimal value 18446744073709551862) is invalid" ) );
+            fail("hex charref > 10FFFF, indeed > max 64 bit integer, checking for recovery from possible overflow");
+        } catch (XmlPullParserException e) {
+            assertTrue(e.getMessage()
+                    .contains("character reference (with decimal value 18446744073709551862) is invalid"));
         }
     }
 
@@ -154,19 +147,14 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * NOTE: This test is SKIPPED as MXParser do not supports DOCDECL parsing.
      */
     // @Test
-    public void testhst_bh_005()
-        throws IOException
-    {
-        try ( Reader reader = new FileReader( new File( testResourcesDir, "005.xml" ) ) )
-        {
-            parser.setInput( reader );
-            while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
+    public void testhst_bh_005() throws IOException {
+        try (Reader reader = new FileReader(new File(testResourcesDir, "005.xml"))) {
+            parser.setInput(reader);
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            fail( "xmlns:xml is an attribute as far as validation is concerned and must be declared" );
-        }
-        catch ( XmlPullParserException e )
-        {
-            assertTrue( true );
+            fail("xmlns:xml is an attribute as far as validation is concerned and must be declared");
+        } catch (XmlPullParserException e) {
+            assertTrue(true);
         }
     }
 
@@ -182,19 +170,14 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * NOTE: This test is SKIPPED as MXParser do not supports DOCDECL parsing.
      */
     // @Test
-    public void testhst_bh_006()
-        throws IOException
-    {
-        try ( Reader reader = new FileReader( new File( testResourcesDir, "006.xml" ) ) )
-        {
-            parser.setInput( reader );
-            while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
+    public void testhst_bh_006() throws IOException {
+        try (Reader reader = new FileReader(new File(testResourcesDir, "006.xml"))) {
+            parser.setInput(reader);
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            fail( "xmlns:foo is an attribute as far as validation is concerned and must be declared" );
-        }
-        catch ( XmlPullParserException e )
-        {
-            assertTrue( true );
+            fail("xmlns:foo is an attribute as far as validation is concerned and must be declared");
+        } catch (XmlPullParserException e) {
+            assertTrue(true);
         }
     }
 
@@ -208,19 +191,14 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    public void testhst_lhs_007()
-        throws IOException
-    {
-        try ( InputStream is = new FileInputStream( new File( testResourcesDir, "007.xml" ) ) )
-        {
-            parser.setInput( is, null );
-            while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
+    public void testhst_lhs_007() throws IOException {
+        try (InputStream is = new FileInputStream(new File(testResourcesDir, "007.xml"))) {
+            parser.setInput(is, null);
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            fail( "UTF-8 BOM plus xml decl of ISO-8859-1 incompatible" );
-        }
-        catch ( XmlPullParserException e )
-        {
-            assertTrue( e.getMessage().contains( "UTF-8 BOM plus xml decl of ISO-8859-1 is incompatible" ) );
+            fail("UTF-8 BOM plus xml decl of ISO-8859-1 incompatible");
+        } catch (XmlPullParserException e) {
+            assertTrue(e.getMessage().contains("UTF-8 BOM plus xml decl of ISO-8859-1 is incompatible"));
         }
     }
 
@@ -234,19 +212,14 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    public void testhst_lhs_008()
-        throws IOException
-    {
-        try ( InputStream is = new FileInputStream( new File( testResourcesDir, "008.xml" ) ) )
-        {
-            parser.setInput( is, null );
-            while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
+    public void testhst_lhs_008() throws IOException {
+        try (InputStream is = new FileInputStream(new File(testResourcesDir, "008.xml"))) {
+            parser.setInput(is, null);
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            fail( "UTF-16 BOM plus xml decl of UTF-8 (using UTF-16 coding) incompatible" );
-        }
-        catch ( XmlPullParserException e )
-        {
-            assertTrue( e.getMessage().contains( "UTF-16 BOM in a UTF-8 encoded file is incompatible" ) );
+            fail("UTF-16 BOM plus xml decl of UTF-8 (using UTF-16 coding) incompatible");
+        } catch (XmlPullParserException e) {
+            assertTrue(e.getMessage().contains("UTF-16 BOM in a UTF-8 encoded file is incompatible"));
         }
     }
 
@@ -260,20 +233,14 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    public void testhst_lhs_009()
-        throws IOException
-    {
-        try ( InputStream is = new FileInputStream( new File( testResourcesDir, "009.xml" ) ) )
-        {
-            parser.setInput( is, null );
-            while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
+    public void testhst_lhs_009() throws IOException {
+        try (InputStream is = new FileInputStream(new File(testResourcesDir, "009.xml"))) {
+            parser.setInput(is, null);
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            fail( "UTF-16 BOM plus xml decl of UTF-8 (using UTF-8 coding) incompatible" );
-        }
-        catch ( XmlPullParserException e )
-        {
-            assertTrue( e.getMessage().contains( "UTF-16 BOM in a UTF-8 encoded file is incompatible" ), e.getMessage() );
+            fail("UTF-16 BOM plus xml decl of UTF-8 (using UTF-8 coding) incompatible");
+        } catch (XmlPullParserException e) {
+            assertTrue(e.getMessage().contains("UTF-16 BOM in a UTF-8 encoded file is incompatible"), e.getMessage());
         }
     }
-
 }

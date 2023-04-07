@@ -1,6 +1,18 @@
-/* -*-             c-basic-offset: 4; indent-tabs-mode: nil; -*-  //------100-columns-wide------>|*/
-// for license please see accompanying LICENSE.txt file (available also at http://www.xmlpull.org/)
-
+/*
+ * Copyright The Codehaus Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.codehaus.plexus.util.xml.pull;
 
 import java.io.IOException;
@@ -28,9 +40,7 @@ import java.io.Writer;
  * be thrown and it is recommended to use an optional feature to signal that implementation is not supporting this kind
  * of output.
  */
-
-public interface XmlSerializer
-{
+public interface XmlSerializer {
 
     /**
      * Set feature identified by name (recommended to be URI for uniqueness). Some well known optional features are
@@ -41,8 +51,7 @@ public interface XmlSerializer
      * @param state feature state
      * @exception IllegalStateException If the feature is not supported or can not be set
      */
-    void setFeature( String name, boolean state )
-        throws IllegalArgumentException, IllegalStateException;
+    void setFeature(String name, boolean state) throws IllegalArgumentException, IllegalStateException;
 
     /**
      * Return the current value of the feature with given name.
@@ -53,7 +62,7 @@ public interface XmlSerializer
      * @return The value of named feature.
      * @exception IllegalArgumentException if feature string is null
      */
-    boolean getFeature( String name );
+    boolean getFeature(String name);
 
     /**
      * Set the value of a property. (the property name is recommended to be URI for uniqueness). Some well known
@@ -64,8 +73,7 @@ public interface XmlSerializer
      * @param value property value
      * @exception IllegalStateException if the property is not supported or can not be set
      */
-    void setProperty( String name, Object value )
-        throws IllegalArgumentException, IllegalStateException;
+    void setProperty(String name, Object value) throws IllegalArgumentException, IllegalStateException;
 
     /**
      * Look up the value of a property. The property name is any fully-qualified URI. I
@@ -75,7 +83,7 @@ public interface XmlSerializer
      * @param name The name of property to be retrieved.
      * @return The value of named property.
      */
-    Object getProperty( String name );
+    Object getProperty(String name);
 
     /**
      * Set to use binary output stream with given encoding.
@@ -85,8 +93,8 @@ public interface XmlSerializer
      * @throws IllegalArgumentException if null
      * @throws IllegalStateException illegal use
      */
-    void setOutput( OutputStream os, String encoding )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void setOutput(OutputStream os, String encoding)
+            throws IOException, IllegalArgumentException, IllegalStateException;
 
     /**
      * @param writer Set the output to the given writer.
@@ -96,8 +104,7 @@ public interface XmlSerializer
      * @throws IllegalArgumentException if null
      * @throws IllegalStateException illegal use
      */
-    void setOutput( Writer writer )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void setOutput(Writer writer) throws IOException, IllegalArgumentException, IllegalStateException;
 
     /**
      * Write &lt;&#63;xml declaration with encoding (if encoding not null) and standalone flag (if standalone not null)
@@ -108,8 +115,8 @@ public interface XmlSerializer
      * @throws IllegalArgumentException if null
      * @throws IllegalStateException illegal use
      */
-    void startDocument( String encoding, Boolean standalone )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void startDocument(String encoding, Boolean standalone)
+            throws IOException, IllegalArgumentException, IllegalStateException;
 
     /**
      * Finish writing. All unclosed start tags will be closed and output will be flushed. After calling this method no
@@ -118,8 +125,7 @@ public interface XmlSerializer
      * @throws IllegalArgumentException if null
      * @throws IllegalStateException illegal use
      */
-    void endDocument()
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void endDocument() throws IOException, IllegalArgumentException, IllegalStateException;
 
     /**
      * Binds the given prefix to the given namespace. This call is valid for the next element including child elements.
@@ -141,8 +147,7 @@ public interface XmlSerializer
      * @throws IllegalArgumentException if null
      * @throws IllegalStateException illegal use
      */
-    void setPrefix( String prefix, String namespace )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void setPrefix(String prefix, String namespace) throws IOException, IllegalArgumentException, IllegalStateException;
 
     /**
      * @return namespace that corresponds to given prefix If there is no prefix bound to this namespace return null but
@@ -157,8 +162,7 @@ public interface XmlSerializer
      * @param generatePrefix to generate the missing prefix
      * @throws IllegalArgumentException if null
      */
-    String getPrefix( String namespace, boolean generatePrefix )
-        throws IllegalArgumentException;
+    String getPrefix(String namespace, boolean generatePrefix) throws IllegalArgumentException;
 
     /**
      * @return the current depth of the element. Outside the root element, the depth is 0. The depth is incremented by 1
@@ -210,8 +214,8 @@ public interface XmlSerializer
      * @throws IllegalArgumentException if null
      * @throws IllegalStateException illegal use
      */
-    XmlSerializer startTag( String namespace, String name )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    XmlSerializer startTag(String namespace, String name)
+            throws IOException, IllegalArgumentException, IllegalStateException;
 
     /**
      * Write an attribute. Calls to attribute() MUST follow a call to startTag() immediately. If there is no prefix
@@ -225,8 +229,8 @@ public interface XmlSerializer
      * @throws IllegalArgumentException if null
      * @throws IllegalStateException illegal use
      */
-    XmlSerializer attribute( String namespace, String name, String value )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    XmlSerializer attribute(String namespace, String name, String value)
+            throws IOException, IllegalArgumentException, IllegalStateException;
 
     /**
      * Write end tag. Repetition of namespace and name is just for avoiding errors.
@@ -240,8 +244,8 @@ public interface XmlSerializer
      * @throws IllegalArgumentException if null
      * @throws IllegalStateException illegal use
      */
-    XmlSerializer endTag( String namespace, String name )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    XmlSerializer endTag(String namespace, String name)
+            throws IOException, IllegalArgumentException, IllegalStateException;
 
     // /**
     // * Writes a start tag with the given namespace and name.
@@ -303,8 +307,7 @@ public interface XmlSerializer
      * @throws IllegalArgumentException if null
      * @throws IllegalStateException illegal use
      */
-    XmlSerializer text( String text )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    XmlSerializer text(String text) throws IOException, IllegalArgumentException, IllegalStateException;
 
     /**
      * Writes text, where special XML chars are escaped automatically
@@ -316,26 +319,20 @@ public interface XmlSerializer
      * @throws IllegalArgumentException if null
      * @throws IllegalStateException illegal use
      */
-    XmlSerializer text( char[] buf, int start, int len )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    XmlSerializer text(char[] buf, int start, int len)
+            throws IOException, IllegalArgumentException, IllegalStateException;
 
-    void cdsect( String text )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void cdsect(String text) throws IOException, IllegalArgumentException, IllegalStateException;
 
-    void entityRef( String text )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void entityRef(String text) throws IOException, IllegalArgumentException, IllegalStateException;
 
-    void processingInstruction( String text )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void processingInstruction(String text) throws IOException, IllegalArgumentException, IllegalStateException;
 
-    void comment( String text )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void comment(String text) throws IOException, IllegalArgumentException, IllegalStateException;
 
-    void docdecl( String text )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void docdecl(String text) throws IOException, IllegalArgumentException, IllegalStateException;
 
-    void ignorableWhitespace( String text )
-        throws IOException, IllegalArgumentException, IllegalStateException;
+    void ignorableWhitespace(String text) throws IOException, IllegalArgumentException, IllegalStateException;
 
     /**
      * Write all pending output to the stream. If method startTag() or attribute() was called then start tag is closed
@@ -345,7 +342,5 @@ public interface XmlSerializer
      * output call method text() with empty string (text("")).
      * @throws IOException io
      */
-    void flush()
-        throws IOException;
-
+    void flush() throws IOException;
 }
