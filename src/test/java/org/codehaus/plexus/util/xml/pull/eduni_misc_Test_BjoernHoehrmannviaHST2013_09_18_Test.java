@@ -7,10 +7,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -212,17 +210,16 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
     public void testhst_lhs_007()
         throws IOException
     {
-        try ( FileInputStream is = new FileInputStream( new File( testResourcesDir, "007.xml" ) );
-                        InputStreamReader reader = new InputStreamReader( is, StandardCharsets.UTF_8 ) )
+        try ( InputStream is = new FileInputStream( new File( testResourcesDir, "007.xml" ) ) )
         {
-            parser.setInput( reader );
+            parser.setInput( is, null );
             while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
                 ;
-            fail( "UTF-8 BOM plus xml decl of iso-8859-1 incompatible" );
+            fail( "UTF-8 BOM plus xml decl of ISO-8859-1 incompatible" );
         }
         catch ( XmlPullParserException e )
         {
-            assertTrue( e.getMessage().contains( "UTF-8 BOM plus xml decl of iso-8859-1 is incompatible" ) );
+            assertTrue( e.getMessage().contains( "UTF-8 BOM plus xml decl of ISO-8859-1 is incompatible" ) );
         }
     }
 
@@ -239,17 +236,16 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
     public void testhst_lhs_008()
         throws IOException
     {
-        try ( FileInputStream is = new FileInputStream( new File( testResourcesDir, "008.xml" ) );
-                        InputStreamReader reader = new InputStreamReader( is, StandardCharsets.UTF_16 ) )
+        try ( InputStream is = new FileInputStream( new File( testResourcesDir, "008.xml" ) ) )
         {
-            parser.setInput( reader );
+            parser.setInput( is, null );
             while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
                 ;
-            fail( "UTF-16 BOM plus xml decl of utf-8 (using UTF-16 coding) incompatible" );
+            fail( "UTF-16 BOM plus xml decl of UTF-8 (using UTF-16 coding) incompatible" );
         }
         catch ( XmlPullParserException e )
         {
-            assertTrue( e.getMessage().contains( "UTF-16 BOM plus xml decl of utf-8 is incompatible" ) );
+            assertTrue( e.getMessage().contains( "UTF-16 BOM in a UTF-8 encoded file is incompatible" ) );
         }
     }
 
@@ -266,17 +262,16 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
     public void testhst_lhs_009()
         throws IOException
     {
-        try ( FileInputStream is = new FileInputStream( new File( testResourcesDir, "009.xml" ) );
-                        InputStreamReader reader = new InputStreamReader( is, StandardCharsets.UTF_8 ) )
-       {
-            parser.setInput( reader );
+        try ( InputStream is = new FileInputStream( new File( testResourcesDir, "009.xml" ) ) )
+        {
+            parser.setInput( is, null );
             while ( parser.nextToken() != XmlPullParser.END_DOCUMENT )
                 ;
-            fail( "UTF-16 BOM plus xml decl of utf-8 (using UTF-8 coding) incompatible" );
+            fail( "UTF-16 BOM plus xml decl of UTF-8 (using UTF-8 coding) incompatible" );
         }
         catch ( XmlPullParserException e )
         {
-            assertTrue( e.getMessage().contains( "UTF-16 BOM in a UTF-8 encoded file is incompatible" ) );
+            assertTrue( e.getMessage(), e.getMessage().contains( "UTF-16 BOM in a UTF-8 encoded file is incompatible" ) );
         }
     }
 

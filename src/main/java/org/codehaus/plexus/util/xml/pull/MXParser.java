@@ -15,10 +15,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
-import org.codehaus.plexus.util.xml.XmlReader;
 import org.codehaus.plexus.util.xml.XmlStreamReader;
+import org.codehaus.plexus.util.xml.XmlStreamReaderException;
 
-//import java.util.Hashtable;
 
 //TODO best handling of interning issues
 //   have isAllNewStringInterned ???
@@ -663,20 +662,6 @@ public class MXParser
     {
         reset();
         reader = in;
-
-        if ( reader instanceof XmlReader ) {
-            // encoding already detected
-            XmlReader xsr = (XmlReader) reader;
-            fileEncoding = xsr.getEncoding();
-        }
-        else if ( reader instanceof InputStreamReader )
-        {
-            InputStreamReader isr = (InputStreamReader) reader;
-            if ( isr.getEncoding() != null )
-            {
-                fileEncoding = isr.getEncoding().toUpperCase();
-            }
-        }
     }
 
     @Override
@@ -696,13 +681,25 @@ public class MXParser
             }
             else
             {
-                reader = new XmlStreamReader( inputStream );
+                reader = new XmlStreamReader( inputStream, false );
             }
         }
         catch ( UnsupportedEncodingException une )
         {
             throw new XmlPullParserException( "could not create reader for encoding " + inputEncoding + " : " + une,
                                               this, une );
+        }
+        catch ( XmlStreamReaderException e )
+        {
+            if ( "UTF-8".equals( e.getBomEncoding() ) )
+            {
+                throw new XmlPullParserException( "UTF-8 BOM plus xml decl of " + e.getXmlEncoding() + " is incompatible", this, e );
+            }
+            if ( e.getBomEncoding() != null && e.getBomEncoding().startsWith( "UTF-16" ) )
+            {
+                throw new XmlPullParserException( "UTF-16 BOM in a " + e.getXmlEncoding() + " encoded file is incompatible", this, e );
+            }
+            throw new XmlPullParserException( "could not create reader : " + e, this, e );
         }
         catch ( IOException e )
         {
@@ -3433,17 +3430,6 @@ public class MXParser
 
             // TODO reconcile with setInput encodingName
             inputEncoding = newString( buf, encodingStart, encodingEnd - encodingStart );
-
-            if ( "UTF8".equals( fileEncoding ) && inputEncoding.toUpperCase().startsWith( "ISO-" ) )
-            {
-                throw new XmlPullParserException( "UTF-8 BOM plus xml decl of " + inputEncoding + " is incompatible",
-                                                  this, null );
-            }
-            else if ("UTF-16".equals( fileEncoding ) && inputEncoding.equalsIgnoreCase( "UTF-8" ))
-            {
-                throw new XmlPullParserException( "UTF-16 BOM plus xml decl of " + inputEncoding + " is incompatible",
-                                                  this, null );
-            }
 
             lastParsedAttr = "encoding";
 
