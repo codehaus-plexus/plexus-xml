@@ -1,16 +1,17 @@
 package org.codehaus.plexus.util.xml.pull;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test class that execute a particular set of tests associated to a TESCASES tag from the XML W3C Conformance Tests.
@@ -31,7 +32,7 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
     /**
      * <p>setUp.</p>
      */
-    @Before
+    @BeforeEach
     public void setUp()
     {
         parser = new MXParser();
@@ -271,7 +272,7 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test
         }
         catch ( XmlPullParserException e )
         {
-            assertTrue( e.getMessage(), e.getMessage().contains( "UTF-16 BOM in a UTF-8 encoded file is incompatible" ) );
+            assertTrue( e.getMessage().contains( "UTF-16 BOM in a UTF-8 encoded file is incompatible" ), e.getMessage() );
         }
     }
 

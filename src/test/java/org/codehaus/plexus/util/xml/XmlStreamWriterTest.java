@@ -1,7 +1,5 @@
 package org.codehaus.plexus.util.xml;
 
-import static org.junit.Assert.assertEquals;
-
 /*
  * Copyright The Codehaus Foundation.
  *
@@ -21,7 +19,9 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <p>XmlStreamWriterTest class.</p>
