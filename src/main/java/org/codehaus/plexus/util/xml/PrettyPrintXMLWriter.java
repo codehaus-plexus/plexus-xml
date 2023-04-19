@@ -18,6 +18,8 @@ package org.codehaus.plexus.util.xml;
 
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,7 +37,7 @@ public class PrettyPrintXMLWriter
 
     private PrintWriter writer;
 
-    private LinkedList<String> elementStack = new LinkedList<String>();
+    private final Deque<String> elementStack = new ArrayDeque<>();
 
     private boolean tagInProgress;
 
@@ -307,11 +309,6 @@ public class PrettyPrintXMLWriter
         {
             finishTag();
 
-            // see issue #51: https://github.com/codehaus-plexus/plexus-utils/issues/51
-            // Rationale: replaced 1 write() with string concatenations with 3 write()
-            // (this avoids the string concatenation optimization bug detected in Java 7)
-            // TODO: change the below code to a more efficient expression when the library
-            // be ready to target Java 8.
             write( "</" );
             write( elementStack.removeLast() );
             write( ">" );
@@ -518,7 +515,7 @@ public class PrettyPrintXMLWriter
     /**
      * @return the current elementStack;
      */
-    protected LinkedList<String> getElementStack()
+    protected Deque<String> getElementStack()
     {
         return elementStack;
     }
