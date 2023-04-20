@@ -1270,7 +1270,7 @@ public class MXParserTest
     }
 
     /**
-     * <p>Issue #194: Incorrect getText() after parsing the DOCDECL section</>
+     * <p>Issue #194: Incorrect getText() after parsing the DOCDECL section</p>
      *
      * <p>test DOCDECL text with myCustomEntity that cannot be resolved, Unix line separator.</p>
      *
@@ -1288,7 +1288,7 @@ public class MXParserTest
     }
 
     /**
-     * <p>Issue #194: Incorrect getText() after parsing the DOCDECL section</>
+     * <p>Issue #194: Incorrect getText() after parsing the DOCDECL section</p>
      *
      * <p>test DOCDECL text with myCustomEntity that cannot be resolved, DOS line separator.</p>
      *
@@ -1333,7 +1333,7 @@ public class MXParserTest
     }
 
     /**
-     * <p>Issue #194: Incorrect getText() after parsing the DOCDECL section</>
+     * <p>Issue #194: Incorrect getText() after parsing the DOCDECL section</p>
      *
      * <p>test DOCDECL text with entities appearing in attributes, Unix line separator.</p>
      *
@@ -1351,7 +1351,7 @@ public class MXParserTest
     }
 
     /**
-     * <p>Issue #194: Incorrect getText() after parsing the DOCDECL section</>
+     * <p>Issue #194: Incorrect getText() after parsing the DOCDECL section</p>
      *
      * <p>test DOCDECL text with entities appearing in attributes, DOS line separator.</p>
      *
