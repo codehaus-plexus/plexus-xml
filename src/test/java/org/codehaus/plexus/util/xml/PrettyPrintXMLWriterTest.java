@@ -18,8 +18,9 @@ package org.codehaus.plexus.util.xml;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.NoSuchElementException;
 
@@ -28,6 +29,7 @@ import javax.swing.text.html.HTML.Tag;
 import org.codehaus.plexus.util.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -178,6 +180,7 @@ public class PrettyPrintXMLWriterTest
      *
      * @throws java.io.IOException if an I/O error occurs
      */
+    @Disabled( "This test is only relevant on JDK 1.7, which is not supported anymore" )
     @Test
     public void testIssue51DetectJava7ConcatenationBug()
         throws IOException
@@ -191,7 +194,7 @@ public class PrettyPrintXMLWriterTest
 
         int iterations = 20000;
 
-        try ( OutputStreamWriter osw = new OutputStreamWriter( Files.newOutputStream( xmlFile.toPath() ), "UTF-8" ) )
+        try ( Writer osw = Files.newBufferedWriter( xmlFile.toPath(), StandardCharsets.UTF_8 ) )
         {
             writer = new PrettyPrintXMLWriter( osw );
             for ( int i = 0; i < iterations; ++i )
