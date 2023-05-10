@@ -1822,13 +1822,9 @@ public class MXParser
                 {
                     // check if it is 'xml'
                     // deal with XMLDecl
-                    boolean isXMLDecl = parsePI();
+                    parsePI();
                     if ( tokenize )
                     {
-                        if ( isXMLDecl )
-                        {
-                            return eventType = START_DOCUMENT;
-                        }
                         return eventType = PROCESSING_INSTRUCTION;
                     }
                 }
@@ -3111,7 +3107,7 @@ public class MXParser
         }
     }
 
-    private boolean parsePI()
+    private void parsePI()
         throws XmlPullParserException, IOException
     {
         // implements XML 1.0 Section 2.6 Processing Instructions
@@ -3213,7 +3209,7 @@ public class MXParser
                                 final int off = piTargetStart + 3;
                                 final int len = pos - 2 - off;
                                 xmlDeclContent = newString( buf, off, len );
-                                return false;
+                                return;
                             }
                         }
                     }
@@ -3291,7 +3287,6 @@ public class MXParser
                 --pcEnd;
             }
         }
-        return true;
     }
 
     // protected final static char[] VERSION = {'v','e','r','s','i','o','n'};
