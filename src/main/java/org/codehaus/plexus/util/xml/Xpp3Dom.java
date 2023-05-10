@@ -35,26 +35,26 @@ public class Xpp3Dom
 {
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    public static final String CHILDREN_COMBINATION_MODE_ATTRIBUTE = "combine.children";
+    public static final String CHILDREN_COMBINATION_MODE_ATTRIBUTE = XmlNode.CHILDREN_COMBINATION_MODE_ATTRIBUTE;
 
-    public static final String CHILDREN_COMBINATION_MERGE = "merge";
+    public static final String CHILDREN_COMBINATION_MERGE = XmlNode.CHILDREN_COMBINATION_MERGE;
 
-    public static final String CHILDREN_COMBINATION_APPEND = "append";
+    public static final String CHILDREN_COMBINATION_APPEND = XmlNode.CHILDREN_COMBINATION_APPEND;
 
     /**
      * This default mode for combining children DOMs during merge means that where element names match, the process will
      * try to merge the element data, rather than putting the dominant and recessive elements (which share the same
      * element name) as siblings in the resulting DOM.
      */
-    public static final String DEFAULT_CHILDREN_COMBINATION_MODE = CHILDREN_COMBINATION_MERGE;
+    public static final String DEFAULT_CHILDREN_COMBINATION_MODE = XmlNode.DEFAULT_CHILDREN_COMBINATION_MODE;
 
-    public static final String SELF_COMBINATION_MODE_ATTRIBUTE = "combine.self";
+    public static final String SELF_COMBINATION_MODE_ATTRIBUTE = XmlNode.SELF_COMBINATION_MODE_ATTRIBUTE;
 
-    public static final String SELF_COMBINATION_OVERRIDE = "override";
+    public static final String SELF_COMBINATION_OVERRIDE = XmlNode.SELF_COMBINATION_OVERRIDE;
 
-    public static final String SELF_COMBINATION_MERGE = "merge";
+    public static final String SELF_COMBINATION_MERGE = XmlNode.SELF_COMBINATION_MERGE;
 
-    public static final String SELF_COMBINATION_REMOVE = "remove";
+    public static final String SELF_COMBINATION_REMOVE = XmlNode.SELF_COMBINATION_REMOVE;
 
     /**
      * This default mode for combining a DOM node during merge means that where element names match, the process will
@@ -62,7 +62,11 @@ public class Xpp3Dom
      * dominant one. This means that wherever the dominant element doesn't provide the value or a particular attribute,
      * that value or attribute will be set from the recessive DOM node.
      */
-    public static final String DEFAULT_SELF_COMBINATION_MODE = SELF_COMBINATION_MERGE;
+    public static final String DEFAULT_SELF_COMBINATION_MODE = XmlNode.DEFAULT_SELF_COMBINATION_MODE;
+
+    public static final String ID_COMBINATION_MODE_ATTRIBUTE = XmlNode.ID_COMBINATION_MODE_ATTRIBUTE;
+
+    public static final String KEYS_COMBINATION_MODE_ATTRIBUTE = XmlNode.KEYS_COMBINATION_MODE_ATTRIBUTE;
 
     private ChildrenTracking childrenTracking;
     private XmlNode dom;

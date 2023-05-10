@@ -422,6 +422,113 @@ public class Xpp3DomTest
         assertEquals( recessiveConfig.toString(), result.toString() );
     }
 
+    /**
+     * <p>testCombineId.</p>
+     *
+     * @throws java.lang.Exception if any.
+     */
+    @Test
+    public void testCombineId()
+        throws Exception
+    {
+        String lhs = "<props>" + "<property combine.id='LHS-ONLY'><name>LHS-ONLY</name><value>LHS</value></property>"
+            + "<property combine.id='TOOVERWRITE'><name>TOOVERWRITE</name><value>LHS</value></property>" + "</props>";
+
+        String rhs = "<props>" + "<property combine.id='RHS-ONLY'><name>RHS-ONLY</name><value>RHS</value></property>"
+            + "<property combine.id='TOOVERWRITE'><name>TOOVERWRITE</name><value>RHS</value></property>" + "</props>";
+
+        Xpp3Dom leftDom = Xpp3DomBuilder.build( new StringReader( lhs ), new Xpp3DomTest.FixedInputLocationBuilder( "left" ) );
+        Xpp3Dom rightDom = Xpp3DomBuilder.build( new StringReader( rhs ), new Xpp3DomTest.FixedInputLocationBuilder( "right" ) );
+
+        Xpp3Dom mergeResult = Xpp3Dom.mergeXpp3Dom( leftDom, rightDom, true );
+        assertEquals( 3, mergeResult.getChildren( "property" ).length );
+
+        Xpp3Dom p0 = mergeResult.getChildren( "property" )[0];
+        assertEquals( "LHS-ONLY", p0.getChild( "name" ).getValue() );
+        assertEquals( "left", p0.getChild( "name" ).getInputLocation() );
+        assertEquals( "LHS", p0.getChild( "value" ).getValue() );
+        assertEquals( "left", p0.getChild( "value" ).getInputLocation() );
+
+        Xpp3Dom p1 = mergeResult.getChildren( "property" )[1];
+        assertEquals( "TOOVERWRITE", mergeResult.getChildren( "property" )[1].getChild( "name" ).getValue() );
+        assertEquals( "left", p1.getChild( "name" ).getInputLocation() );
+        assertEquals( "LHS", mergeResult.getChildren( "property" )[1].getChild( "value" ).getValue() );
+        assertEquals( "left", p1.getChild( "value" ).getInputLocation() );
+
+        Xpp3Dom p2 = mergeResult.getChildren( "property" )[2];
+        assertEquals( "RHS-ONLY", mergeResult.getChildren( "property" )[2].getChild( "name" ).getValue() );
+        assertEquals( "right", p2.getChild( "name" ).getInputLocation() );
+        assertEquals( "RHS", mergeResult.getChildren( "property" )[2].getChild( "value" ).getValue() );
+        assertEquals( "right", p2.getChild( "value" ).getInputLocation() );
+    }
+
+    /**
+     * <p>testCombineKeys.</p>
+     *
+     * @throws java.lang.Exception if any.
+     */
+    @Test
+    public void testCombineKeys()
+        throws Exception
+    {
+        String lhs = "<props combine.keys='key'>" + "<property key=\"LHS-ONLY\"><name>LHS-ONLY</name><value>LHS</value></property>"
+            + "<property combine.keys='name'><name>TOOVERWRITE</name><value>LHS</value></property>" + "</props>";
+
+        String rhs = "<props combine.keys='key'>" + "<property key=\"RHS-ONLY\"><name>RHS-ONLY</name><value>RHS</value></property>"
+            + "<property combine.keys='name'><name>TOOVERWRITE</name><value>RHS</value></property>" + "</props>";
+
+        Xpp3Dom leftDom = Xpp3DomBuilder.build( new StringReader( lhs ), new Xpp3DomTest.FixedInputLocationBuilder( "left" ) );
+        Xpp3Dom rightDom = Xpp3DomBuilder.build( new StringReader( rhs ), new Xpp3DomTest.FixedInputLocationBuilder( "right" ) );
+
+        Xpp3Dom mergeResult = Xpp3Dom.mergeXpp3Dom( leftDom, rightDom, true );
+        assertEquals( 3, mergeResult.getChildren( "property" ).length );
+
+        Xpp3Dom p0 = mergeResult.getChildren( "property" )[0];
+        assertEquals( "LHS-ONLY", p0.getChild( "name" ).getValue() );
+        assertEquals( "left", p0.getChild( "name" ).getInputLocation() );
+        assertEquals( "LHS", p0.getChild( "value" ).getValue() );
+        assertEquals( "left", p0.getChild( "value" ).getInputLocation() );
+
+        Xpp3Dom p1 = mergeResult.getChildren( "property" )[1];
+        assertEquals( "TOOVERWRITE", mergeResult.getChildren( "property" )[1].getChild( "name" ).getValue() );
+        assertEquals( "left", p1.getChild( "name" ).getInputLocation() );
+        assertEquals( "LHS", mergeResult.getChildren( "property" )[1].getChild( "value" ).getValue() );
+        assertEquals( "left", p1.getChild( "value" ).getInputLocation() );
+
+        Xpp3Dom p2 = mergeResult.getChildren( "property" )[2];
+        assertEquals( "RHS-ONLY", mergeResult.getChildren( "property" )[2].getChild( "name" ).getValue() );
+        assertEquals( "right", p2.getChild( "name" ).getInputLocation() );
+        assertEquals( "RHS", mergeResult.getChildren( "property" )[2].getChild( "value" ).getValue() );
+        assertEquals( "right", p2.getChild( "value" ).getInputLocation() );
+    }
+
+    @Test
+    public void testPreserveDominantBlankValue() throws XmlPullParserException, IOException {
+        String lhs = "<parameter xml:space=\"preserve\"> </parameter>";
+
+        String rhs = "<parameter>recessive</parameter>";
+
+        Xpp3Dom leftDom = Xpp3DomBuilder.build( new StringReader( lhs ), new Xpp3DomTest.FixedInputLocationBuilder( "left" ) );
+        Xpp3Dom rightDom = Xpp3DomBuilder.build( new StringReader( rhs ), new Xpp3DomTest.FixedInputLocationBuilder( "right" ) );
+
+        Xpp3Dom mergeResult = Xpp3Dom.mergeXpp3Dom( leftDom, rightDom, true );
+        assertEquals( " ", mergeResult.getValue() );
+    }
+
+    @Test
+    public void testPreserveDominantEmptyNode() throws XmlPullParserException, IOException
+    {
+        String lhs = "<parameter></parameter>";
+
+        String rhs = "<parameter>recessive</parameter>";
+
+        Xpp3Dom leftDom = Xpp3DomBuilder.build( new StringReader( lhs ), new Xpp3DomTest.FixedInputLocationBuilder( "left" ) );
+        Xpp3Dom rightDom = Xpp3DomBuilder.build( new StringReader( rhs ), new Xpp3DomTest.FixedInputLocationBuilder( "right" ) );
+
+        Xpp3Dom mergeResult = Xpp3Dom.mergeXpp3Dom( leftDom, rightDom, true );
+        assertEquals( "", mergeResult.getValue() );
+    }
+
     private static class FixedInputLocationBuilder
         implements Xpp3DomBuilder.InputLocationBuilder
     {
