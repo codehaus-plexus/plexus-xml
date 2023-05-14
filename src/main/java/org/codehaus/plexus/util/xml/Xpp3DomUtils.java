@@ -23,207 +23,77 @@ import java.util.Map;
 import org.codehaus.plexus.util.xml.pull.XmlSerializer;
 
 /** @author Jason van Zyl */
+@Deprecated
 public class Xpp3DomUtils
 {
-    public static final String CHILDREN_COMBINATION_MODE_ATTRIBUTE = "combine.children";
-
-    public static final String CHILDREN_COMBINATION_MERGE = "merge";
-
-    public static final String CHILDREN_COMBINATION_APPEND = "append";
+    /**
+     * @deprecated use {@link Xpp3Dom#CHILDREN_COMBINATION_MODE_ATTRIBUTE}
+     */
+    @Deprecated
+    public static final String CHILDREN_COMBINATION_MODE_ATTRIBUTE = Xpp3Dom.CHILDREN_COMBINATION_MODE_ATTRIBUTE;
 
     /**
-     * This default mode for combining children DOMs during merge means that where element names match, the process will
-     * try to merge the element data, rather than putting the dominant and recessive elements (which share the same
-     * element name) as siblings in the resulting DOM.
+     * @deprecated use {@link Xpp3Dom#CHILDREN_COMBINATION_MERGE}
      */
-    public static final String DEFAULT_CHILDREN_COMBINATION_MODE = CHILDREN_COMBINATION_MERGE;
-
-    public static final String SELF_COMBINATION_MODE_ATTRIBUTE = "combine.self";
-
-    public static final String SELF_COMBINATION_OVERRIDE = "override";
-
-    public static final String SELF_COMBINATION_MERGE = "merge";
+    @Deprecated
+    public static final String CHILDREN_COMBINATION_MERGE = Xpp3Dom.CHILDREN_COMBINATION_MERGE;
 
     /**
-     * In case of complex XML structures, combining can be done based on id.
-     * 
-     * @since 3.0.22
+     * @deprecated use {@link Xpp3Dom#CHILDREN_COMBINATION_APPEND}
      */
-    public static final String ID_COMBINATION_MODE_ATTRIBUTE = "combine.id";
-    
-    /**
-     * In case of complex XML structures, combining can be done based on keys.
-     * This is a comma separated list of attribute names.
-     * 
-     * @since 3.4.0
-     */
-    public static final String KEYS_COMBINATION_MODE_ATTRIBUTE = "combine.keys";
+    @Deprecated
+    public static final String CHILDREN_COMBINATION_APPEND = Xpp3Dom.CHILDREN_COMBINATION_APPEND;
 
     /**
-     * This default mode for combining a DOM node during merge means that where element names match, the process will
-     * try to merge the element attributes and values, rather than overriding the recessive element completely with the
-     * dominant one. This means that wherever the dominant element doesn't provide the value or a particular attribute,
-     * that value or attribute will be set from the recessive DOM node.
+     * @deprecated use {@link Xpp3Dom#DEFAULT_CHILDREN_COMBINATION_MODE}
      */
-    public static final String DEFAULT_SELF_COMBINATION_MODE = SELF_COMBINATION_MERGE;
+    @Deprecated
+    public static final String DEFAULT_CHILDREN_COMBINATION_MODE = Xpp3Dom.DEFAULT_CHILDREN_COMBINATION_MODE;
 
+    /**
+     * @deprecated use {@link Xpp3Dom#SELF_COMBINATION_MODE_ATTRIBUTE}
+     */
+    @Deprecated
+    public static final String SELF_COMBINATION_MODE_ATTRIBUTE = Xpp3Dom.SELF_COMBINATION_MODE_ATTRIBUTE;
+
+    /**
+     * @deprecated use {@link Xpp3Dom#SELF_COMBINATION_OVERRIDE}
+     */
+    @Deprecated
+    public static final String SELF_COMBINATION_OVERRIDE = Xpp3Dom.SELF_COMBINATION_OVERRIDE;
+
+    /**
+     * @deprecated use {@link Xpp3Dom#SELF_COMBINATION_MERGE}
+     */
+    @Deprecated
+    public static final String SELF_COMBINATION_MERGE = Xpp3Dom.SELF_COMBINATION_MERGE;
+
+    /**
+     * @deprecated use {@link Xpp3Dom#ID_COMBINATION_MODE_ATTRIBUTE}
+     */
+    @Deprecated
+    public static final String ID_COMBINATION_MODE_ATTRIBUTE = Xpp3Dom.ID_COMBINATION_MODE_ATTRIBUTE;
+
+    /**
+     * @deprecated use {@link Xpp3Dom#KEYS_COMBINATION_MODE_ATTRIBUTE}
+     */
+    @Deprecated
+    public static final String KEYS_COMBINATION_MODE_ATTRIBUTE = Xpp3Dom.KEYS_COMBINATION_MODE_ATTRIBUTE;
+
+    /**
+     * @deprecated use {@link Xpp3Dom#DEFAULT_SELF_COMBINATION_MODE}
+     */
+    @Deprecated
+    public static final String DEFAULT_SELF_COMBINATION_MODE = Xpp3Dom.DEFAULT_SELF_COMBINATION_MODE;
+
+    /**
+     * @deprecated use {@link Xpp3Dom#writeToSerializer(String, XmlSerializer)}
+     */
+    @Deprecated
     public void writeToSerializer( String namespace, XmlSerializer serializer, Xpp3Dom dom )
         throws IOException
     {
-        // TODO: WARNING! Later versions of plexus-utils psit out an <?xml ?> header due to thinking this is a new
-        // document - not the desired behaviour!
-        SerializerXMLWriter xmlWriter = new SerializerXMLWriter( namespace, serializer );
-        Xpp3DomWriter.write( xmlWriter, dom );
-        if ( xmlWriter.getExceptions().size() > 0 )
-        {
-            throw (IOException) xmlWriter.getExceptions().get( 0 );
-        }
-    }
-
-    /**
-     * Merges one DOM into another, given a specific algorithm and possible override points for that algorithm.<p>
-     * The algorithm is as follows:
-     * <ol>
-     * <li> if the recessive DOM is null, there is nothing to do... return.</li>
-     * <li> Determine whether the dominant node will suppress the recessive one (flag=mergeSelf).
-     *   <ol type="A">
-     *   <li> retrieve the 'combine.self' attribute on the dominant node, and try to match against 'override'...
-     *        if it matches 'override', then set mergeSelf == false...the dominant node suppresses the recessive one
-     *        completely.</li>
-     *   <li> otherwise, use the default value for mergeSelf, which is true...this is the same as specifying
-     *        'combine.self' == 'merge' as an attribute of the dominant root node.</li>
-     *   </ol></li>
-     * <li> If mergeSelf == true
-     *   <ol type="A">
-     *   <li> Determine whether children from the recessive DOM will be merged or appended to the dominant DOM as
-     *        siblings (flag=mergeChildren).
-     *     <ol type="i">
-     *     <li> if childMergeOverride is set (non-null), use that value (true/false)</li>
-     *     <li> retrieve the 'combine.children' attribute on the dominant node, and try to match against
-     *          'append'...</li>
-     *     <li> if it matches 'append', then set mergeChildren == false...the recessive children will be appended as
-     *          siblings of the dominant children.</li>
-     *     <li> otherwise, use the default value for mergeChildren, which is true...this is the same as specifying
-     *          'combine.children' == 'merge' as an attribute on the dominant root node.</li>
-     *     </ol></li>
-     *   <li> Iterate through the recessive children, and:
-     *     <ol type="i">
-     *     <li> if 'combine.id' is set and there is a corresponding dominant child (matched by value of 'combine.id'),
-     *          merge the two.</li>
-     *     <li> if 'combine.keys' is set and there is a corresponding dominant child (matched by value of key elements),
-     *          merge the two.</li>
-     *     <li> if mergeChildren == true and there is a corresponding dominant child (matched by element name),
-     *          merge the two.</li>
-     *     <li> otherwise, add the recessive child as a new child on the dominant root node.</li>
-     *     </ol></li>
-     *   </ol></li>
-     * </ol>
-     */
-    private static void mergeIntoXpp3Dom( Xpp3Dom dominant, Xpp3Dom recessive, Boolean childMergeOverride )
-    {
-        // TODO: share this as some sort of assembler, implement a walk interface?
-        if ( recessive == null )
-        {
-            return;
-        }
-
-        boolean mergeSelf = true;
-
-        String selfMergeMode = dominant.getAttribute( SELF_COMBINATION_MODE_ATTRIBUTE );
-
-        if ( isNotEmpty( selfMergeMode ) && SELF_COMBINATION_OVERRIDE.equals( selfMergeMode ) )
-        {
-            mergeSelf = false;
-        }
-
-        if ( mergeSelf )
-        {
-            String[] recessiveAttrs = recessive.getAttributeNames();
-            for ( String attr : recessiveAttrs )
-            {
-                if ( isEmpty( dominant.getAttribute( attr ) ) )
-                {
-                    dominant.setAttribute( attr, recessive.getAttribute( attr ) );
-                }
-            }
-
-            boolean mergeChildren = true;
-
-            if ( childMergeOverride != null )
-            {
-                mergeChildren = childMergeOverride;
-            }
-            else
-            {
-                String childMergeMode = dominant.getAttribute( CHILDREN_COMBINATION_MODE_ATTRIBUTE );
-
-                if ( isNotEmpty( childMergeMode ) && CHILDREN_COMBINATION_APPEND.equals( childMergeMode ) )
-                {
-                    mergeChildren = false;
-                }
-            }
-
-            final String keysValue = recessive.getAttribute( KEYS_COMBINATION_MODE_ATTRIBUTE );
-
-            Xpp3Dom[] children = recessive.getChildren();
-            for ( Xpp3Dom recessiveChild : children )
-            {
-                String idValue = recessiveChild.getAttribute( ID_COMBINATION_MODE_ATTRIBUTE );
-
-                Xpp3Dom childDom = null;
-                if ( isNotEmpty( idValue ) )
-                {
-                    for ( Xpp3Dom dominantChild : dominant.getChildren() )
-                    {
-                        if ( idValue.equals( dominantChild.getAttribute( ID_COMBINATION_MODE_ATTRIBUTE ) ) )
-                        {
-                            childDom = dominantChild;
-                            // we have a match, so don't append but merge
-                            mergeChildren = true;
-                        }
-                    }
-                }
-                else if ( isNotEmpty( keysValue ) ) 
-                {
-                    String[] keys = keysValue.split( "," );
-                    Map<String, String> recessiveKeyValues = new HashMap<>( keys.length );
-                    for ( String key : keys )
-                    {
-                        recessiveKeyValues.put( key, recessiveChild.getAttribute( key ) );
-                    }
-                    
-                    for ( Xpp3Dom dominantChild : dominant.getChildren() )
-                    {
-                        Map<String, String> dominantKeyValues = new HashMap<>( keys.length );
-                        for ( String key : keys )
-                        {
-                            dominantKeyValues.put( key, dominantChild.getAttribute( key ) );
-                        }
-
-                        if ( recessiveKeyValues.equals( dominantKeyValues ) )
-                        {
-                            childDom = dominantChild;
-                            // we have a match, so don't append but merge
-                            mergeChildren = true;
-                        }
-                    }
-                    
-                }
-                else
-                {
-                    childDom = dominant.getChild( recessiveChild.getName() );
-                }
-
-                if ( mergeChildren && childDom != null )
-                {
-                    mergeIntoXpp3Dom( childDom, recessiveChild, childMergeOverride );
-                }
-                else
-                {
-                    dominant.addChild( new Xpp3Dom( recessiveChild ) );
-                }
-            }
-        }
+        dom.writeToSerializer( namespace, serializer );
     }
 
     /**
@@ -236,15 +106,12 @@ public class Xpp3DomUtils
      * @param childMergeOverride Overrides attribute flags to force merging or appending of child elements into the
      *            dominant DOM
      * @return merged DOM
+     * @deprecated use {@link Xpp3Dom#mergeXpp3Dom(Xpp3Dom, Xpp3Dom, Boolean)}
      */
+    @Deprecated
     public static Xpp3Dom mergeXpp3Dom( Xpp3Dom dominant, Xpp3Dom recessive, Boolean childMergeOverride )
     {
-        if ( dominant != null )
-        {
-            mergeIntoXpp3Dom( dominant, recessive, childMergeOverride );
-            return dominant;
-        }
-        return recessive;
+        return Xpp3Dom.mergeXpp3Dom( dominant, recessive, childMergeOverride );
     }
 
     /**
@@ -256,15 +123,12 @@ public class Xpp3DomUtils
      * @param dominant The dominant DOM into which the recessive value/attributes/children will be merged
      * @param recessive The recessive DOM, which will be merged into the dominant DOM
      * @return merged DOM
+     * @deprecated use {@link Xpp3Dom#mergeXpp3Dom(Xpp3Dom, Xpp3Dom)}
      */
+    @Deprecated
     public static Xpp3Dom mergeXpp3Dom( Xpp3Dom dominant, Xpp3Dom recessive )
     {
-        if ( dominant != null )
-        {
-            mergeIntoXpp3Dom( dominant, recessive, null );
-            return dominant;
-        }
-        return recessive;
+        return Xpp3Dom.mergeXpp3Dom( dominant, recessive );
     }
 
     /**
