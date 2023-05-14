@@ -1622,4 +1622,46 @@ public class MXParserTest
             fail( "should not raise exception: " + e );
         }
     }
+
+    @Test
+    public void testProcessingInstructionTokenizeBeforeFirstTag()
+        throws Exception
+    {
+        String input = "<?a?><test>nnn</test>";
+
+        MXParser parser = new MXParser();
+        parser.setInput( new StringReader( input ) );
+
+        assertEquals( XmlPullParser.START_DOCUMENT, parser.getEventType() );
+        assertEquals( XmlPullParser.PROCESSING_INSTRUCTION, parser.nextToken() );
+        assertEquals( "a", parser.getText() );
+        assertEquals( XmlPullParser.START_TAG, parser.nextToken() );
+        assertEquals( "test", parser.getName() );
+        assertEquals( XmlPullParser.TEXT, parser.nextToken() );
+        assertEquals( "nnn", parser.getText() );
+        assertEquals( XmlPullParser.END_TAG, parser.nextToken() );
+        assertEquals( XmlPullParser.END_DOCUMENT, parser.nextToken() );
+    }
+
+    @Test
+    public void testProcessingInstructionTokenizeAfterXMLDeclAndBeforeFirstTag()
+        throws Exception
+    {
+        String input = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><?a?><test>nnn</test>";
+
+        MXParser parser = new MXParser();
+        parser.setInput( new StringReader( input ) );
+
+        assertEquals( XmlPullParser.START_DOCUMENT, parser.getEventType() );
+        assertEquals( XmlPullParser.PROCESSING_INSTRUCTION, parser.nextToken() );
+        assertEquals( "xml version=\"1.0\" encoding=\"UTF-8\"", parser.getText() );
+        assertEquals( XmlPullParser.PROCESSING_INSTRUCTION, parser.nextToken() );
+        assertEquals( "a", parser.getText() );
+        assertEquals( XmlPullParser.START_TAG, parser.nextToken() );
+        assertEquals( "test", parser.getName() );
+        assertEquals( XmlPullParser.TEXT, parser.nextToken() );
+        assertEquals( "nnn", parser.getText() );
+        assertEquals( XmlPullParser.END_TAG, parser.nextToken() );
+        assertEquals( XmlPullParser.END_DOCUMENT, parser.nextToken() );
+    }
 }
