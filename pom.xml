@@ -32,10 +32,10 @@ limitations under the License.
   <description>A collection of various utility classes to ease working with XML.</description>
 
   <scm>
-    <connection>scm:git:git@github.com:codehaus-plexus/plexus-xml.git</connection>
-    <developerConnection>scm:git:git@github.com:codehaus-plexus/plexus-xml.git</developerConnection>
-    <url>http://github.com/codehaus-plexus/plexus-xml</url>
+    <connection>scm:git:https://github.com/codehaus-plexus/plexus-xml.git</connection>
+    <developerConnection>${project.scm.connection}</developerConnection>
     <tag>master</tag>
+    <url>https://github.com/codehaus-plexus/plexus-xml/tree/master/</url>
   </scm>
   <issueManagement>
     <system>github</system>
