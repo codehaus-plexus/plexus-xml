@@ -1,9 +1,5 @@
 package org.codehaus.plexus.util.xml;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 /*
  * Copyright The Codehaus Foundation.
  *
@@ -21,6 +17,8 @@ import java.util.Map;
  */
 
 import org.codehaus.plexus.util.xml.pull.XmlSerializer;
+
+import java.io.IOException;
 
 /** @author Jason van Zyl */
 @Deprecated
