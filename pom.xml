@@ -24,7 +24,7 @@ limitations under the License.
   </parent>
 
   <artifactId>plexus-xml</artifactId>
-  <version>4.0.0</version>
+  <version>4.0.1-SNAPSHOT</version>
 
   <name>Plexus XML Utilities</name>
   <description>A collection of various utility classes to ease working with XML.</description>
@@ -32,7 +32,7 @@ limitations under the License.
   <scm>
     <connection>scm:git:https://github.com/codehaus-plexus/plexus-xml.git</connection>
     <developerConnection>${project.scm.connection}</developerConnection>
-    <tag>plexus-xml-4.0.0</tag>
+    <tag>master</tag>
     <url>https://github.com/codehaus-plexus/plexus-xml/tree/master/</url>
   </scm>
   <issueManagement>
@@ -47,7 +47,7 @@ limitations under the License.
   </distributionManagement>
 
   <properties>
-    <project.build.outputTimestamp>2023-05-22T15:08:22Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2023-05-22T15:08:30Z</project.build.outputTimestamp>
   </properties>
 
   <dependencies>
