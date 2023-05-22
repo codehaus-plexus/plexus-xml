@@ -16,14 +16,13 @@ package org.codehaus.plexus.util.xml;
  * limitations under the License.
  */
 
-import org.codehaus.plexus.util.xml.pull.XmlSerializer;
-
 import java.io.IOException;
+
+import org.codehaus.plexus.util.xml.pull.XmlSerializer;
 
 /** @author Jason van Zyl */
 @Deprecated
-public class Xpp3DomUtils
-{
+public class Xpp3DomUtils {
     /**
      * @deprecated use {@link Xpp3Dom#CHILDREN_COMBINATION_MODE_ATTRIBUTE}
      */
@@ -88,10 +87,8 @@ public class Xpp3DomUtils
      * @deprecated use {@link Xpp3Dom#writeToSerializer(String, XmlSerializer)}
      */
     @Deprecated
-    public void writeToSerializer( String namespace, XmlSerializer serializer, Xpp3Dom dom )
-        throws IOException
-    {
-        dom.writeToSerializer( namespace, serializer );
+    public void writeToSerializer(String namespace, XmlSerializer serializer, Xpp3Dom dom) throws IOException {
+        dom.writeToSerializer(namespace, serializer);
     }
 
     /**
@@ -107,9 +104,8 @@ public class Xpp3DomUtils
      * @deprecated use {@link Xpp3Dom#mergeXpp3Dom(Xpp3Dom, Xpp3Dom, Boolean)}
      */
     @Deprecated
-    public static Xpp3Dom mergeXpp3Dom( Xpp3Dom dominant, Xpp3Dom recessive, Boolean childMergeOverride )
-    {
-        return Xpp3Dom.mergeXpp3Dom( dominant, recessive, childMergeOverride );
+    public static Xpp3Dom mergeXpp3Dom(Xpp3Dom dominant, Xpp3Dom recessive, Boolean childMergeOverride) {
+        return Xpp3Dom.mergeXpp3Dom(dominant, recessive, childMergeOverride);
     }
 
     /**
@@ -124,26 +120,23 @@ public class Xpp3DomUtils
      * @deprecated use {@link Xpp3Dom#mergeXpp3Dom(Xpp3Dom, Xpp3Dom)}
      */
     @Deprecated
-    public static Xpp3Dom mergeXpp3Dom( Xpp3Dom dominant, Xpp3Dom recessive )
-    {
-        return Xpp3Dom.mergeXpp3Dom( dominant, recessive );
+    public static Xpp3Dom mergeXpp3Dom(Xpp3Dom dominant, Xpp3Dom recessive) {
+        return Xpp3Dom.mergeXpp3Dom(dominant, recessive);
     }
 
     /**
      * @deprecated Use {@link org.codehaus.plexus.util.StringUtils#isNotEmpty(String)} instead
      */
     @Deprecated
-    public static boolean isNotEmpty( String str )
-    {
-        return ( str != null && str.length() > 0 );
+    public static boolean isNotEmpty(String str) {
+        return (str != null && str.length() > 0);
     }
 
     /**
      * @deprecated Use {@link org.codehaus.plexus.util.StringUtils#isEmpty(String)} instead
      */
     @Deprecated
-    public static boolean isEmpty( String str )
-    {
-        return ( str == null || str.length() == 0 );
+    public static boolean isEmpty(String str) {
+        return (str == null || str.length() == 0);
     }
 }

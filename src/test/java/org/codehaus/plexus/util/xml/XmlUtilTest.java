@@ -38,8 +38,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version $Id: $Id
  * @since 3.4.0
  */
-public class XmlUtilTest
-{
+public class XmlUtilTest {
     private String basedir;
 
     /**
@@ -47,23 +46,18 @@ public class XmlUtilTest
      *
      * @return a {@link java.lang.String} object.
      */
-    public final String getBasedir()
-    {
-        if ( null == basedir )
-        {
-            basedir = System.getProperty( "basedir", new File( "" ).getAbsolutePath() );
+    public final String getBasedir() {
+        if (null == basedir) {
+            basedir = System.getProperty("basedir", new File("").getAbsolutePath());
         }
         return basedir;
     }
 
-    private File getTestOutputFile( String relPath )
-        throws IOException
-    {
-        final File file = new File( getBasedir(), relPath );
+    private File getTestOutputFile(String relPath) throws IOException {
+        final File file = new File(getBasedir(), relPath);
         final File parentFile = file.getParentFile();
-        if ( !parentFile.isDirectory() && !parentFile.mkdirs() )
-        {
-            throw new IOException( "Could not create test directory " + parentFile );
+        if (!parentFile.isDirectory() && !parentFile.mkdirs()) {
+            throw new IOException("Could not create test directory " + parentFile);
         }
         return file;
     }
@@ -74,19 +68,18 @@ public class XmlUtilTest
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatInputStreamOutputStream()
-        throws Exception
-    {
-        File testDocument = new File( getBasedir(), "src/test/resources/testDocument.xhtml" );
-        assertTrue( testDocument.exists() );
+    public void testPrettyFormatInputStreamOutputStream() throws Exception {
+        File testDocument = new File(getBasedir(), "src/test/resources/testDocument.xhtml");
+        assertTrue(testDocument.exists());
 
-        try ( InputStream is = Files.newInputStream( testDocument.toPath() );
-              OutputStream os = Files.newOutputStream( getTestOutputFile( "target/test/prettyFormatTestDocumentOutputStream.xml" ).toPath() ) )
-        {
-            assertNotNull( is );
-            assertNotNull( os );
+        try (InputStream is = Files.newInputStream(testDocument.toPath());
+                OutputStream os =
+                        Files.newOutputStream(getTestOutputFile("target/test/prettyFormatTestDocumentOutputStream.xml")
+                                .toPath())) {
+            assertNotNull(is);
+            assertNotNull(os);
 
-            XmlUtil.prettyFormat( is, os );
+            XmlUtil.prettyFormat(is, os);
         }
     }
 
@@ -96,19 +89,17 @@ public class XmlUtilTest
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatReaderWriter()
-        throws Exception
-    {
-        File testDocument = new File( getBasedir(), "src/test/resources/testDocument.xhtml" );
-        assertTrue( testDocument.exists() );
+    public void testPrettyFormatReaderWriter() throws Exception {
+        File testDocument = new File(getBasedir(), "src/test/resources/testDocument.xhtml");
+        assertTrue(testDocument.exists());
 
-        try ( Reader reader = new XmlStreamReader( testDocument );
-              Writer writer = new XmlStreamWriter( getTestOutputFile( "target/test/prettyFormatTestDocumentWriter.xml" ) ) )
-        {
-            assertNotNull( reader );
-            assertNotNull( writer );
+        try (Reader reader = new XmlStreamReader(testDocument);
+                Writer writer =
+                        new XmlStreamWriter(getTestOutputFile("target/test/prettyFormatTestDocumentWriter.xml"))) {
+            assertNotNull(reader);
+            assertNotNull(writer);
 
-            XmlUtil.prettyFormat( reader, writer );
+            XmlUtil.prettyFormat(reader, writer);
         }
     }
 
@@ -118,28 +109,24 @@ public class XmlUtilTest
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatString()
-        throws Exception
-    {
-        File testDocument = new File( getBasedir(), "src/test/resources/testDocument.xhtml" );
-        assertTrue( testDocument.exists() );
+    public void testPrettyFormatString() throws Exception {
+        File testDocument = new File(getBasedir(), "src/test/resources/testDocument.xhtml");
+        assertTrue(testDocument.exists());
 
         String content;
-        try ( Reader reader = new XmlStreamReader( testDocument ) )
-        {
-            content = IOUtil.toString( reader );
+        try (Reader reader = new XmlStreamReader(testDocument)) {
+            content = IOUtil.toString(reader);
         }
 
         Writer writer = new StringWriter();
-        try ( Reader reader = new XmlStreamReader( testDocument ) )
-        {
-            XmlUtil.prettyFormat( reader, writer );
+        try (Reader reader = new XmlStreamReader(testDocument)) {
+            XmlUtil.prettyFormat(reader, writer);
         }
 
-        assertNotNull( content );
+        assertNotNull(content);
 
-        int countEOL = StringUtils.countMatches( content, XmlUtil.DEFAULT_LINE_SEPARATOR );
-        assertTrue( countEOL < StringUtils.countMatches( writer.toString(), XmlUtil.DEFAULT_LINE_SEPARATOR ) );
+        int countEOL = StringUtils.countMatches(content, XmlUtil.DEFAULT_LINE_SEPARATOR);
+        assertTrue(countEOL < StringUtils.countMatches(writer.toString(), XmlUtil.DEFAULT_LINE_SEPARATOR));
     }
 
     /**
@@ -148,19 +135,16 @@ public class XmlUtilTest
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatReaderWriter2()
-        throws Exception
-    {
-        File testDocument = new File( getBasedir(), "src/test/resources/test.xdoc.xhtml" );
-        assertTrue( testDocument.exists() );
+    public void testPrettyFormatReaderWriter2() throws Exception {
+        File testDocument = new File(getBasedir(), "src/test/resources/test.xdoc.xhtml");
+        assertTrue(testDocument.exists());
 
-        try ( Reader reader = new XmlStreamReader( testDocument );
-              Writer writer = new XmlStreamWriter( getTestOutputFile( "target/test/prettyFormatTestXdocWriter.xml" ) ) )
-        {
-            assertNotNull( reader );
-            assertNotNull( writer );
+        try (Reader reader = new XmlStreamReader(testDocument);
+                Writer writer = new XmlStreamWriter(getTestOutputFile("target/test/prettyFormatTestXdocWriter.xml"))) {
+            assertNotNull(reader);
+            assertNotNull(writer);
 
-            XmlUtil.prettyFormat( reader, writer );
+            XmlUtil.prettyFormat(reader, writer);
         }
     }
 }

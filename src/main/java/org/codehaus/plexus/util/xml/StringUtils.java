@@ -77,8 +77,7 @@ import java.util.StringTokenizer;
  * @since 1.0
  *
  */
-class StringUtils
-{
+class StringUtils {
     /**
      * <p>
      * <code>StringUtils</code> instances should NOT be constructed in standard programming. Instead, the class should
@@ -88,9 +87,7 @@ class StringUtils
      * This constructor is public to permit tools that require a JavaBean manager to operate.
      * </p>
      */
-    private StringUtils()
-    {
-    }
+    private StringUtils() {}
 
     /**
      * Checks if a String is <code>null</code> or empty.
@@ -102,9 +99,8 @@ class StringUtils
      * @param str the String to check
      * @return <code>true</code> if the String is <code>null</code>, or length zero
      */
-    public static boolean isEmpty( String str )
-    {
-        return ( ( str == null ) || ( str.isEmpty() ) );
+    public static boolean isEmpty(String str) {
+        return ((str == null) || (str.isEmpty()));
     }
 
     // Splitting
@@ -115,9 +111,8 @@ class StringUtils
      * @param separator Characters used as the delimiters. If <code>null</code>, splits on whitespace.
      * @return an array of parsed Strings
      */
-    public static String[] split( String text, String separator )
-    {
-        return split( text, separator, -1 );
+    public static String[] split(String text, String separator) {
+        return split(text, separator, -1);
     }
 
     /**
@@ -138,23 +133,18 @@ class StringUtils
      * @param max The maximum number of elements to include in the array. A zero or negative value implies no limit.
      * @return an array of parsed Strings
      */
-    private static String[] split( String str, String separator, int max )
-    {
+    private static String[] split(String str, String separator, int max) {
         StringTokenizer tok;
-        if ( separator == null )
-        {
+        if (separator == null) {
             // Null separator means we're using StringTokenizer's default
             // delimiter, which comprises all whitespace characters.
-            tok = new StringTokenizer( str );
-        }
-        else
-        {
-            tok = new StringTokenizer( str, separator );
+            tok = new StringTokenizer(str);
+        } else {
+            tok = new StringTokenizer(str, separator);
         }
 
         int listSize = tok.countTokens();
-        if ( ( max > 0 ) && ( listSize > max ) )
-        {
+        if ((max > 0) && (listSize > max)) {
             listSize = max;
         }
 
@@ -162,22 +152,18 @@ class StringUtils
         int i = 0;
         int lastTokenBegin;
         int lastTokenEnd = 0;
-        while ( tok.hasMoreTokens() )
-        {
-            if ( ( max > 0 ) && ( i == listSize - 1 ) )
-            {
+        while (tok.hasMoreTokens()) {
+            if ((max > 0) && (i == listSize - 1)) {
                 // In the situation where we hit the max yet have
                 // tokens left over in our input, the last list
                 // element gets all remaining text.
                 String endToken = tok.nextToken();
-                lastTokenBegin = str.indexOf( endToken, lastTokenEnd );
-                list[i] = str.substring( lastTokenBegin );
+                lastTokenBegin = str.indexOf(endToken, lastTokenEnd);
+                list[i] = str.substring(lastTokenBegin);
                 break;
-            }
-            else
-            {
+            } else {
                 list[i] = tok.nextToken();
-                lastTokenBegin = str.indexOf( list[i], lastTokenEnd );
+                lastTokenBegin = str.indexOf(list[i], lastTokenEnd);
                 lastTokenEnd = lastTokenBegin + list[i].length();
             }
             i++;
@@ -196,12 +182,10 @@ class StringUtils
      * @throws NegativeArraySizeException if <code>repeat &lt; 0</code>
      * @throws NullPointerException if str is <code>null</code>
      */
-    public static String repeat( String str, int repeat )
-    {
-        StringBuilder buffer = new StringBuilder( repeat * str.length() );
-        for ( int i = 0; i < repeat; i++ )
-        {
-            buffer.append( str );
+    public static String repeat(String str, int repeat) {
+        StringBuilder buffer = new StringBuilder(repeat * str.length());
+        for (int i = 0; i < repeat; i++) {
+            buffer.append(str);
         }
         return buffer.toString();
     }
@@ -213,18 +197,15 @@ class StringUtils
      * @return a string with unique whitespace.
      * @since 1.5.7
      */
-    public static String removeDuplicateWhitespace( String s )
-    {
+    public static String removeDuplicateWhitespace(String s) {
         StringBuilder result = new StringBuilder();
         int length = s.length();
         boolean isPreviousWhiteSpace = false;
-        for ( int i = 0; i < length; i++ )
-        {
-            char c = s.charAt( i );
-            boolean thisCharWhiteSpace = Character.isWhitespace( c );
-            if ( !( isPreviousWhiteSpace && thisCharWhiteSpace ) )
-            {
-                result.append( c );
+        for (int i = 0; i < length; i++) {
+            char c = s.charAt(i);
+            boolean thisCharWhiteSpace = Character.isWhitespace(c);
+            if (!(isPreviousWhiteSpace && thisCharWhiteSpace)) {
+                result.append(c);
             }
             isPreviousWhiteSpace = thisCharWhiteSpace;
         }
@@ -240,44 +221,33 @@ class StringUtils
      * @throws IllegalArgumentException if ls is not '\n', '\r' and '\r\n' characters.
      * @since 1.5.7
      */
-    public static String unifyLineSeparators( String s, String ls )
-    {
-        if ( s == null )
-        {
+    public static String unifyLineSeparators(String s, String ls) {
+        if (s == null) {
             return null;
         }
 
-        if ( ls == null )
-        {
-            ls = System.getProperty( "line.separator" );
+        if (ls == null) {
+            ls = System.getProperty("line.separator");
         }
 
-        if ( !( ls.equals( "\n" ) || ls.equals( "\r" ) || ls.equals( "\r\n" ) ) )
-        {
-            throw new IllegalArgumentException( "Requested line separator is invalid." );
+        if (!(ls.equals("\n") || ls.equals("\r") || ls.equals("\r\n"))) {
+            throw new IllegalArgumentException("Requested line separator is invalid.");
         }
 
         int length = s.length();
 
-        StringBuilder buffer = new StringBuilder( length );
-        for ( int i = 0; i < length; i++ )
-        {
-            if ( s.charAt( i ) == '\r' )
-            {
-                if ( ( i + 1 ) < length && s.charAt( i + 1 ) == '\n' )
-                {
+        StringBuilder buffer = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            if (s.charAt(i) == '\r') {
+                if ((i + 1) < length && s.charAt(i + 1) == '\n') {
                     i++;
                 }
 
-                buffer.append( ls );
-            }
-            else if ( s.charAt( i ) == '\n' )
-            {
-                buffer.append( ls );
-            }
-            else
-            {
-                buffer.append( s.charAt( i ) );
+                buffer.append(ls);
+            } else if (s.charAt(i) == '\n') {
+                buffer.append(ls);
+            } else {
+                buffer.append(s.charAt(i));
             }
         }
 

@@ -16,90 +16,73 @@ package org.codehaus.plexus.util.xml;
  * limitations under the License.
  */
 
-import org.apache.maven.internal.xml.XmlNodeBuilder;
-import org.codehaus.plexus.util.xml.pull.XmlPullParser;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
+import org.apache.maven.internal.xml.XmlNodeBuilder;
+import org.codehaus.plexus.util.xml.pull.XmlPullParser;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+
 /**
  *
  */
-public class Xpp3DomBuilder
-{
+public class Xpp3DomBuilder {
     private static final boolean DEFAULT_TRIM = true;
 
-    public static Xpp3Dom build( Reader reader )
-        throws XmlPullParserException, IOException
-    {
-        return build( reader, null );
+    public static Xpp3Dom build(Reader reader) throws XmlPullParserException, IOException {
+        return build(reader, null);
     }
 
     /**
      * @since 3.2.0
      */
-    public static Xpp3Dom build( Reader reader, InputLocationBuilder locationBuilder )
-        throws XmlPullParserException, IOException
-    {
-        return build( reader, DEFAULT_TRIM, locationBuilder );
+    public static Xpp3Dom build(Reader reader, InputLocationBuilder locationBuilder)
+            throws XmlPullParserException, IOException {
+        return build(reader, DEFAULT_TRIM, locationBuilder);
     }
 
-    public static Xpp3Dom build( InputStream is, String encoding )
-        throws XmlPullParserException, IOException
-    {
-        return build( is, encoding, DEFAULT_TRIM );
+    public static Xpp3Dom build(InputStream is, String encoding) throws XmlPullParserException, IOException {
+        return build(is, encoding, DEFAULT_TRIM);
     }
 
-    public static Xpp3Dom build( InputStream is, String encoding, boolean trim )
-        throws XmlPullParserException, IOException
-    {
-        try ( InputStream closeMe = is )
-        {
-            return new Xpp3Dom( XmlNodeBuilder.build( is, encoding, trim ) );
+    public static Xpp3Dom build(InputStream is, String encoding, boolean trim)
+            throws XmlPullParserException, IOException {
+        try (InputStream closeMe = is) {
+            return new Xpp3Dom(XmlNodeBuilder.build(is, encoding, trim));
         }
     }
 
-    public static Xpp3Dom build( Reader reader, boolean trim )
-        throws XmlPullParserException, IOException
-    {
-        return build( reader, trim, null );
+    public static Xpp3Dom build(Reader reader, boolean trim) throws XmlPullParserException, IOException {
+        return build(reader, trim, null);
     }
 
     /**
      * @since 3.2.0
      */
-    public static Xpp3Dom build( Reader reader, boolean trim, InputLocationBuilder locationBuilder )
-        throws XmlPullParserException, IOException
-    {
-        try ( Reader closeMe = reader )
-        {
-            return new Xpp3Dom( XmlNodeBuilder.build(
-                    reader, trim, locationBuilder != null ? locationBuilder::toInputLocation : null ) );
+    public static Xpp3Dom build(Reader reader, boolean trim, InputLocationBuilder locationBuilder)
+            throws XmlPullParserException, IOException {
+        try (Reader closeMe = reader) {
+            return new Xpp3Dom(XmlNodeBuilder.build(
+                    reader, trim, locationBuilder != null ? locationBuilder::toInputLocation : null));
         }
     }
 
-    public static Xpp3Dom build( XmlPullParser parser )
-        throws XmlPullParserException, IOException
-    {
-        return build( parser, DEFAULT_TRIM );
+    public static Xpp3Dom build(XmlPullParser parser) throws XmlPullParserException, IOException {
+        return build(parser, DEFAULT_TRIM);
     }
 
-    public static Xpp3Dom build( XmlPullParser parser, boolean trim )
-        throws XmlPullParserException, IOException
-    {
-        return build( parser, trim, null );
+    public static Xpp3Dom build(XmlPullParser parser, boolean trim) throws XmlPullParserException, IOException {
+        return build(parser, trim, null);
     }
 
     /**
      * @since 3.2.0
      */
-    public static Xpp3Dom build( XmlPullParser parser, boolean trim, InputLocationBuilder locationBuilder )
-        throws XmlPullParserException, IOException
-    {
+    public static Xpp3Dom build(XmlPullParser parser, boolean trim, InputLocationBuilder locationBuilder)
+            throws XmlPullParserException, IOException {
         return new Xpp3Dom(
-                XmlNodeBuilder.build( parser, trim, locationBuilder != null ? locationBuilder::toInputLocation : null ) );
+                XmlNodeBuilder.build(parser, trim, locationBuilder != null ? locationBuilder::toInputLocation : null));
     }
 
     /**
@@ -107,8 +90,7 @@ public class Xpp3DomBuilder
      *
      * @since 3.2.0
      */
-    public interface InputLocationBuilder
-    {
-        Object toInputLocation( XmlPullParser parser );
+    public interface InputLocationBuilder {
+        Object toInputLocation(XmlPullParser parser);
     }
 }
