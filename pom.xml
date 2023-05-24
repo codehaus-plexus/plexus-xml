@@ -20,7 +20,7 @@ limitations under the License.
   <parent>
     <groupId>org.codehaus.plexus</groupId>
     <artifactId>plexus</artifactId>
-    <version>13</version>
+    <version>14-SNAPSHOT</version>
   </parent>
 
   <artifactId>plexus-xml</artifactId>
@@ -28,12 +28,13 @@ limitations under the License.
 
   <name>Plexus XML Utilities</name>
   <description>A collection of various utility classes to ease working with XML.</description>
+  <url>https://codehaus-plexus.github.io/plexus-xml/</url>
 
   <scm>
     <connection>scm:git:https://github.com/codehaus-plexus/plexus-xml.git</connection>
     <developerConnection>${project.scm.connection}</developerConnection>
     <tag>master</tag>
-    <url>https://github.com/codehaus-plexus/plexus-xml/tree/master/</url>
+    <url>https://github.com/codehaus-plexus/plexus-xml/tree/${project.scm.tag}/</url>
   </scm>
   <issueManagement>
     <system>github</system>
