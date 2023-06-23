@@ -30,7 +30,11 @@ import java.nio.file.Paths;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.XmlStreamReader;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -1472,5 +1476,23 @@ public class MXParserTest {
         assertEquals("nnn", parser.getText());
         assertEquals(XmlPullParser.END_TAG, parser.nextToken());
         assertEquals(XmlPullParser.END_DOCUMENT, parser.nextToken());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {" ", "\n", "\r", "\r\n", "  ", "\n "})
+    void testBlankAtBeginning(String ws) throws XmlPullParserException, IOException {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test>nnn</test>";
+
+        MXParser parser = new MXParser();
+        parser.setInput(new StringReader(ws + xml));
+        assertThat(
+                assertThrows(XmlPullParserException.class, parser::next).getMessage(),
+                containsString("XMLDecl is only allowed as first characters in input"));
+
+        parser.setInput(new StringReader(ws + xml));
+        assertEquals(XmlPullParser.IGNORABLE_WHITESPACE, parser.nextToken());
+        assertThat(
+                assertThrows(XmlPullParserException.class, parser::nextToken).getMessage(),
+                containsString("processing instruction can not have PITarget with reserved xml name"));
     }
 }

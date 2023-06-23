@@ -2528,9 +2528,11 @@ public class MXParser implements XmlPullParser {
                             if ((buf[piTargetStart] == 'x' || buf[piTargetStart] == 'X')
                                     && (buf[piTargetStart + 1] == 'm' || buf[piTargetStart + 1] == 'M')
                                     && (buf[piTargetStart + 2] == 'l' || buf[piTargetStart + 2] == 'L')) {
-                                if (piTargetStart > 3) { // <?xml is allowed as first characters in input ...
+                                if (piTargetStart > 2) { // <?xml is allowed as first characters in input ...
                                     throw new XmlPullParserException(
-                                            "processing instruction can not have PITarget with reserved xml name",
+                                            eventType == 0
+                                                    ? "XMLDecl is only allowed as first characters in input"
+                                                    : "processing instruction can not have PITarget with reserved xml name",
                                             this,
                                             null);
                                 } else {
