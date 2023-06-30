@@ -49,7 +49,6 @@ limitations under the License.
 
   <properties>
     <project.build.outputTimestamp>2023-06-23T19:56:25Z</project.build.outputTimestamp>
-    <javaVersion>8</javaVersion>
   </properties>
 
   <dependencies>
@@ -73,7 +72,6 @@ limitations under the License.
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -85,15 +83,6 @@ limitations under the License.
   </dependencies>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -119,16 +108,6 @@ limitations under the License.
         <configuration>
           <!-- required to ensure the test classes are used, not surefire's plexus-utils -->
           <childDelegation>true</childDelegation>
-          <systemPropertyVariables>
-            <property>
-              <name>JAVA_HOME</name>
-              <value>${JAVA_HOME}</value>
-            </property>
-            <property>
-              <name>M2_HOME</name>
-              <value>${M2_HOME}</value>
-            </property>
-          </systemPropertyVariables>
         </configuration>
       </plugin>
     </plugins>
