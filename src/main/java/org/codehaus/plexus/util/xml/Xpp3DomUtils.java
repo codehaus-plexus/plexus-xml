@@ -125,7 +125,7 @@ public class Xpp3DomUtils {
     }
 
     /**
-     * @deprecated Use {@link org.codehaus.plexus.util.StringUtils#isNotEmpty(String)} instead
+     * @deprecated Use org.codehaus.plexus.util.StringUtils#isNotEmpty(String) instead
      */
     @Deprecated
     public static boolean isNotEmpty(String str) {
@@ -133,7 +133,7 @@ public class Xpp3DomUtils {
     }
 
     /**
-     * @deprecated Use {@link org.codehaus.plexus.util.StringUtils#isEmpty(String)} instead
+     * @deprecated Use org.codehaus.plexus.util.StringUtils#isEmpty(String) instead
      */
     @Deprecated
     public static boolean isEmpty(String str) {
