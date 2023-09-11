@@ -16,9 +16,6 @@ package org.codehaus.plexus.util.xml;
  * limitations under the License.
  */
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +29,9 @@ import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Test the {@link org.codehaus.plexus.util.xml.XmlUtil} class.
  *
@@ -39,8 +39,7 @@ import org.junit.Test;
  * @version $Id: $Id
  * @since 3.4.0
  */
-public class XmlUtilTest
-{
+public class XmlUtilTest {
     private String basedir;
 
     /**
@@ -48,23 +47,18 @@ public class XmlUtilTest
      *
      * @return a {@link java.lang.String} object.
      */
-    public final String getBasedir()
-    {
-        if ( null == basedir )
-        {
-            basedir = System.getProperty( "basedir", new File( "" ).getAbsolutePath() );
+    public final String getBasedir() {
+        if (null == basedir) {
+            basedir = System.getProperty("basedir", new File("").getAbsolutePath());
         }
         return basedir;
     }
 
-    private File getTestOutputFile( String relPath )
-        throws IOException
-    {
-        final File file = new File( getBasedir(), relPath );
+    private File getTestOutputFile(String relPath) throws IOException {
+        final File file = new File(getBasedir(), relPath);
         final File parentFile = file.getParentFile();
-        if ( !parentFile.isDirectory() && !parentFile.mkdirs() )
-        {
-            throw new IOException( "Could not create test directory " + parentFile );
+        if (!parentFile.isDirectory() && !parentFile.mkdirs()) {
+            throw new IOException("Could not create test directory " + parentFile);
         }
         return file;
     }
@@ -75,28 +69,24 @@ public class XmlUtilTest
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatInputStreamOutputStream()
-        throws Exception
-    {
-        File testDocument = new File( getBasedir(), "src/test/resources/testDocument.xhtml" );
-        assertTrue( testDocument.exists() );
+    public void testPrettyFormatInputStreamOutputStream() throws Exception {
+        File testDocument = new File(getBasedir(), "src/test/resources/testDocument.xhtml");
+        assertTrue(testDocument.exists());
 
         InputStream is = null;
         OutputStream os = null;
-        try
-        {
-            is = Files.newInputStream( testDocument.toPath() );
-            os = Files.newOutputStream( getTestOutputFile( "target/test/prettyFormatTestDocumentOutputStream.xml" ).toPath() );
+        try {
+            is = Files.newInputStream(testDocument.toPath());
+            os = Files.newOutputStream(getTestOutputFile("target/test/prettyFormatTestDocumentOutputStream.xml")
+                    .toPath());
 
-            assertNotNull( is );
-            assertNotNull( os );
+            assertNotNull(is);
+            assertNotNull(os);
 
-            XmlUtil.prettyFormat( is, os );
-        }
-        finally
-        {
-            IOUtil.close( is );
-            IOUtil.close( os );
+            XmlUtil.prettyFormat(is, os);
+        } finally {
+            IOUtil.close(is);
+            IOUtil.close(os);
         }
     }
 
@@ -106,29 +96,23 @@ public class XmlUtilTest
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatReaderWriter()
-        throws Exception
-    {
-        File testDocument = new File( getBasedir(), "src/test/resources/testDocument.xhtml" );
-        assertTrue( testDocument.exists() );
+    public void testPrettyFormatReaderWriter() throws Exception {
+        File testDocument = new File(getBasedir(), "src/test/resources/testDocument.xhtml");
+        assertTrue(testDocument.exists());
 
         Reader reader = null;
         Writer writer = null;
-        try
-        {
-            reader = ReaderFactory.newXmlReader( testDocument );
-            writer =
-                WriterFactory.newXmlWriter( getTestOutputFile( "target/test/prettyFormatTestDocumentWriter.xml" ) );
+        try {
+            reader = ReaderFactory.newXmlReader(testDocument);
+            writer = WriterFactory.newXmlWriter(getTestOutputFile("target/test/prettyFormatTestDocumentWriter.xml"));
 
-            assertNotNull( reader );
-            assertNotNull( writer );
+            assertNotNull(reader);
+            assertNotNull(writer);
 
-            XmlUtil.prettyFormat( reader, writer );
-        }
-        finally
-        {
-            IOUtil.close( reader );
-            IOUtil.close( writer );
+            XmlUtil.prettyFormat(reader, writer);
+        } finally {
+            IOUtil.close(reader);
+            IOUtil.close(writer);
         }
     }
 
@@ -138,34 +122,29 @@ public class XmlUtilTest
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatString()
-        throws Exception
-    {
-        File testDocument = new File( getBasedir(), "src/test/resources/testDocument.xhtml" );
-        assertTrue( testDocument.exists() );
+    public void testPrettyFormatString() throws Exception {
+        File testDocument = new File(getBasedir(), "src/test/resources/testDocument.xhtml");
+        assertTrue(testDocument.exists());
 
         Reader reader = null;
         Writer writer = null;
         String content;
-        try
-        {
-            reader = ReaderFactory.newXmlReader( testDocument );
-            content = IOUtil.toString( reader );
+        try {
+            reader = ReaderFactory.newXmlReader(testDocument);
+            content = IOUtil.toString(reader);
 
-            reader = ReaderFactory.newXmlReader( testDocument );
+            reader = ReaderFactory.newXmlReader(testDocument);
             writer = new StringWriter();
-            XmlUtil.prettyFormat( reader, writer );
-        }
-        finally
-        {
-            IOUtil.close( reader );
-            IOUtil.close( writer );
+            XmlUtil.prettyFormat(reader, writer);
+        } finally {
+            IOUtil.close(reader);
+            IOUtil.close(writer);
         }
 
-        assertNotNull( content );
+        assertNotNull(content);
 
-        int countEOL = StringUtils.countMatches( content, XmlUtil.DEFAULT_LINE_SEPARATOR );
-        assertTrue( countEOL < StringUtils.countMatches( writer.toString(), XmlUtil.DEFAULT_LINE_SEPARATOR ) );
+        int countEOL = StringUtils.countMatches(content, XmlUtil.DEFAULT_LINE_SEPARATOR);
+        assertTrue(countEOL < StringUtils.countMatches(writer.toString(), XmlUtil.DEFAULT_LINE_SEPARATOR));
     }
 
     /**
@@ -174,28 +153,23 @@ public class XmlUtilTest
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatReaderWriter2()
-        throws Exception
-    {
-        File testDocument = new File( getBasedir(), "src/test/resources/test.xdoc.xhtml" );
-        assertTrue( testDocument.exists() );
+    public void testPrettyFormatReaderWriter2() throws Exception {
+        File testDocument = new File(getBasedir(), "src/test/resources/test.xdoc.xhtml");
+        assertTrue(testDocument.exists());
 
         Reader reader = null;
         Writer writer = null;
-        try
-        {
-            reader = ReaderFactory.newXmlReader( testDocument );
-            writer = WriterFactory.newXmlWriter( getTestOutputFile( "target/test/prettyFormatTestXdocWriter.xml" ) );
+        try {
+            reader = ReaderFactory.newXmlReader(testDocument);
+            writer = WriterFactory.newXmlWriter(getTestOutputFile("target/test/prettyFormatTestXdocWriter.xml"));
 
-            assertNotNull( reader );
-            assertNotNull( writer );
+            assertNotNull(reader);
+            assertNotNull(writer);
 
-            XmlUtil.prettyFormat( reader, writer );
-        }
-        finally
-        {
-            IOUtil.close( reader );
-            IOUtil.close( writer );
+            XmlUtil.prettyFormat(reader, writer);
+        } finally {
+            IOUtil.close(reader);
+            IOUtil.close(writer);
         }
     }
 }
