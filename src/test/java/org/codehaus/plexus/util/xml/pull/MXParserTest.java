@@ -33,8 +33,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -1485,14 +1483,15 @@ public class MXParserTest {
 
         MXParser parser = new MXParser();
         parser.setInput(new StringReader(ws + xml));
-        assertThat(
-                assertThrows(XmlPullParserException.class, parser::next).getMessage(),
-                containsString("XMLDecl is only allowed as first characters in input"));
+
+        String message;
+        message = assertThrows(XmlPullParserException.class, parser::next).getMessage();
+        assertNotNull(message);
+        assertTrue(message.contains("XMLDecl is only allowed as first characters in input"), message);
 
         parser.setInput(new StringReader(ws + xml));
         assertEquals(XmlPullParser.IGNORABLE_WHITESPACE, parser.nextToken());
-        assertThat(
-                assertThrows(XmlPullParserException.class, parser::nextToken).getMessage(),
-                containsString("processing instruction can not have PITarget with reserved xml name"));
+        message = assertThrows(XmlPullParserException.class, parser::nextToken).getMessage();
+        assertTrue(message.contains("processing instruction can not have PITarget with reserved xml name"), message);
     }
 }
