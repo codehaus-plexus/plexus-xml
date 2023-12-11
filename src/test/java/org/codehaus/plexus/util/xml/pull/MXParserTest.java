@@ -1492,6 +1492,7 @@ public class MXParserTest {
         parser.setInput(new StringReader(ws + xml));
         assertEquals(XmlPullParser.IGNORABLE_WHITESPACE, parser.nextToken());
         message = assertThrows(XmlPullParserException.class, parser::nextToken).getMessage();
+        assertNotNull(message);
         assertTrue(message.contains("processing instruction can not have PITarget with reserved xml name"), message);
     }
 }
