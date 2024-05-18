@@ -943,19 +943,11 @@ public class MXSerializer implements XmlSerializer {
                         // out.write(';');
                         // pos = i + 1;
                     } else {
-                        throw new IllegalStateException(
-                                "character " + Integer.toString(ch) + " is not allowed in output" + getLocation());
-                        // in XML 1.1 legal are [#x1-#xD7FF]
-                        // if(ch > 0) {
-                        // if(i > pos) out.write(text.substring(pos, i));
-                        // out.write("&#");
-                        // out.write(Integer.toString(ch));
-                        // out.write(';');
-                        // pos = i + 1;
-                        // } else {
-                        // throw new IllegalStateException(
-                        // "character zero is not allowed in XML 1.1 output"+getLocation());
-                        // }
+                        if (i > pos) out.write(text.substring(pos, i));
+                        out.write("&#");
+                        out.write(Integer.toString(ch));
+                        out.write(';');
+                        pos = i + 1;
                     }
                 }
                 if (seenBracket) {

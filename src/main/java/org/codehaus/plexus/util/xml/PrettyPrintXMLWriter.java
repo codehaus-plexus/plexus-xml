@@ -186,7 +186,7 @@ public class PrettyPrintXMLWriter implements XMLWriter {
         finishTag();
 
         if (escapeXml) {
-            text = escapeXml(text);
+            text = escapeXmlText(text);
         }
 
         write(StringUtils.unifyLineSeparators(text, lineSeparator));
@@ -228,6 +228,8 @@ public class PrettyPrintXMLWriter implements XMLWriter {
 
     private static final Pattern lowers = Pattern.compile("([\000-\037])");
 
+    private static final Pattern lowersText = Pattern.compile("([\000-\010\013-\014\016-\037])");
+
     private static String escapeXmlAttribute(String text) {
         text = escapeXml(text);
 
@@ -238,6 +240,19 @@ public class PrettyPrintXMLWriter implements XMLWriter {
         }
 
         Matcher m = lowers.matcher(text);
+        StringBuffer b = new StringBuffer();
+        while (m.find()) {
+            m = m.appendReplacement(b, "&#" + Integer.toString(m.group(1).charAt(0)) + ";");
+        }
+        m.appendTail(b);
+
+        return b.toString();
+    }
+
+    private static String escapeXmlText(String text) {
+        text = escapeXml(text);
+
+        Matcher m = lowersText.matcher(text);
         StringBuffer b = new StringBuffer();
         while (m.find()) {
             m = m.appendReplacement(b, "&#" + Integer.toString(m.group(1).charAt(0)) + ";");

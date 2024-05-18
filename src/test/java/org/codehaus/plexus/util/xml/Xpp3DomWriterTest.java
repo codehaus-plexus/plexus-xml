@@ -82,7 +82,11 @@ public class Xpp3DomWriterTest {
         buf.append(LS);
         buf.append("  </el6>");
         buf.append(LS);
-        buf.append("  <el8>special-char-" + (char) 7 + "</el8>");
+        if (escape) {
+            buf.append("  <el8>special-char-&#7;</el8>");
+        } else {
+            buf.append("  <el8>special-char-" + (char) 7 + "</el8>");
+        }
         buf.append(LS);
         buf.append("</root>");
 
