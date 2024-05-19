@@ -83,7 +83,7 @@ public class Xpp3DomWriterTest {
         buf.append("  </el6>");
         buf.append(LS);
         if (escape) {
-            buf.append("  <el8>special-char-&#7;</el8>");
+            buf.append("  <el8>special-char-</el8>");
         } else {
             buf.append("  <el8>special-char-" + (char) 7 + "</el8>");
         }
@@ -101,7 +101,7 @@ public class Xpp3DomWriterTest {
         dom.addChild(el1);
 
         Xpp3Dom el2 = new Xpp3Dom("el2");
-        el2.setAttribute("att2", "attribute2\nnextline");
+        el2.setAttribute("att2", "attribute2\nnextline" + (char) 7);
         dom.addChild(el2);
 
         Xpp3Dom el3 = new Xpp3Dom("el3");

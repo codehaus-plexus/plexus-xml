@@ -943,10 +943,8 @@ public class MXSerializer implements XmlSerializer {
                         // out.write(';');
                         // pos = i + 1;
                     } else {
+                        // skip special char
                         if (i > pos) out.write(text.substring(pos, i));
-                        out.write("&#");
-                        out.write(Integer.toString(ch));
-                        out.write(';');
                         pos = i + 1;
                     }
                 }

@@ -231,7 +231,7 @@ public class PrettyPrintXMLWriter implements XMLWriter {
     private static final Pattern lowersText = Pattern.compile("([\000-\010\013-\014\016-\037])");
 
     private static String escapeXmlAttribute(String text) {
-        text = escapeXml(text);
+        text = escapeXmlText(text);
 
         // Windows
         Matcher crlfmatcher = crlf.matcher(text);
@@ -255,7 +255,7 @@ public class PrettyPrintXMLWriter implements XMLWriter {
         Matcher m = lowersText.matcher(text);
         StringBuffer b = new StringBuffer();
         while (m.find()) {
-            m = m.appendReplacement(b, "&#" + Integer.toString(m.group(1).charAt(0)) + ";");
+            m = m.appendReplacement(b, "");
         }
         m.appendTail(b);
 
