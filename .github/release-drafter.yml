@@ -1,2 +1,3 @@
 _extends: .github
-tag-template: plexus-utils-$NEXT_MINOR_VERSION
+tag-template: plexus-xml-$NEXT_MINOR_VERSION
+filter-by-commitish: true
