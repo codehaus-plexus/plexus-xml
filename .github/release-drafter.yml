@@ -1,5 +1,0 @@
-_extends: .github
-tag-template: plexus-xml-$NEXT_PATCH_VERSION
-version-template: 3.$MINOR.$PATCH
-commitish: 3.x
-filter-by-commitish: true
