@@ -854,6 +854,9 @@ public class MXSerializer implements XmlSerializer {
     // --- utility methods
 
     protected void writeAttributeValue(String value, Writer out) throws IOException {
+        if (value == null) {
+            return;
+        }
         // .[apostrophe and <, & escaped],
         final char quot = attributeUseApostrophe ? '\'' : '"';
         final String quotEntity = attributeUseApostrophe ? "&apos;" : "&quot;";
@@ -908,6 +911,9 @@ public class MXSerializer implements XmlSerializer {
     }
 
     protected void writeElementContent(String text, Writer out) throws IOException {
+        if (text == null) {
+            return;
+        }
         // escape '<', '&', ']]>', <32 if necessary
         int pos = 0;
         for (int i = 0; i < text.length(); i++) {
