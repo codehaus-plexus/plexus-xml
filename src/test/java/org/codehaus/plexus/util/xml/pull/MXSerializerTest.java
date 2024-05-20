@@ -1,5 +1,6 @@
 package org.codehaus.plexus.util.xml.pull;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -54,5 +55,20 @@ class MXSerializerTest {
         out.append("<char>SHIFT IN: </char>");
         out.append("</root>");
         return out.toString();
+    }
+
+    /**
+     * Tests MJAVADOC-793.
+     */
+    @Test
+    public void testWriteNullValues() throws IOException {
+        // should be no-ops
+        new MXSerializer().writeElementContent(null, null);
+        new MXSerializer().writeAttributeValue(null, null);
+        final StringWriter stringWriter = new StringWriter();
+        new MXSerializer().writeElementContent(null, stringWriter);
+        assertEquals("", stringWriter.toString());
+        new MXSerializer().writeAttributeValue(null, stringWriter);
+        assertEquals("", stringWriter.toString());
     }
 }
