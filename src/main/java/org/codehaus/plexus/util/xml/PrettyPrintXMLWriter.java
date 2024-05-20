@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 /**
  * <p>Implementation of XMLWriter which emits nicely formatted documents.</p>
  *
- * <p>C0 controls chars are omitted from output</p>
+ * <p>C0n control characters except <code>\n</code>, <code>\r</code>, and <code>\t</code> are omitted from output</p>
  */
 public class PrettyPrintXMLWriter implements XMLWriter {
     /** Line separator ("\n" on UNIX) */
