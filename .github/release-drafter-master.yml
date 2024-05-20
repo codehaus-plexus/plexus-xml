@@ -1,4 +1,4 @@
-_extends: .github
+_extends: .github:.github/release-drafter.yml
 name-template: '4.$MINOR.$PATCH'
 tag-template: 'plexus-xml-4.$MINOR.$PATCH'
 version-template: '4.$MINOR.$PATCH'
