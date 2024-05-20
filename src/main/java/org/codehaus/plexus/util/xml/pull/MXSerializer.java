@@ -24,6 +24,7 @@ import java.io.Writer;
  * <li>PROPERTY_SERIALIZER_INDENTATION
  * <li>PROPERTY_SERIALIZER_LINE_SEPARATOR
  * </ul>
+ * <p>C0 controls chars are omitted from output</p>
  */
 public class MXSerializer implements XmlSerializer {
     protected static final String XML_URI = "http://www.w3.org/XML/1998/namespace";

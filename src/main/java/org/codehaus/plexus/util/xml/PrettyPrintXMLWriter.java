@@ -24,9 +24,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Implementation of XMLWriter which emits nicely formatted documents.
+ * <p>Implementation of XMLWriter which emits nicely formatted documents.</p>
  *
- *
+ * <p>C0 controls chars are omitted from output</p>
  */
 public class PrettyPrintXMLWriter implements XMLWriter {
     /** Line separator ("\n" on UNIX) */
@@ -226,9 +226,9 @@ public class PrettyPrintXMLWriter implements XMLWriter {
 
     private static final Pattern crlf = Pattern.compile(crlf_str);
 
-    private static final Pattern lowers = Pattern.compile("([\000-\037])");
+    private static final Pattern lowers = Pattern.compile("([\\x00-\\x1F])");
 
-    private static final Pattern lowersText = Pattern.compile("([\000-\010\013-\014\016-\037])");
+    private static final Pattern illegalC0Characters = Pattern.compile("([\\x00-\\x08\\x0B-\\x0C\\x0E-\\x1F])");
 
     private static String escapeXmlAttribute(String text) {
         text = escapeXmlText(text);
@@ -252,12 +252,12 @@ public class PrettyPrintXMLWriter implements XMLWriter {
     private static String escapeXmlText(String text) {
         text = escapeXml(text);
 
-        Matcher m = lowersText.matcher(text);
+        Matcher matcher = illegalC0Characters.matcher(text);
         StringBuffer b = new StringBuffer();
-        while (m.find()) {
-            m = m.appendReplacement(b, "");
+        while (matcher.find()) {
+            matcher = matcher.appendReplacement(b, "");
         }
-        m.appendTail(b);
+        matcher.appendTail(b);
 
         return b.toString();
     }

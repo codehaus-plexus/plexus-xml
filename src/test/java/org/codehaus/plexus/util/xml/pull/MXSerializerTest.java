@@ -47,11 +47,11 @@ class MXSerializerTest {
         out.append("<?xml version=\"1.0\" standalone=\"yes\"?>");
         out.append("<root>");
         out.append("<char>BACKSPACE: </char>");
-        out.append("<char>CHARACTER TABULATION: \t");
-        out.append("</char><char>LINE FEED (LF): \n");
-        out.append("</char><char>LINE TABULATION: </char>");
-        out.append("<char>CARRIAGE RETURN (CR): \r");
-        out.append("</char><char>SHIFT IN: </char>");
+        out.append("<char>CHARACTER TABULATION: \t</char>");
+        out.append("<char>LINE FEED (LF): \n</char>");
+        out.append("<char>LINE TABULATION: </char>");
+        out.append("<char>CARRIAGE RETURN (CR): \r</char>");
+        out.append("<char>SHIFT IN: </char>");
         out.append("</root>");
         return out.toString();
     }
