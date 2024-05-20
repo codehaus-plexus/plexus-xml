@@ -24,9 +24,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Implementation of XMLWriter which emits nicely formatted documents.
+ * <p>Implementation of XMLWriter which emits nicely formatted documents.</p>
  *
- *
+ * <p>C0n control characters except <code>\n</code>, <code>\r</code>, and <code>\t</code> are omitted from output</p>
  */
 public class PrettyPrintXMLWriter implements XMLWriter {
     /** Line separator ("\n" on UNIX) */
@@ -186,7 +186,7 @@ public class PrettyPrintXMLWriter implements XMLWriter {
         finishTag();
 
         if (escapeXml) {
-            text = escapeXml(text);
+            text = escapeXmlText(text);
         }
 
         write(StringUtils.unifyLineSeparators(text, lineSeparator));
@@ -226,10 +226,12 @@ public class PrettyPrintXMLWriter implements XMLWriter {
 
     private static final Pattern crlf = Pattern.compile(crlf_str);
 
-    private static final Pattern lowers = Pattern.compile("([\000-\037])");
+    private static final Pattern lowers = Pattern.compile("([\\x00-\\x1F])");
+
+    private static final Pattern illegalC0Characters = Pattern.compile("([\\x00-\\x08\\x0B-\\x0C\\x0E-\\x1F])");
 
     private static String escapeXmlAttribute(String text) {
-        text = escapeXml(text);
+        text = escapeXmlText(text);
 
         // Windows
         Matcher crlfmatcher = crlf.matcher(text);
@@ -243,6 +245,19 @@ public class PrettyPrintXMLWriter implements XMLWriter {
             m = m.appendReplacement(b, "&#" + Integer.toString(m.group(1).charAt(0)) + ";");
         }
         m.appendTail(b);
+
+        return b.toString();
+    }
+
+    private static String escapeXmlText(String text) {
+        text = escapeXml(text);
+
+        Matcher matcher = illegalC0Characters.matcher(text);
+        StringBuffer b = new StringBuffer();
+        while (matcher.find()) {
+            matcher = matcher.appendReplacement(b, "");
+        }
+        matcher.appendTail(b);
 
         return b.toString();
     }
