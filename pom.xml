@@ -32,7 +32,7 @@ limitations under the License.
 
   <scm>
     <connection>scm:git:https://github.com/codehaus-plexus/plexus-xml.git</connection>
-    <developerConnection>scm:git:https://github.com/codehaus-plexus/plexus-xml.git</developerConnection>
+    <developerConnection>${project.scm.connection}</developerConnection>
     <tag>3.x</tag>
     <url>https://github.com/codehaus-plexus/plexus-xml/tree/${project.scm.tag}/</url>
   </scm>
@@ -53,12 +53,6 @@ limitations under the License.
 
   <dependencies>
     <dependency>
-      <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-utils</artifactId>
-      <version>4.0.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-core</artifactId>
       <version>1.37</version>
@@ -71,9 +65,14 @@ limitations under the License.
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.2</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>4.0.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

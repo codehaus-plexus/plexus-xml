@@ -21,12 +21,11 @@ import java.io.OutputStream;
 import java.io.Writer;
 
 import org.codehaus.plexus.util.StringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * <p>XmlWriterUtilTest class.</p>
@@ -47,7 +46,7 @@ public class XmlWriterUtilTest {
      *
      * @throws java.lang.Exception if any.
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         output = new ByteArrayOutputStream();
         writer = WriterFactory.newXmlWriter(output);
@@ -59,7 +58,7 @@ public class XmlWriterUtilTest {
      *
      * @throws java.lang.Exception if any.
      */
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         xmlWriter = null;
         writer = null;

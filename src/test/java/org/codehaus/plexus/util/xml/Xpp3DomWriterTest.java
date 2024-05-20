@@ -18,9 +18,9 @@ package org.codehaus.plexus.util.xml;
 
 import java.io.StringWriter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <p>Xpp3DomWriterTest class.</p>
@@ -41,7 +41,7 @@ public class Xpp3DomWriterTest {
 
         Xpp3DomWriter.write(writer, createXpp3Dom());
 
-        assertEquals("Check if output matches", createExpectedXML(true), writer.toString());
+        assertEquals(createExpectedXML(true), writer.toString(), "Check if output matches");
     }
 
     /**
@@ -53,7 +53,7 @@ public class Xpp3DomWriterTest {
 
         Xpp3DomWriter.write(new PrettyPrintXMLWriter(writer), createXpp3Dom(), false);
 
-        assertEquals("Check if output matches", createExpectedXML(false), writer.toString());
+        assertEquals(createExpectedXML(false), writer.toString(), "Check if output matches");
     }
 
     private String createExpectedXML(boolean escape) {

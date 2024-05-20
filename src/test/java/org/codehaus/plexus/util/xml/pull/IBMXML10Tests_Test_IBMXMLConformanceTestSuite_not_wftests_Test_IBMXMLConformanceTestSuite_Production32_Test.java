@@ -5,11 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test class that execute a particular set of tests associated to a TESCASES tag from the XML W3C Conformance Tests.
@@ -30,7 +30,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     /**
      * <p>setUp.</p>
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         parser = new MXParser();
     }
