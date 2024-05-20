@@ -1,6 +1,6 @@
 _extends: .github:.github/release-drafter.yml
-name-template: '4.$MINOR.$PATCH'
-tag-template: 'plexus-xml-4.$MINOR.$PATCH'
-version-template: '4.$MINOR.$PATCH'
-commitish: 'master'
+name-template: 4.$MINOR.$PATCH'
+tag-template: plexus-xml-4.$MINOR.$PATCH
+version-template: 4.$MINOR.$PATCH
+commitish: master
 filter-by-commitish: true
