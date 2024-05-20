@@ -24,6 +24,7 @@ import java.io.Writer;
  * <li>PROPERTY_SERIALIZER_INDENTATION
  * <li>PROPERTY_SERIALIZER_LINE_SEPARATOR
  * </ul>
+ * <p>C0n control characters except <code>\n</code>, <code>\r</code>, and <code>\t</code> are omitted from output</p>
  */
 public class MXSerializer implements XmlSerializer {
     protected static final String XML_URI = "http://www.w3.org/XML/1998/namespace";
@@ -943,19 +944,9 @@ public class MXSerializer implements XmlSerializer {
                         // out.write(';');
                         // pos = i + 1;
                     } else {
-                        throw new IllegalStateException(
-                                "character " + Integer.toString(ch) + " is not allowed in output" + getLocation());
-                        // in XML 1.1 legal are [#x1-#xD7FF]
-                        // if(ch > 0) {
-                        // if(i > pos) out.write(text.substring(pos, i));
-                        // out.write("&#");
-                        // out.write(Integer.toString(ch));
-                        // out.write(';');
-                        // pos = i + 1;
-                        // } else {
-                        // throw new IllegalStateException(
-                        // "character zero is not allowed in XML 1.1 output"+getLocation());
-                        // }
+                        // skip special char
+                        if (i > pos) out.write(text.substring(pos, i));
+                        pos = i + 1;
                     }
                 }
                 if (seenBracket) {
