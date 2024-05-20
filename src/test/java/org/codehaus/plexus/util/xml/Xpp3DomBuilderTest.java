@@ -23,11 +23,9 @@ import java.io.StringWriter;
 import org.codehaus.plexus.util.xml.pull.MXParser;
 import org.codehaus.plexus.util.xml.pull.XmlPullParser;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test the Xpp3DomBuilder.
@@ -52,7 +50,7 @@ public class Xpp3DomBuilderTest {
 
         Xpp3Dom expectedDom = createExpectedDom();
 
-        assertEquals("check DOMs match", expectedDom, dom);
+        assertEquals(expectedDom, dom, "check DOMs match");
     }
 
     /**
@@ -66,12 +64,11 @@ public class Xpp3DomBuilderTest {
 
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(domString), true);
 
-        assertEquals("test with trimming on", "element1", dom.getChild("el1").getValue());
+        assertEquals("element1", dom.getChild("el1").getValue(), "test with trimming on");
 
         dom = Xpp3DomBuilder.build(new StringReader(domString), false);
 
-        assertEquals(
-                "test with trimming off", " element1\n ", dom.getChild("el1").getValue());
+        assertEquals(" element1\n ", dom.getChild("el1").getValue(), "test with trimming off");
     }
 
     /**
@@ -116,10 +113,10 @@ public class Xpp3DomBuilderTest {
             eventType = parser.next();
         }
 
-        assertEquals("Check DOM matches", expectedDom, dom);
-        assertFalse("Check closing root was consumed", rootClosed);
-        assertTrue("Check continued to parse configuration", configurationClosed);
-        assertTrue("Check continued to parse newRoot", newRootClosed);
+        assertEquals(expectedDom, dom, "Check DOM matches");
+        assertFalse(rootClosed, "Check closing root was consumed");
+        assertTrue(configurationClosed, "Check continued to parse configuration");
+        assertTrue(newRootClosed, "Check continued to parse newRoot");
     }
 
     /**
@@ -149,15 +146,13 @@ public class Xpp3DomBuilderTest {
     public void testEscapingInContent() throws IOException, XmlPullParserException {
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(getEncodedString()));
 
-        assertEquals("Check content value", "\"text\"", dom.getChild("el").getValue());
-        assertEquals(
-                "Check content value", "<b>\"text\"</b>", dom.getChild("ela").getValue());
-        assertEquals(
-                "Check content value", "<b>\"text\"</b>", dom.getChild("elb").getValue());
+        assertEquals("\"text\"", dom.getChild("el").getValue(), "Check content value");
+        assertEquals("<b>\"text\"</b>", dom.getChild("ela").getValue(), "Check content value");
+        assertEquals("<b>\"text\"</b>", dom.getChild("elb").getValue(), "Check content value");
 
         StringWriter w = new StringWriter();
         Xpp3DomWriter.write(w, dom);
-        assertEquals("Compare stringified DOMs", getExpectedString(), w.toString());
+        assertEquals(getExpectedString(), w.toString(), "Compare stringified DOMs");
     }
 
     /**
@@ -171,12 +166,12 @@ public class Xpp3DomBuilderTest {
         String s = getAttributeEncodedString();
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(s));
 
-        assertEquals("Check attribute value", "<foo>", dom.getChild("el").getAttribute("att"));
+        assertEquals("<foo>", dom.getChild("el").getAttribute("att"), "Check attribute value");
 
         StringWriter w = new StringWriter();
         Xpp3DomWriter.write(w, dom);
         String newString = w.toString();
-        assertEquals("Compare stringified DOMs", newString, s);
+        assertEquals(newString, s, "Compare stringified DOMs");
     }
 
     /**
@@ -194,16 +189,16 @@ public class Xpp3DomBuilderTest {
         };
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(createDomString()), true, ilb);
         Xpp3Dom expectedDom = createExpectedDom();
-        assertEquals("root input location", expectedDom.getInputLocation(), dom.getInputLocation());
+        assertEquals(expectedDom.getInputLocation(), dom.getInputLocation(), "root input location");
         for (int i = 0; i < dom.getChildCount(); i++) {
             Xpp3Dom elt = dom.getChild(i);
             Xpp3Dom expectedElt = expectedDom.getChild(i);
-            assertEquals(elt.getName() + " input location", expectedElt.getInputLocation(), elt.getInputLocation());
+            assertEquals(expectedElt.getInputLocation(), elt.getInputLocation(), elt.getName() + " input location");
 
             if ("el2".equals(elt.getName())) {
                 Xpp3Dom el3 = elt.getChild(0);
                 Xpp3Dom expectedEl3 = expectedElt.getChild(0);
-                assertEquals(el3.getName() + " input location", expectedEl3.getInputLocation(), el3.getInputLocation());
+                assertEquals(expectedEl3.getInputLocation(), el3.getInputLocation(), el3.getName() + " input location");
             }
         }
     }

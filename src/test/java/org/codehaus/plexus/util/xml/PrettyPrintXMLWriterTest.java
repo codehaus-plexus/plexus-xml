@@ -26,13 +26,13 @@ import java.nio.file.Files;
 import java.util.NoSuchElementException;
 
 import org.codehaus.plexus.util.StringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test of {@link org.codehaus.plexus.util.xml.PrettyPrintXMLWriter}
@@ -50,7 +50,7 @@ public class PrettyPrintXMLWriterTest {
     /**
      * <p>setUp.</p>
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         initWriter();
     }
@@ -58,7 +58,7 @@ public class PrettyPrintXMLWriterTest {
     /**
      * <p>tearDown.</p>
      */
-    @After
+    @AfterEach
     public void tearDown() {
         writer = null;
         w = null;
@@ -175,7 +175,7 @@ public class PrettyPrintXMLWriterTest {
     public void testIssue51DetectJava7ConcatenationBug() throws IOException {
         File dir = new File("target/test-xml");
         if (!dir.exists()) {
-            assertTrue("cannot create directory test-xml", dir.mkdir());
+            assertTrue(dir.mkdir(), "cannot create directory test-xml");
         }
         File xmlFile = new File(dir, "test-issue-51.xml");
         OutputStreamWriter osw = new OutputStreamWriter(Files.newOutputStream(xmlFile.toPath()), "UTF-8");
