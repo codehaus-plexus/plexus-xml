@@ -24,7 +24,7 @@ limitations under the License.
   </parent>
 
   <artifactId>plexus-xml</artifactId>
-  <version>3.0.1</version>
+  <version>3.0.2-SNAPSHOT</version>
 
   <name>Plexus XML Utilities</name>
   <description>A collection of various utility classes to ease working with XML in Maven 3.</description>
@@ -33,7 +33,7 @@ limitations under the License.
   <scm>
     <connection>scm:git:https://github.com/codehaus-plexus/plexus-xml.git</connection>
     <developerConnection>${project.scm.connection}</developerConnection>
-    <tag>plexus-xml-3.0.1</tag>
+    <tag>3.x</tag>
     <url>https://github.com/codehaus-plexus/plexus-xml/tree/${project.scm.tag}/</url>
   </scm>
   <issueManagement>
@@ -48,7 +48,7 @@ limitations under the License.
   </distributionManagement>
 
   <properties>
-    <project.build.outputTimestamp>2024-05-21T21:11:54Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2024-05-21T21:12:10Z</project.build.outputTimestamp>
   </properties>
 
   <dependencies>
