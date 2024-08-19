@@ -4,6 +4,7 @@ Plexus-Xml
 [![Build Status](https://github.com/codehaus-plexus/plexus-xml/actions/workflows/maven.yml/badge.svg)](https://github.com/codehaus-plexus/plexus-xml/actions)
 [![Maven Central](https://img.shields.io/maven-central/v/org.codehaus.plexus/plexus-xml.svg?label=Maven%20Central&versionPrefix=3.)](https://search.maven.org/artifact/org.codehaus.plexus/plexus-xml)
 [![Maven Central](https://img.shields.io/maven-central/v/org.codehaus.plexus/plexus-xml.svg?label=Maven%20Central)](https://search.maven.org/artifact/org.codehaus.plexus/plexus-xml)
+[![Reproducible Builds](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/jvm-repo-rebuild/reproducible-central/master/content/org/codehaus/plexus/plexus-xml/badge.json)](https://github.com/jvm-repo-rebuild/reproducible-central/blob/master/content/org/codehaus/plexus/plexus-xml/README.md)
 
 This library consists of XML classes (`org.codehaus.plexus.util.xml` and `org.codehaus.plexus.util.xml.pull`) that:
 
