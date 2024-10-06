@@ -1,4 +1,4 @@
-## Plexus XML Utilities
+# Plexus XML Utilities
 
 A collection of various utility classes to ease working with XML.
 
