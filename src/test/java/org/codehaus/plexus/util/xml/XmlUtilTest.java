@@ -25,10 +25,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 
-import org.codehaus.plexus.util.IOUtil;
-import org.codehaus.plexus.util.StringUtils;
 import org.junit.jupiter.api.Test;
 
+import static org.codehaus.plexus.util.xml.TestUtils.readAllFrom;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -116,18 +115,20 @@ public class XmlUtilTest {
 
         String content;
         try (Reader reader = new XmlStreamReader(testDocument)) {
-            content = IOUtil.toString(reader);
+            content = readAllFrom(reader);
         }
 
-        Writer writer = new StringWriter();
+        String contentPretty;
         try (Reader reader = new XmlStreamReader(testDocument)) {
+            Writer writer = new StringWriter();
             XmlUtil.prettyFormat(reader, writer);
+            contentPretty = writer.toString();
         }
 
         assertNotNull(content);
 
-        int countEOL = StringUtils.countMatches(content, XmlUtil.DEFAULT_LINE_SEPARATOR);
-        assertTrue(countEOL < StringUtils.countMatches(writer.toString(), XmlUtil.DEFAULT_LINE_SEPARATOR));
+        int countEOL = TestUtils.countMatches(content, XmlUtil.DEFAULT_LINE_SEPARATOR);
+        assertTrue(countEOL < TestUtils.countMatches(contentPretty, XmlUtil.DEFAULT_LINE_SEPARATOR));
     }
 
     /**

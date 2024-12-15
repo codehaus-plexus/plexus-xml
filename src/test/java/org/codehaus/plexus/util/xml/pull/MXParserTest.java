@@ -27,13 +27,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.XmlStreamReader;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.codehaus.plexus.util.xml.TestUtils.readAllFrom;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -222,7 +221,7 @@ class MXParserTest {
                 "<root>&#x9;&#xA;&#xD;&#x20;&#x200;&#xD7FF;&#xE000;&#xFFA2;&#xFFFD;&#x10000;&#x10FFFD;&#x10FFFF;</root>";
         parser.setInput(new StringReader(input));
 
-        Assertions.assertDoesNotThrow(
+        assertDoesNotThrow(
                 () -> {
                     assertEquals(XmlPullParser.START_TAG, parser.nextToken());
                     assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
@@ -286,7 +285,7 @@ class MXParserTest {
                 "<root>&#9;&#10;&#13;&#32;&#512;&#55295;&#57344;&#65442;&#65533;&#65536;&#1114109;&#1114111;</root>";
         parser.setInput(new StringReader(input));
 
-        Assertions.assertDoesNotThrow(
+        assertDoesNotThrow(
                 () -> {
                     assertEquals(XmlPullParser.START_TAG, parser.nextToken());
                     assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
@@ -821,7 +820,7 @@ class MXParserTest {
         MXParser parser = new MXParser();
         parser.setInput(new StringReader(input));
 
-        Assertions.assertDoesNotThrow(
+        assertDoesNotThrow(
                 () -> {
                     assertEquals(XmlPullParser.PROCESSING_INSTRUCTION, parser.nextToken());
                     assertEquals(XmlPullParser.START_TAG, parser.nextToken());
@@ -850,7 +849,7 @@ class MXParserTest {
     }
 
     /**
-     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">Issue 163</a>
      *
      * @throws IOException if IO error.
      *
@@ -870,7 +869,7 @@ class MXParserTest {
     }
 
     /**
-     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">Issue 163</a>
      *
      * @throws IOException if IO error.
      *
@@ -891,8 +890,8 @@ class MXParserTest {
     }
 
     /**
-     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
-     *
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">Issue 163</a>
+     * <p>
      * Another case of bug #163: File encoding information is lost after the input file is copied to a String.
      *
      * @throws IOException if IO error.
@@ -903,10 +902,10 @@ class MXParserTest {
     void encodingISO88591StringReader() throws IOException {
         String xmlFileContents;
         try (Reader reader = new XmlStreamReader(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
-            xmlFileContents = IOUtil.toString(reader);
+            xmlFileContents = readAllFrom(reader);
         }
 
-        Assertions.assertDoesNotThrow(
+        assertDoesNotThrow(
                 () -> {
                     MXParser parser = new MXParser();
                     parser.setInput(new StringReader(xmlFileContents));
@@ -918,7 +917,7 @@ class MXParserTest {
     }
 
     /**
-     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">Issue 163</a>
      *
      * Another case of bug #163: Reader generated with ReaderFactory.newReader and the right file encoding.
      *
@@ -945,7 +944,7 @@ class MXParserTest {
     }
 
     /**
-     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">Issue 163</a>
      *
      * Another case of bug #163: InputStream supplied with the right file encoding.
      *
@@ -968,7 +967,7 @@ class MXParserTest {
     }
 
     /**
-     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">Issue 163</a>
      *
      * @throws IOException if IO error.
      *
@@ -1044,7 +1043,7 @@ class MXParserTest {
         parser.setInput(new StringReader(input));
         parser.defineEntityReplacementText("myentity", "replacement");
 
-        Assertions.assertDoesNotThrow(
+        assertDoesNotThrow(
                 () -> {
                     assertEquals(XmlPullParser.START_TAG, parser.nextToken());
                     assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
@@ -1283,7 +1282,7 @@ class MXParserTest {
         sb.append("]>").append(newLine);
         sb.append("<b>&foo;&foo1;&foo2;&tritPos;</b>");
 
-        Assertions.assertDoesNotThrow(
+        assertDoesNotThrow(
                 () -> {
                     MXParser parser = new MXParser();
                     parser.setInput(new StringReader(sb.toString()));
@@ -1337,7 +1336,7 @@ class MXParserTest {
     void entityReplacement() throws IOException {
         String input = "<p><!-- a pagebreak: --><!-- PB -->&#160;&nbsp;<unknown /></p>";
 
-        Assertions.assertDoesNotThrow(
+        assertDoesNotThrow(
                 () -> {
                     MXParser parser = new MXParser();
                     parser.setInput(new StringReader(input));
@@ -1381,7 +1380,7 @@ class MXParserTest {
         String input = "<!DOCTYPE test [<!ENTITY foo \"&#x159;\"><!ENTITY tritPos  \"&#x1d7ed;\">]>"
                 + "<section name=\"&amp;&foo;&tritPos;\"><p>&amp;&foo;&tritPos;</p></section>";
 
-        Assertions.assertDoesNotThrow(
+        assertDoesNotThrow(
                 () -> {
                     MXParser parser = new MXParser();
                     parser.setInput(new StringReader(new String(input.getBytes(), "ISO-8859-1")));
