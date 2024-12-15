@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MXSerializerTest {
 
     @Test
-    void testSerialize() throws Exception {
+    void serialize() throws Exception {
 
         StringWriter writer = new StringWriter();
 
@@ -33,7 +33,7 @@ class MXSerializerTest {
     }
 
     @Test
-    void testDeserialize() throws Exception {
+    void deserialize() throws Exception {
         MXParser parser = new MXParser();
         parser.setInput(new StringReader(expectedOutput()));
         int eventType = parser.getEventType();
@@ -44,24 +44,21 @@ class MXSerializerTest {
     }
 
     private String expectedOutput() {
-        StringBuilder out = new StringBuilder();
-        out.append("<?xml version=\"1.0\" standalone=\"yes\"?>");
-        out.append("<root>");
-        out.append("<char>BACKSPACE: </char>");
-        out.append("<char>CHARACTER TABULATION: \t</char>");
-        out.append("<char>LINE FEED (LF): \n</char>");
-        out.append("<char>LINE TABULATION: </char>");
-        out.append("<char>CARRIAGE RETURN (CR): \r</char>");
-        out.append("<char>SHIFT IN: </char>");
-        out.append("</root>");
-        return out.toString();
+        return "<?xml version=\"1.0\" standalone=\"yes\"?>" + "<root>"
+                + "<char>BACKSPACE: </char>"
+                + "<char>CHARACTER TABULATION: \t</char>"
+                + "<char>LINE FEED (LF): \n</char>"
+                + "<char>LINE TABULATION: </char>"
+                + "<char>CARRIAGE RETURN (CR): \r</char>"
+                + "<char>SHIFT IN: </char>"
+                + "</root>";
     }
 
     /**
      * Tests MJAVADOC-793.
      */
     @Test
-    public void testWriteNullValues() throws IOException {
+    void writeNullValues() throws IOException {
         // should be no-ops
         new MXSerializer().writeElementContent(null, null);
         new MXSerializer().writeAttributeValue(null, null);

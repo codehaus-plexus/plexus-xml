@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @version $Id: $Id
  * @since 3.4.0
  */
-public class XmlStreamWriterTest {
+class XmlStreamWriterTest {
     /** french */
     private static final String TEXT_LATIN1 = "eacute: \u00E9";
 
@@ -61,8 +61,7 @@ public class XmlStreamWriterTest {
         XmlStreamWriter writer = new XmlStreamWriter(out);
         writer.write(xml);
         writer.close();
-        byte[] xmlContent = out.toByteArray();
-        String result = new String(xmlContent, encoding);
+        String result = out.toString(encoding);
         assertEquals(xml, result);
     }
 
@@ -78,7 +77,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testNoXmlHeader() throws IOException {
+    void noXmlHeader() throws IOException {
         String xml = "<text>text with no XML header</text>";
         checkXmlContent(xml, "UTF-8");
     }
@@ -89,7 +88,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testEmpty() throws IOException {
+    void empty() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         XmlStreamWriter writer = new XmlStreamWriter(out);
         writer.flush();
@@ -106,7 +105,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testDefaultEncoding() throws IOException {
+    void defaultEncoding() throws IOException {
         checkXmlWriter(TEXT_UNICODE, null);
     }
 
@@ -116,7 +115,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testUTF8Encoding() throws IOException {
+    void utf8Encoding() throws IOException {
         checkXmlWriter(TEXT_UNICODE, "UTF-8");
     }
 
@@ -126,7 +125,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testUTF16Encoding() throws IOException {
+    void utf16Encoding() throws IOException {
         checkXmlWriter(TEXT_UNICODE, "UTF-16");
     }
 
@@ -136,7 +135,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testUTF16BEEncoding() throws IOException {
+    void utf16beEncoding() throws IOException {
         checkXmlWriter(TEXT_UNICODE, "UTF-16BE");
     }
 
@@ -146,7 +145,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testUTF16LEEncoding() throws IOException {
+    void utf16leEncoding() throws IOException {
         checkXmlWriter(TEXT_UNICODE, "UTF-16LE");
     }
 
@@ -156,7 +155,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testLatin1Encoding() throws IOException {
+    void latin1Encoding() throws IOException {
         checkXmlWriter(TEXT_LATIN1, "ISO-8859-1");
     }
 
@@ -166,7 +165,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testLatin7Encoding() throws IOException {
+    void latin7Encoding() throws IOException {
         checkXmlWriter(TEXT_LATIN7, "ISO-8859-7");
     }
 
@@ -176,7 +175,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testLatin15Encoding() throws IOException {
+    void latin15Encoding() throws IOException {
         checkXmlWriter(TEXT_LATIN15, "ISO-8859-15");
     }
 
@@ -186,7 +185,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testEUC_JPEncoding() throws IOException {
+    void euc_jpEncoding() throws IOException {
         checkXmlWriter(TEXT_EUC_JP, "EUC-JP");
     }
 
@@ -196,7 +195,7 @@ public class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testEBCDICEncoding() throws IOException {
+    void ebcdicEncoding() throws IOException {
         checkXmlWriter("simple text in EBCDIC", "CP1047");
     }
 }
