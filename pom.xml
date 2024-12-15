@@ -70,12 +70,6 @@ limitations under the License.
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-utils</artifactId>
-      <version>4.0.2</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <build>

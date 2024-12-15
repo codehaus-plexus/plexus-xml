@@ -189,18 +189,11 @@ class Xpp3DomTest {
     @Test
     void nullAttributeNameOrValue() {
         Xpp3Dom t1 = new Xpp3Dom("top");
-        try {
-            t1.setAttribute("attr", null);
-            fail("null attribute values shouldn't be allowed");
-        } catch (NullPointerException e) {
-        }
-        t1.toString();
-        try {
-            t1.setAttribute(null, "value");
-            fail("null attribute names shouldn't be allowed");
-        } catch (NullPointerException e) {
-        }
-        t1.toString();
+        assertThrows(NullPointerException.class, () -> t1.setAttribute("attr", null));
+        assertNotNull(t1.toString());
+
+        assertThrows(NullPointerException.class, () -> t1.setAttribute(null, "value"));
+        assertNotNull(t1.toString());
     }
 
     /**
@@ -227,20 +220,14 @@ class Xpp3DomTest {
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(testDom));
         Xpp3Dom dom2 = Xpp3DomBuilder.build(new StringReader(testDom));
 
-        try {
-            dom2.attributes = new HashMap<>();
-            dom2.attributes.put("nullValue", null);
-            dom2.attributes.put(null, "nullKey");
-            dom2.childList.clear();
-            dom2.childList.add(null);
+        dom2.attributes = new HashMap<>();
+        dom2.attributes.put("nullValue", null);
+        dom2.attributes.put(null, "nullKey");
+        dom2.childList.clear();
+        dom2.childList.add(null);
 
-            assertNotEquals(dom, dom2);
-            assertNotEquals(dom2, dom);
-
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-            fail("\nNullPointerExceptions should not be thrown.");
-        }
+        assertNotEquals(dom, dom2);
+        assertNotEquals(dom2, dom);
     }
 
     /**
