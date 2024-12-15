@@ -26,7 +26,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.NoSuchElementException;
 
-import org.codehaus.plexus.util.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -165,7 +164,7 @@ class PrettyPrintXMLWriterTest {
     }
 
     /**
-     * Issue #51: https://github.com/codehaus-plexus/plexus-utils/issues/51 Purpose: test if concatenation string
+     * Issue #51: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/51">Issue 51</a> Purpose: test if concatenation string
      * optimization bug is present. Target environment: Java 7 (u79 and u80 verified) running on Windows. Detection
      * strategy: Tries to build a big XML file (~750MB size) and with many nested tags to force the JVM to trigger the
      * concatenation string optimization bug that throws a NoSuchElementException when calling endElement() method.
@@ -232,34 +231,29 @@ class PrettyPrintXMLWriterTest {
     }
 
     private String expectedResult(String lineIndenter, String lineSeparator) {
-        StringBuilder expected = new StringBuilder();
-
-        expected.append("<html>").append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 1)).append("<head>").append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2))
-                .append("<title>title</title>")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2))
-                .append("<meta name=\"author\" content=\"Author\"/>")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2))
-                .append("<meta name=\"date\" content=\"Date\"/>")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 1)).append("</head>").append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 1)).append("<body>").append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2))
-                .append("<p>Paragraph 1, line 1. Paragraph 1, line 2.</p>")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2))
-                .append("<div class=\"section\">")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 3))
-                .append("<h2>Section title</h2>")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2)).append("</div>").append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 1)).append("</body>").append(lineSeparator);
-        expected.append("</html>");
-
-        return expected.toString();
+        return "<html>" + lineSeparator + lineIndenter
+                + "<head>" + lineSeparator + lineIndenter
+                + lineIndenter + "<title>title</title>"
+                + lineSeparator
+                + lineIndenter
+                + lineIndenter + "<meta name=\"author\" content=\"Author\"/>"
+                + lineSeparator
+                + lineIndenter
+                + lineIndenter + "<meta name=\"date\" content=\"Date\"/>"
+                + lineSeparator
+                + lineIndenter
+                + "</head>" + lineSeparator + lineIndenter
+                + "<body>" + lineSeparator + lineIndenter
+                + lineIndenter + "<p>Paragraph 1, line 1. Paragraph 1, line 2.</p>"
+                + lineSeparator
+                + lineIndenter
+                + lineIndenter + "<div class=\"section\">"
+                + lineSeparator
+                + lineIndenter
+                + lineIndenter + lineIndenter + "<h2>Section title</h2>"
+                + lineSeparator
+                + lineIndenter
+                + lineIndenter + "</div>" + lineSeparator + lineIndenter
+                + "</body>" + lineSeparator + "</html>";
     }
 }

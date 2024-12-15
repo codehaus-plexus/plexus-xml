@@ -21,10 +21,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.SequenceInputStream;
 
-import org.codehaus.plexus.util.IOUtil;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
+import static org.codehaus.plexus.util.xml.TestUtils.readAllFrom;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -68,8 +68,7 @@ class XmlStreamReaderTest {
         if (encoding != null) {
             xmlDecl = "<?xml version=\"1.0\" encoding=\"" + encoding + "\"?>";
         }
-        String xml = xmlDecl + "\n<text>" + text + "</text>";
-        return xml;
+        return xmlDecl + "\n<text>" + text + "</text>";
     }
 
     private static void checkXmlContent(String xml, String encoding) throws IOException {
@@ -86,8 +85,7 @@ class XmlStreamReaderTest {
 
         XmlStreamReader reader = new XmlStreamReader(in);
         assertEquals(encoding, reader.getEncoding());
-        String result = IOUtil.toString(reader);
-        assertEquals(xml, result);
+        assertEquals(xml, readAllFrom(reader));
     }
 
     private static void checkXmlStreamReader(String text, String encoding, String effectiveEncoding)
@@ -228,10 +226,9 @@ class XmlStreamReaderTest {
     /**
      * <p>testInappropriateEncoding.</p>
      *
-     * @throws java.io.IOException if any.
      */
     @Test
-    void inappropriateEncoding() throws IOException {
+    void inappropriateEncoding() {
         // expected failure, since the encoding does not contain some characters
         assertThrows(
                 AssertionFailedError.class,

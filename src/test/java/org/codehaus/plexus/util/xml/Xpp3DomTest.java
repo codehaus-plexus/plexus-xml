@@ -194,18 +194,11 @@ class Xpp3DomTest {
     @Test
     void nullAttributeNameOrValue() {
         Xpp3Dom t1 = new Xpp3Dom("top");
-        try {
-            t1.setAttribute("attr", null);
-            fail("null attribute values shouldn't be allowed");
-        } catch (NullPointerException e) {
-        }
-        t1.toString();
-        try {
-            t1.setAttribute(null, "value");
-            fail("null attribute names shouldn't be allowed");
-        } catch (NullPointerException e) {
-        }
-        t1.toString();
+        assertThrows(NullPointerException.class, () -> t1.setAttribute("attr", null));
+        assertNotNull(t1.toString());
+
+        assertThrows(NullPointerException.class, () -> t1.setAttribute(null, "value"));
+        assertNotNull(t1.toString());
     }
 
     /**
@@ -217,7 +210,7 @@ class Xpp3DomTest {
 
         assertEquals(dom, dom);
         assertNotEquals(null, dom);
-        assertNotEquals(dom, new Xpp3Dom(""));
+        assertNotEquals(new Xpp3Dom(""), dom);
     }
 
     /**
