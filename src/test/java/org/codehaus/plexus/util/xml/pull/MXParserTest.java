@@ -22,11 +22,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.ReaderFactory;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,14 +43,14 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @version $Id: $Id
  * @since 3.4.0
  */
-public class MXParserTest {
+class MXParserTest {
     /**
      * <p>testHexadecimalEntities.</p>
      *
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testHexadecimalEntities() throws Exception {
+    void hexadecimalEntities() throws Exception {
         MXParser parser = new MXParser();
 
         parser.defineEntityReplacementText("test", "replacement");
@@ -72,7 +74,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testDecimalEntities() throws Exception {
+    void decimalEntities() throws Exception {
         MXParser parser = new MXParser();
 
         parser.defineEntityReplacementText("test", "replacement");
@@ -96,7 +98,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPredefinedEntities() throws Exception {
+    void predefinedEntities() throws Exception {
         MXParser parser = new MXParser();
 
         parser.defineEntityReplacementText("test", "replacement");
@@ -121,7 +123,7 @@ public class MXParserTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    public void testEntityReplacementMap() throws XmlPullParserException, IOException {
+    void entityReplacementMap() throws XmlPullParserException, IOException {
         EntityReplacementMap erm = new EntityReplacementMap(new String[][] {{"abc", "CDE"}, {"EFG", "HIJ"}});
         MXParser parser = new MXParser(erm);
 
@@ -140,7 +142,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testCustomEntities() throws Exception {
+    void customEntities() throws Exception {
         MXParser parser = new MXParser();
 
         String input = "<root>&myentity;</root>";
@@ -168,7 +170,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testUnicodeEntities() throws Exception {
+    void unicodeEntities() throws Exception {
         MXParser parser = new MXParser();
         String input = "<root>&#x1d7ed;</root>";
         parser.setInput(new StringReader(input));
@@ -194,7 +196,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testInvalidCharacterReferenceHexa() throws Exception {
+    void invalidCharacterReferenceHexa() throws Exception {
         MXParser parser = new MXParser();
         String input = "<root>&#x110000;</root>";
         parser.setInput(new StringReader(input));
@@ -214,42 +216,42 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testValidCharacterReferenceHexa() throws Exception {
+    void validCharacterReferenceHexa() throws Exception {
         MXParser parser = new MXParser();
         String input =
                 "<root>&#x9;&#xA;&#xD;&#x20;&#x200;&#xD7FF;&#xE000;&#xFFA2;&#xFFFD;&#x10000;&#x10FFFD;&#x10FFFF;</root>";
         parser.setInput(new StringReader(input));
 
-        try {
-            assertEquals(XmlPullParser.START_TAG, parser.nextToken());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0x9, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0xA, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0xD, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0x20, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0x200, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0xD7FF, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0xE000, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0xFFA2, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0xFFFD, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0x10000, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0x10FFFD, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(0x10FFFF, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.END_TAG, parser.nextToken());
-        } catch (XmlPullParserException e) {
-            fail("Should success since the input represents all legal character references");
-        }
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    assertEquals(XmlPullParser.START_TAG, parser.nextToken());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0x9, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0xA, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0xD, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0x20, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0x200, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0xD7FF, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0xE000, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0xFFA2, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0xFFFD, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0x10000, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0x10FFFD, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(0x10FFFF, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.END_TAG, parser.nextToken());
+                },
+                "Should success since the input represents all legal character references");
     }
 
     /**
@@ -258,7 +260,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testInvalidCharacterReferenceDecimal() throws Exception {
+    void invalidCharacterReferenceDecimal() throws Exception {
         MXParser parser = new MXParser();
         String input = "<root>&#1114112;</root>";
         parser.setInput(new StringReader(input));
@@ -278,42 +280,42 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testValidCharacterReferenceDecimal() throws Exception {
+    void validCharacterReferenceDecimal() throws Exception {
         MXParser parser = new MXParser();
         String input =
                 "<root>&#9;&#10;&#13;&#32;&#512;&#55295;&#57344;&#65442;&#65533;&#65536;&#1114109;&#1114111;</root>";
         parser.setInput(new StringReader(input));
 
-        try {
-            assertEquals(XmlPullParser.START_TAG, parser.nextToken());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(9, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(10, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(13, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(32, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(512, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(55295, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(57344, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(65442, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(65533, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(65536, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(1114109, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals(1114111, parser.getText().codePointAt(0));
-            assertEquals(XmlPullParser.END_TAG, parser.nextToken());
-        } catch (XmlPullParserException e) {
-            fail("Should success since the input represents all legal character references");
-        }
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    assertEquals(XmlPullParser.START_TAG, parser.nextToken());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(9, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(10, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(13, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(32, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(512, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(55295, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(57344, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(65442, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(65533, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(65536, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(1114109, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals(1114111, parser.getText().codePointAt(0));
+                    assertEquals(XmlPullParser.END_TAG, parser.nextToken());
+                },
+                "Should success since the input represents all legal character references");
     }
 
     /**
@@ -322,7 +324,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testParserPosition() throws Exception {
+    void parserPosition() throws Exception {
         String input =
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!-- A --> \n <!-- B --><test>\tnnn</test>\n<!-- C\nC -->";
 
@@ -350,7 +352,7 @@ public class MXParserTest {
     }
 
     @Test
-    public void testProcessingInstruction() throws Exception {
+    void processingInstruction() throws Exception {
         String input = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test>nnn</test>";
 
         MXParser parser = new MXParser();
@@ -368,19 +370,17 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testProcessingInstructionsContainingXml() throws Exception {
-        StringBuffer sb = new StringBuffer();
+    void processingInstructionsContainingXml() throws Exception {
 
-        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        sb.append("<project>\n");
-        sb.append(" <?pi\n");
-        sb.append("   <tag>\n");
-        sb.append("   </tag>\n");
-        sb.append(" ?>\n");
-        sb.append("</project>");
+        String sb = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<project>\n"
+                + " <?pi\n"
+                + "   <tag>\n"
+                + "   </tag>\n"
+                + " ?>\n"
+                + "</project>";
 
         MXParser parser = new MXParser();
-        parser.setInput(new StringReader(sb.toString()));
+        parser.setInput(new StringReader(sb));
 
         assertEquals(XmlPullParser.PROCESSING_INSTRUCTION, parser.nextToken());
         assertEquals(XmlPullParser.START_TAG, parser.nextToken());
@@ -396,16 +396,14 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testMalformedProcessingInstructionsContainingXmlNoClosingQuestionMark() throws Exception {
-        StringBuffer sb = new StringBuffer();
-        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-        sb.append("<project />\n");
-        sb.append("<?pi\n");
-        sb.append("   <tag>\n");
-        sb.append("   </tag>>\n");
+    void malformedProcessingInstructionsContainingXmlNoClosingQuestionMark() throws Exception {
+        String sb = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<project />\n"
+                + "<?pi\n"
+                + "   <tag>\n"
+                + "   </tag>>\n";
 
         MXParser parser = new MXParser();
-        parser.setInput(new StringReader(sb.toString()));
+        parser.setInput(new StringReader(sb));
 
         try {
             assertEquals(XmlPullParser.PROCESSING_INSTRUCTION, parser.nextToken());
@@ -423,17 +421,15 @@ public class MXParserTest {
     }
 
     @Test
-    public void testSubsequentProcessingInstructionShort() throws Exception {
-        StringBuffer sb = new StringBuffer();
+    void subsequentProcessingInstructionShort() throws Exception {
 
-        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        sb.append("<project>");
-        sb.append("<!-- comment -->");
-        sb.append("<?m2e ignore?>");
-        sb.append("</project>");
+        String sb = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<project>"
+                + "<!-- comment -->"
+                + "<?m2e ignore?>"
+                + "</project>";
 
         MXParser parser = new MXParser();
-        parser.setInput(new StringReader(sb.toString()));
+        parser.setInput(new StringReader(sb));
 
         assertEquals(XmlPullParser.PROCESSING_INSTRUCTION, parser.nextToken());
         assertEquals(XmlPullParser.START_TAG, parser.nextToken());
@@ -448,8 +444,8 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testSubsequentProcessingInstructionMoreThan8k() throws Exception {
-        StringBuffer sb = new StringBuffer();
+    void subsequentProcessingInstructionMoreThan8k() throws Exception {
+        StringBuilder sb = new StringBuilder();
 
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         sb.append("<project>");
@@ -492,18 +488,17 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testLargeText_NoOverflow() throws Exception {
-        StringBuffer sb = new StringBuffer();
-        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        sb.append("<largetextblock>");
-        // Anything above 33,554,431 would fail without a fix for
-        // https://web.archive.org/web/20070831191548/http://www.extreme.indiana.edu/bugzilla/show_bug.cgi?id=228
-        // with java.io.IOException: error reading input, returned 0
-        sb.append(new String(new char[33554432]));
-        sb.append("</largetextblock>");
+    void largeTextNoOverflow() throws Exception {
+        String sb = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<largetextblock>"
+                +
+                // Anything above 33,554,431 would fail without a fix for
+                // https://web.archive.org/web/20070831191548/http://www.extreme.indiana.edu/bugzilla/show_bug.cgi?id=228
+                // with java.io.IOException: error reading input, returned 0
+                new String(new char[33554432])
+                + "</largetextblock>";
 
         MXParser parser = new MXParser();
-        parser.setInput(new StringReader(sb.toString()));
+        parser.setInput(new StringReader(sb));
 
         assertEquals(XmlPullParser.PROCESSING_INSTRUCTION, parser.nextToken());
         assertEquals(XmlPullParser.START_TAG, parser.nextToken());
@@ -517,7 +512,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testMalformedProcessingInstructionAfterTag() throws Exception {
+    void malformedProcessingInstructionAfterTag() throws Exception {
         MXParser parser = new MXParser();
 
         String input = "<project /><?>";
@@ -543,7 +538,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testMalformedProcessingInstructionBeforeTag() throws Exception {
+    void malformedProcessingInstructionBeforeTag() throws Exception {
         MXParser parser = new MXParser();
 
         String input = "<?><project />";
@@ -569,14 +564,12 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testMalformedProcessingInstructionSpaceBeforeName() throws Exception {
+    void malformedProcessingInstructionSpaceBeforeName() throws Exception {
         MXParser parser = new MXParser();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("<? shouldhavenospace>");
-        sb.append("<project />");
+        String sb = "<? shouldhavenospace>" + "<project />";
 
-        parser.setInput(new StringReader(sb.toString()));
+        parser.setInput(new StringReader(sb));
 
         try {
             assertEquals(XmlPullParser.PROCESSING_INSTRUCTION, parser.next());
@@ -599,14 +592,12 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testMalformedProcessingInstructionNoClosingQuestionMark() throws Exception {
+    void malformedProcessingInstructionNoClosingQuestionMark() throws Exception {
         MXParser parser = new MXParser();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("<?shouldhavenospace>");
-        sb.append("<project />");
+        String sb = "<?shouldhavenospace>" + "<project />";
 
-        parser.setInput(new StringReader(sb.toString()));
+        parser.setInput(new StringReader(sb));
 
         try {
             assertEquals(XmlPullParser.PROCESSING_INSTRUCTION, parser.next());
@@ -628,14 +619,12 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testSubsequentMalformedProcessingInstructionNoClosingQuestionMark() throws Exception {
+    void subsequentMalformedProcessingInstructionNoClosingQuestionMark() throws Exception {
         MXParser parser = new MXParser();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("<project />");
-        sb.append("<?shouldhavenospace>");
+        String sb = "<project />" + "<?shouldhavenospace>";
 
-        parser.setInput(new StringReader(sb.toString()));
+        parser.setInput(new StringReader(sb));
 
         try {
             assertEquals(XmlPullParser.START_TAG, parser.next());
@@ -657,13 +646,11 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testSubsequentAbortedProcessingInstruction() throws Exception {
+    void subsequentAbortedProcessingInstruction() throws Exception {
         MXParser parser = new MXParser();
-        StringBuilder sb = new StringBuilder();
-        sb.append("<project />");
-        sb.append("<?aborted");
+        String sb = "<project />" + "<?aborted";
 
-        parser.setInput(new StringReader(sb.toString()));
+        parser.setInput(new StringReader(sb));
 
         try {
             assertEquals(XmlPullParser.START_TAG, parser.next());
@@ -679,13 +666,11 @@ public class MXParserTest {
     }
 
     @Test
-    public void testSubsequentAbortedComment() throws Exception {
+    void subsequentAbortedComment() throws Exception {
         MXParser parser = new MXParser();
-        StringBuilder sb = new StringBuilder();
-        sb.append("<project />");
-        sb.append("<!-- aborted");
+        String sb = "<project />" + "<!-- aborted";
 
-        parser.setInput(new StringReader(sb.toString()));
+        parser.setInput(new StringReader(sb));
 
         try {
             assertEquals(XmlPullParser.START_TAG, parser.next());
@@ -700,7 +685,7 @@ public class MXParserTest {
     }
 
     @Test
-    public void testMalformedXMLRootElement() throws Exception {
+    void malformedXMLRootElement() throws Exception {
         String input = "<Y";
 
         MXParser parser = new MXParser();
@@ -721,7 +706,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testMalformedXMLRootElement2() throws Exception {
+    void malformedXMLRootElement2() throws Exception {
         String input = "<hello";
 
         MXParser parser = new MXParser();
@@ -742,7 +727,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testMalformedXMLRootElement3() throws Exception {
+    void malformedXMLRootElement3() throws Exception {
         String input = "<hello><how";
 
         MXParser parser = new MXParser();
@@ -764,7 +749,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testMalformedXMLRootElement4() throws Exception {
+    void malformedXMLRootElement4() throws Exception {
         String input = "<hello>some text<how";
 
         MXParser parser = new MXParser();
@@ -788,7 +773,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testMalformedXMLRootElement5() throws Exception {
+    void malformedXMLRootElement5() throws Exception {
         String input = "<hello>some text</hello";
 
         MXParser parser = new MXParser();
@@ -813,19 +798,19 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testXMLDeclVersionOnly() throws Exception {
+    void xmlDeclVersionOnly() throws Exception {
         String input = "<?xml version='1.0'?><hello/>";
 
         MXParser parser = new MXParser();
         parser.setInput(new StringReader(input));
 
-        try {
-            assertEquals(XmlPullParser.PROCESSING_INSTRUCTION, parser.nextToken());
-            assertEquals(XmlPullParser.START_TAG, parser.nextToken());
-            assertEquals(XmlPullParser.END_TAG, parser.nextToken());
-        } catch (Exception e) {
-            fail("Should not throw Exception");
-        }
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    assertEquals(XmlPullParser.PROCESSING_INSTRUCTION, parser.nextToken());
+                    assertEquals(XmlPullParser.START_TAG, parser.nextToken());
+                    assertEquals(XmlPullParser.END_TAG, parser.nextToken());
+                },
+                "Should not throw Exception");
     }
 
     /**
@@ -834,7 +819,7 @@ public class MXParserTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testXMLDeclVersionEncodingStandaloneNoSpace() throws Exception {
+    void xmlDeclVersionEncodingStandaloneNoSpace() throws Exception {
         String input = "<?xml version='1.0' encoding='ASCII'standalone='yes'?><hello/>";
 
         MXParser parser = new MXParser();
@@ -848,14 +833,14 @@ public class MXParserTest {
     }
 
     /**
-     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">...</a>
      *
      * @throws IOException if IO error.
      *
      * @since 3.4.1
      */
     @Test
-    public void testEncodingISO_8859_1setInputReader() throws IOException {
+    void encodingISO88591setInputReader() throws IOException {
         try (Reader reader =
                 ReaderFactory.newXmlReader(new File("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
@@ -869,14 +854,14 @@ public class MXParserTest {
     }
 
     /**
-     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">...</a>
      *
      * @throws IOException if IO error.
      *
      * @since 3.4.1
      */
     @Test
-    public void testEncodingISO_8859_1_setInputStream() throws IOException {
+    void encodingISO88591SetInputStream() throws IOException {
         try (InputStream input =
                 Files.newInputStream(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
@@ -895,8 +880,8 @@ public class MXParserTest {
     }
 
     /**
-     * Issue 163: https://github.com/codehaus-plexus/plexus-utils/issues/163
-     *
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">...</a>
+     * <p>
      * Another case of bug #163: File encoding information is lost after the input file is copied to a String.
      *
      * @throws IOException if IO error.
@@ -904,7 +889,7 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testEncodingISO_8859_1setStringReader() throws IOException {
+    void encodingISO88591setStringReader() throws IOException {
         try (Reader reader =
                 ReaderFactory.newXmlReader(new File("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
@@ -930,7 +915,7 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testCustomEntityNotFoundInText() throws Exception {
+    void customEntityNotFoundInText() throws Exception {
         MXParser parser = new MXParser();
 
         String input = "<root>&otherentity;</root>";
@@ -963,20 +948,20 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testCustomEntityNotFoundInTextTokenize() throws Exception {
+    void customEntityNotFoundInTextTokenize() throws Exception {
         MXParser parser = new MXParser();
 
         String input = "<root>&otherentity;</root>";
         parser.setInput(new StringReader(input));
         parser.defineEntityReplacementText("myentity", "replacement");
 
-        try {
-            assertEquals(XmlPullParser.START_TAG, parser.nextToken());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertNull(parser.getText());
-        } catch (XmlPullParserException e) {
-            fail("should not throw exception if tokenize");
-        }
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    assertEquals(XmlPullParser.START_TAG, parser.nextToken());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertNull(parser.getText());
+                },
+                "should not throw exception if tokenize");
     }
 
     /**
@@ -991,7 +976,7 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testCustomEntityNotFoundInAttr() throws Exception {
+    void customEntityNotFoundInAttr() throws Exception {
         MXParser parser = new MXParser();
 
         String input = "<root name=\"&otherentity;\">sometext</root>";
@@ -1017,14 +1002,10 @@ public class MXParserTest {
      * </p>
      *
      * Regression test: assure same behavior of MXParser from plexus-utils 3.3.0.
-     * @throws XmlPullParserException
-     *
-     * @throws Exception if any.
-     *
      * @since 3.4.2
      */
     @Test
-    public void testCustomEntityNotFoundInAttrTokenize() throws Exception {
+    void customEntityNotFoundInAttrTokenize() throws Exception {
         MXParser parser = new MXParser();
 
         String input = "<root name=\"&otherentity;\">sometext</root>";
@@ -1057,7 +1038,7 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testDocdeclTextWithEntitiesUnix() throws IOException {
+    void docdeclTextWithEntitiesUnix() throws IOException {
         testDocdeclTextWithEntities("test-entities-UNIX.xml");
     }
 
@@ -1073,7 +1054,7 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testDocdeclTextWithEntitiesDOS() throws IOException {
+    void docdeclTextWithEntitiesDOS() throws IOException {
         testDocdeclTextWithEntities("test-entities-DOS.xml");
     }
 
@@ -1110,7 +1091,7 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testDocdeclTextWithEntitiesInAttributesUnix() throws IOException {
+    void docdeclTextWithEntitiesInAttributesUnix() throws IOException {
         testDocdeclTextWithEntitiesInAttributes("test-entities-in-attr-UNIX.xml");
     }
 
@@ -1126,7 +1107,7 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testDocdeclTextWithEntitiesInAttributesDOS() throws IOException {
+    void docdeclTextWithEntitiesInAttributesDOS() throws IOException {
         testDocdeclTextWithEntitiesInAttributes("test-entities-in-attr-DOS.xml");
     }
 
@@ -1181,7 +1162,7 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testEntityRefTextUnix() throws IOException {
+    void entityRefTextUnix() throws IOException {
         testEntityRefText("\n");
     }
 
@@ -1195,7 +1176,7 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testEntityRefTextDOS() throws IOException {
+    void entityRefTextDOS() throws IOException {
         testEntityRefText("\r\n");
     }
 
@@ -1209,50 +1190,50 @@ public class MXParserTest {
         sb.append("]>").append(newLine);
         sb.append("<b>&foo;&foo1;&foo2;&tritPos;</b>");
 
-        try {
-            MXParser parser = new MXParser();
-            parser.setInput(new StringReader(sb.toString()));
-            parser.defineEntityReplacementText("foo", "&#x159;");
-            parser.defineEntityReplacementText("nbsp", "&#160;");
-            parser.defineEntityReplacementText("foo1", "&nbsp;");
-            parser.defineEntityReplacementText("foo2", "&#x161;");
-            parser.defineEntityReplacementText("tritPos", "&#x1d7ed;");
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    MXParser parser = new MXParser();
+                    parser.setInput(new StringReader(sb.toString()));
+                    parser.defineEntityReplacementText("foo", "&#x159;");
+                    parser.defineEntityReplacementText("nbsp", "&#160;");
+                    parser.defineEntityReplacementText("foo1", "&nbsp;");
+                    parser.defineEntityReplacementText("foo2", "&#x161;");
+                    parser.defineEntityReplacementText("tritPos", "&#x1d7ed;");
 
-            assertEquals(XmlPullParser.DOCDECL, parser.nextToken());
-            assertEquals(
-                    " test [\n"
-                            + "<!ENTITY foo \"&#x159;\">\n"
-                            + "<!ENTITY foo1 \"&nbsp;\">\n"
-                            + "<!ENTITY foo2 \"&#x161;\">\n"
-                            + "<!ENTITY tritPos \"&#x1d7ed;\">\n"
-                            + "]",
-                    parser.getText());
-            assertEquals(XmlPullParser.IGNORABLE_WHITESPACE, parser.nextToken());
-            assertEquals(XmlPullParser.START_TAG, parser.nextToken());
-            assertEquals("b", parser.getName());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals("&#x159;", parser.getText());
-            assertEquals("foo", parser.getName());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals("&#160;", parser.getText());
-            assertEquals("foo1", parser.getName());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals("&#x161;", parser.getText());
-            assertEquals("foo2", parser.getName());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals("&#x1d7ed;", parser.getText());
-            assertEquals("tritPos", parser.getName());
-            assertEquals(XmlPullParser.END_TAG, parser.nextToken());
-            assertEquals("b", parser.getName());
-            assertEquals(XmlPullParser.END_DOCUMENT, parser.nextToken());
-        } catch (XmlPullParserException e) {
-            fail("should not raise exception: " + e);
-        }
+                    assertEquals(XmlPullParser.DOCDECL, parser.nextToken());
+                    assertEquals(
+                            " test [\n"
+                                    + "<!ENTITY foo \"&#x159;\">\n"
+                                    + "<!ENTITY foo1 \"&nbsp;\">\n"
+                                    + "<!ENTITY foo2 \"&#x161;\">\n"
+                                    + "<!ENTITY tritPos \"&#x1d7ed;\">\n"
+                                    + "]",
+                            parser.getText());
+                    assertEquals(XmlPullParser.IGNORABLE_WHITESPACE, parser.nextToken());
+                    assertEquals(XmlPullParser.START_TAG, parser.nextToken());
+                    assertEquals("b", parser.getName());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals("&#x159;", parser.getText());
+                    assertEquals("foo", parser.getName());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals("&#160;", parser.getText());
+                    assertEquals("foo1", parser.getName());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals("&#x161;", parser.getText());
+                    assertEquals("foo2", parser.getName());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals("&#x1d7ed;", parser.getText());
+                    assertEquals("tritPos", parser.getName());
+                    assertEquals(XmlPullParser.END_TAG, parser.nextToken());
+                    assertEquals("b", parser.getName());
+                    assertEquals(XmlPullParser.END_DOCUMENT, parser.nextToken());
+                },
+                "should not raise exception: ");
     }
 
     /**
      * <b>Ensures that entity ref getText() and getName() return the correct value.</b>
-     *
+     * <p>
      * Regression test: assure same behavior of MXParser from plexus-utils 3.3.0.
      *
      * @throws IOException if any.
@@ -1260,42 +1241,42 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testEntityReplacement() throws IOException {
+    void entityReplacement() throws IOException {
         String input = "<p><!-- a pagebreak: --><!-- PB -->&#160;&nbsp;<unknown /></p>";
 
-        try {
-            MXParser parser = new MXParser();
-            parser.setInput(new StringReader(input));
-            parser.defineEntityReplacementText("nbsp", "&#160;");
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    MXParser parser = new MXParser();
+                    parser.setInput(new StringReader(input));
+                    parser.defineEntityReplacementText("nbsp", "&#160;");
 
-            assertEquals(XmlPullParser.START_TAG, parser.nextToken());
-            assertEquals("p", parser.getName());
-            assertEquals(XmlPullParser.COMMENT, parser.nextToken());
-            assertEquals(" a pagebreak: ", parser.getText());
-            assertEquals(XmlPullParser.COMMENT, parser.nextToken());
-            assertEquals(" PB ", parser.getText());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals("\u00A0", parser.getText());
-            assertEquals("#160", parser.getName());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals("&#160;", parser.getText());
-            assertEquals("nbsp", parser.getName());
-            assertEquals(XmlPullParser.START_TAG, parser.nextToken());
-            assertEquals("unknown", parser.getName());
-            assertEquals(XmlPullParser.END_TAG, parser.nextToken());
-            assertEquals("unknown", parser.getName());
-            assertEquals(XmlPullParser.END_TAG, parser.nextToken());
-            assertEquals("p", parser.getName());
-            assertEquals(XmlPullParser.END_DOCUMENT, parser.nextToken());
-        } catch (XmlPullParserException e) {
-            fail("should not raise exception: " + e);
-        }
+                    assertEquals(XmlPullParser.START_TAG, parser.nextToken());
+                    assertEquals("p", parser.getName());
+                    assertEquals(XmlPullParser.COMMENT, parser.nextToken());
+                    assertEquals(" a pagebreak: ", parser.getText());
+                    assertEquals(XmlPullParser.COMMENT, parser.nextToken());
+                    assertEquals(" PB ", parser.getText());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals("\u00A0", parser.getText());
+                    assertEquals("#160", parser.getName());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals("&#160;", parser.getText());
+                    assertEquals("nbsp", parser.getName());
+                    assertEquals(XmlPullParser.START_TAG, parser.nextToken());
+                    assertEquals("unknown", parser.getName());
+                    assertEquals(XmlPullParser.END_TAG, parser.nextToken());
+                    assertEquals("unknown", parser.getName());
+                    assertEquals(XmlPullParser.END_TAG, parser.nextToken());
+                    assertEquals("p", parser.getName());
+                    assertEquals(XmlPullParser.END_DOCUMENT, parser.nextToken());
+                },
+                "should not raise exception: ");
     }
 
     /**
      * <b>Ensures correct replacements inside the internal PC array when the new copied array size is shorter than
      * previous ones.</b>
-     *
+     * <p>
      * Regression test: assure same behavior of MXParser from plexus-utils 3.3.0.
      *
      * @throws IOException if any.
@@ -1303,50 +1284,50 @@ public class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    public void testReplacementInPCArrayWithShorterCharArray() throws IOException {
+    void replacementInPCArrayWithShorterCharArray() throws IOException {
         String input = "<!DOCTYPE test [<!ENTITY foo \"&#x159;\"><!ENTITY tritPos  \"&#x1d7ed;\">]>"
                 + "<section name=\"&amp;&foo;&tritPos;\"><p>&amp;&foo;&tritPos;</p></section>";
 
-        try {
-            MXParser parser = new MXParser();
-            parser.setInput(new StringReader(new String(input.getBytes(), "ISO-8859-1")));
-            parser.defineEntityReplacementText("foo", "&#x159;");
-            parser.defineEntityReplacementText("tritPos", "&#x1d7ed;");
+        Assertions.assertDoesNotThrow(
+                () -> {
+                    MXParser parser = new MXParser();
+                    parser.setInput(new StringReader(new String(input.getBytes(), StandardCharsets.ISO_8859_1)));
+                    parser.defineEntityReplacementText("foo", "&#x159;");
+                    parser.defineEntityReplacementText("tritPos", "&#x1d7ed;");
 
-            assertEquals(XmlPullParser.DOCDECL, parser.nextToken());
-            assertEquals(" test [<!ENTITY foo \"&#x159;\"><!ENTITY tritPos  \"&#x1d7ed;\">]", parser.getText());
-            assertEquals(XmlPullParser.START_TAG, parser.nextToken());
-            assertEquals("section", parser.getName());
-            assertEquals(1, parser.getAttributeCount());
-            assertEquals("name", parser.getAttributeName(0));
-            assertEquals("&&#x159;&#x1d7ed;", parser.getAttributeValue(0));
-            assertEquals(XmlPullParser.START_TAG, parser.nextToken());
-            assertEquals("<p>", parser.getText());
-            assertEquals("p", parser.getName());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals("&", parser.getText());
-            assertEquals("amp", parser.getName());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals("&#x159;", parser.getText());
-            assertEquals("foo", parser.getName());
-            assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
-            assertEquals("&#x1d7ed;", parser.getText());
-            assertEquals("tritPos", parser.getName());
-            assertEquals(XmlPullParser.END_TAG, parser.nextToken());
-            assertEquals("p", parser.getName());
-            assertEquals(XmlPullParser.END_TAG, parser.nextToken());
-            assertEquals("section", parser.getName());
-            assertEquals(XmlPullParser.END_DOCUMENT, parser.nextToken());
-        } catch (XmlPullParserException e) {
-            fail("should not raise exception: " + e);
-        }
+                    assertEquals(XmlPullParser.DOCDECL, parser.nextToken());
+                    assertEquals(" test [<!ENTITY foo \"&#x159;\"><!ENTITY tritPos  \"&#x1d7ed;\">]", parser.getText());
+                    assertEquals(XmlPullParser.START_TAG, parser.nextToken());
+                    assertEquals("section", parser.getName());
+                    assertEquals(1, parser.getAttributeCount());
+                    assertEquals("name", parser.getAttributeName(0));
+                    assertEquals("&&#x159;&#x1d7ed;", parser.getAttributeValue(0));
+                    assertEquals(XmlPullParser.START_TAG, parser.nextToken());
+                    assertEquals("<p>", parser.getText());
+                    assertEquals("p", parser.getName());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals("&", parser.getText());
+                    assertEquals("amp", parser.getName());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals("&#x159;", parser.getText());
+                    assertEquals("foo", parser.getName());
+                    assertEquals(XmlPullParser.ENTITY_REF, parser.nextToken());
+                    assertEquals("&#x1d7ed;", parser.getText());
+                    assertEquals("tritPos", parser.getName());
+                    assertEquals(XmlPullParser.END_TAG, parser.nextToken());
+                    assertEquals("p", parser.getName());
+                    assertEquals(XmlPullParser.END_TAG, parser.nextToken());
+                    assertEquals("section", parser.getName());
+                    assertEquals(XmlPullParser.END_DOCUMENT, parser.nextToken());
+                },
+                "should not raise exception: ");
     }
 
     /**
      * Ensures emoji can be parsed correctly
      */
     @Test
-    public void testUnicode() throws IOException {
+    void unicode() throws IOException {
         String input = "<project><!--ALL TEH BOMS!  \uD83D\uDCA3  --></project>";
 
         try {

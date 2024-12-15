@@ -29,14 +29,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @version $Id: $Id
  * @since 3.4.0
  */
-public class Xpp3DomWriterTest {
-    private static final String LS = System.getProperty("line.separator");
+class Xpp3DomWriterTest {
+    private static final String LS = System.lineSeparator();
 
     /**
      * <p>testWriter.</p>
      */
     @Test
-    public void testWriter() {
+    void writer() {
         StringWriter writer = new StringWriter();
 
         Xpp3DomWriter.write(writer, createXpp3Dom());
@@ -48,7 +48,7 @@ public class Xpp3DomWriterTest {
      * <p>testWriterNoEscape.</p>
      */
     @Test
-    public void testWriterNoEscape() {
+    void writerNoEscape() {
         StringWriter writer = new StringWriter();
 
         Xpp3DomWriter.write(new PrettyPrintXMLWriter(writer), createXpp3Dom(), false);

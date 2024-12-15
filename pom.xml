@@ -48,6 +48,7 @@ limitations under the License.
   </distributionManagement>
 
   <properties>
+    <jmhVersion>1.37</jmhVersion>
     <project.build.outputTimestamp>2024-05-21T21:12:10Z</project.build.outputTimestamp>
   </properties>
 
@@ -55,18 +56,18 @@ limitations under the License.
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-core</artifactId>
-      <version>1.37</version>
+      <version>${jmhVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-generator-annprocess</artifactId>
-      <version>1.37</version>
+      <version>${jmhVersion}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
+      <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

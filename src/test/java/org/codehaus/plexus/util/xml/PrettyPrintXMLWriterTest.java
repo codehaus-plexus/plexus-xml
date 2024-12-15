@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.NoSuchElementException;
 
@@ -42,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @version $Id: $Id
  * @since 3.4.0
  */
-public class PrettyPrintXMLWriterTest {
+class PrettyPrintXMLWriterTest {
     StringWriter w;
 
     PrettyPrintXMLWriter writer;
@@ -51,7 +52,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>setUp.</p>
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         initWriter();
     }
 
@@ -59,7 +60,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>tearDown.</p>
      */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         writer = null;
         w = null;
     }
@@ -73,7 +74,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>testDefaultPrettyPrintXMLWriter.</p>
      */
     @Test
-    public void testDefaultPrettyPrintXMLWriter() {
+    void defaultPrettyPrintXMLWriter() {
         writer.startElement(Tag.HTML.toString());
 
         writeXhtmlHead(writer);
@@ -89,7 +90,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>testPrettyPrintXMLWriterWithGivenLineSeparator.</p>
      */
     @Test
-    public void testPrettyPrintXMLWriterWithGivenLineSeparator() {
+    void prettyPrintXMLWriterWithGivenLineSeparator() {
         writer.setLineSeparator("\n");
 
         writer.startElement(Tag.HTML.toString());
@@ -107,7 +108,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>testPrettyPrintXMLWriterWithGivenLineIndenter.</p>
      */
     @Test
-    public void testPrettyPrintXMLWriterWithGivenLineIndenter() {
+    void prettyPrintXMLWriterWithGivenLineIndenter() {
         writer.setLineIndenter("    ");
 
         writer.startElement(Tag.HTML.toString());
@@ -125,7 +126,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>testEscapeXmlAttribute.</p>
      */
     @Test
-    public void testEscapeXmlAttribute() {
+    void escapeXmlAttribute() {
         // Windows
         writer.startElement(Tag.DIV.toString());
         writer.addAttribute("class", "sect\r\nion");
@@ -151,7 +152,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>testendElementAlreadyClosed.</p>
      */
     @Test
-    public void testendElementAlreadyClosed() {
+    void testendElementAlreadyClosed() {
         try {
             writer.startElement(Tag.DIV.toString());
             writer.addAttribute("class", "someattribute");
@@ -164,21 +165,22 @@ public class PrettyPrintXMLWriterTest {
     }
 
     /**
-     * Issue #51: https://github.com/codehaus-plexus/plexus-utils/issues/51 Purpose: test if concatenation string
+     * Issue #51: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/51">...</a> Purpose: test if concatenation string
      * optimization bug is present. Target environment: Java 7 (u79 and u80 verified) running on Windows. Detection
      * strategy: Tries to build a big XML file (~750MB size) and with many nested tags to force the JVM to trigger the
      * concatenation string optimization bug that throws a NoSuchElementException when calling endElement() method.
      *
-     * @throws java.io.IOException if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Test
-    public void testIssue51DetectJava7ConcatenationBug() throws IOException {
+    void issue51DetectJava7ConcatenationBug() throws IOException {
         File dir = new File("target/test-xml");
         if (!dir.exists()) {
             assertTrue(dir.mkdir(), "cannot create directory test-xml");
         }
         File xmlFile = new File(dir, "test-issue-51.xml");
-        OutputStreamWriter osw = new OutputStreamWriter(Files.newOutputStream(xmlFile.toPath()), "UTF-8");
+        OutputStreamWriter osw =
+                new OutputStreamWriter(Files.newOutputStream(xmlFile.toPath()), StandardCharsets.UTF_8);
         writer = new PrettyPrintXMLWriter(osw);
 
         int iterations = 20000;
@@ -235,34 +237,29 @@ public class PrettyPrintXMLWriterTest {
     }
 
     private String expectedResult(String lineIndenter, String lineSeparator) {
-        StringBuilder expected = new StringBuilder();
-
-        expected.append("<html>").append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 1)).append("<head>").append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2))
-                .append("<title>title</title>")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2))
-                .append("<meta name=\"author\" content=\"Author\"/>")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2))
-                .append("<meta name=\"date\" content=\"Date\"/>")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 1)).append("</head>").append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 1)).append("<body>").append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2))
-                .append("<p>Paragraph 1, line 1. Paragraph 1, line 2.</p>")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2))
-                .append("<div class=\"section\">")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 3))
-                .append("<h2>Section title</h2>")
-                .append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 2)).append("</div>").append(lineSeparator);
-        expected.append(StringUtils.repeat(lineIndenter, 1)).append("</body>").append(lineSeparator);
-        expected.append("</html>");
-
-        return expected.toString();
+        return "<html>" + lineSeparator + StringUtils.repeat(lineIndenter, 1)
+                + "<head>" + lineSeparator + StringUtils.repeat(lineIndenter, 2)
+                + "<title>title</title>"
+                + lineSeparator
+                + StringUtils.repeat(lineIndenter, 2)
+                + "<meta name=\"author\" content=\"Author\"/>"
+                + lineSeparator
+                + StringUtils.repeat(lineIndenter, 2)
+                + "<meta name=\"date\" content=\"Date\"/>"
+                + lineSeparator
+                + StringUtils.repeat(lineIndenter, 1)
+                + "</head>" + lineSeparator + StringUtils.repeat(lineIndenter, 1)
+                + "<body>" + lineSeparator + StringUtils.repeat(lineIndenter, 2)
+                + "<p>Paragraph 1, line 1. Paragraph 1, line 2.</p>"
+                + lineSeparator
+                + StringUtils.repeat(lineIndenter, 2)
+                + "<div class=\"section\">"
+                + lineSeparator
+                + StringUtils.repeat(lineIndenter, 3)
+                + "<h2>Section title</h2>"
+                + lineSeparator
+                + StringUtils.repeat(lineIndenter, 2)
+                + "</div>" + lineSeparator + StringUtils.repeat(lineIndenter, 1)
+                + "</body>" + lineSeparator + "</html>";
     }
 }
