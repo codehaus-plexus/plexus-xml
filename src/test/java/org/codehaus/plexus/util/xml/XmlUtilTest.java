@@ -29,7 +29,8 @@ import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test the {@link org.codehaus.plexus.util.xml.XmlUtil} class.
@@ -68,7 +69,7 @@ public class XmlUtilTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatInputStreamOutputStream() throws Exception {
+    void prettyFormatInputStreamOutputStream() throws Exception {
         File testDocument = new File(getBasedir(), "src/test/resources/testDocument.xhtml");
         assertTrue(testDocument.exists());
 
@@ -89,7 +90,7 @@ public class XmlUtilTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatReaderWriter() throws Exception {
+    void prettyFormatReaderWriter() throws Exception {
         File testDocument = new File(getBasedir(), "src/test/resources/testDocument.xhtml");
         assertTrue(testDocument.exists());
 
@@ -109,7 +110,7 @@ public class XmlUtilTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatString() throws Exception {
+    void prettyFormatString() throws Exception {
         File testDocument = new File(getBasedir(), "src/test/resources/testDocument.xhtml");
         assertTrue(testDocument.exists());
 
@@ -135,7 +136,7 @@ public class XmlUtilTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testPrettyFormatReaderWriter2() throws Exception {
+    void prettyFormatReaderWriter2() throws Exception {
         File testDocument = new File(getBasedir(), "src/test/resources/test.xdoc.xhtml");
         assertTrue(testDocument.exists());
 

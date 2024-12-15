@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version $Id: $Id
  * @since 3.4.0
  */
-public class Xpp3DomBuilderTest {
+class Xpp3DomBuilderTest {
     private static final String LS = System.lineSeparator();
 
     /**
@@ -43,7 +43,7 @@ public class Xpp3DomBuilderTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testBuildFromReader() throws Exception {
+    void buildFromReader() throws Exception {
         String domString = createDomString();
 
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(domString));
@@ -59,7 +59,7 @@ public class Xpp3DomBuilderTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testBuildTrimming() throws Exception {
+    void buildTrimming() throws Exception {
         String domString = createDomString();
 
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(domString), true);
@@ -77,7 +77,7 @@ public class Xpp3DomBuilderTest {
      * @throws java.lang.Exception if any.
      */
     @Test
-    public void testBuildFromXpp3Dom() throws Exception {
+    void buildFromXpp3Dom() throws Exception {
         Xpp3Dom expectedDom = createExpectedDom();
         Xpp3Dom dom = null;
 
@@ -123,7 +123,7 @@ public class Xpp3DomBuilderTest {
      * Test we get an error from the parser, and don't hit the IllegalStateException.
      */
     @Test
-    public void testUnclosedXml() {
+    void unclosedXml() {
         String domString = "<newRoot>" + createDomString();
         try {
             Xpp3DomBuilder.build(new StringReader(domString));
@@ -143,7 +143,7 @@ public class Xpp3DomBuilderTest {
      * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.
      */
     @Test
-    public void testEscapingInContent() throws IOException, XmlPullParserException {
+    void escapingInContent() throws IOException, XmlPullParserException {
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(getEncodedString()));
 
         assertEquals("\"text\"", dom.getChild("el").getValue(), "Check content value");
@@ -162,7 +162,7 @@ public class Xpp3DomBuilderTest {
      * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.
      */
     @Test
-    public void testEscapingInAttributes() throws IOException, XmlPullParserException {
+    void escapingInAttributes() throws IOException, XmlPullParserException {
         String s = getAttributeEncodedString();
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(s));
 
@@ -181,7 +181,7 @@ public class Xpp3DomBuilderTest {
      * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.
      */
     @Test
-    public void testInputLocationTracking() throws IOException, XmlPullParserException {
+    void inputLocationTracking() throws IOException, XmlPullParserException {
         Xpp3DomBuilder.InputLocationBuilder ilb = new Xpp3DomBuilder.InputLocationBuilder() {
             public Object toInputLocation(XmlPullParser parser) {
                 return parser.getLineNumber(); // store only line number as a simple Integer
