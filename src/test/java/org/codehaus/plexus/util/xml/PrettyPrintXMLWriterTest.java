@@ -26,9 +26,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.NoSuchElementException;
 
-import org.codehaus.plexus.util.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -172,6 +172,7 @@ class PrettyPrintXMLWriterTest {
      *
      * @throws IOException if an I/O error occurs
      */
+    @Disabled("This test is only relevant on JDK 1.7, which is not supported anymore")
     @Test
     void issue51DetectJava7ConcatenationBug() throws IOException {
         File dir = new File("target/test-xml");
@@ -179,13 +180,11 @@ class PrettyPrintXMLWriterTest {
             assertTrue(dir.mkdir(), "cannot create directory test-xml");
         }
         File xmlFile = new File(dir, "test-issue-51.xml");
-        OutputStreamWriter osw =
-                new OutputStreamWriter(Files.newOutputStream(xmlFile.toPath()), StandardCharsets.UTF_8);
-        writer = new PrettyPrintXMLWriter(osw);
 
         int iterations = 20000;
-
-        try {
+        try (OutputStreamWriter osw =
+                new OutputStreamWriter(Files.newOutputStream(xmlFile.toPath()), StandardCharsets.UTF_8)) {
+            writer = new PrettyPrintXMLWriter(osw);
             for (int i = 0; i < iterations; ++i) {
                 writer.startElement(Tag.DIV.toString() + i);
                 writer.addAttribute("class", "someattribute");
@@ -195,10 +194,6 @@ class PrettyPrintXMLWriterTest {
             }
         } catch (NoSuchElementException e) {
             fail("Should not throw a NoSuchElementException");
-        } finally {
-            if (osw != null) {
-                osw.close();
-            }
         }
     }
 
@@ -237,29 +232,29 @@ class PrettyPrintXMLWriterTest {
     }
 
     private String expectedResult(String lineIndenter, String lineSeparator) {
-        return "<html>" + lineSeparator + StringUtils.repeat(lineIndenter, 1)
-                + "<head>" + lineSeparator + StringUtils.repeat(lineIndenter, 2)
+        return "<html>" + lineSeparator + lineIndenter
+                + "<head>" + lineSeparator + lineIndenter + lineIndenter
                 + "<title>title</title>"
                 + lineSeparator
-                + StringUtils.repeat(lineIndenter, 2)
+                + lineIndenter + lineIndenter
                 + "<meta name=\"author\" content=\"Author\"/>"
                 + lineSeparator
-                + StringUtils.repeat(lineIndenter, 2)
+                + lineIndenter + lineIndenter
                 + "<meta name=\"date\" content=\"Date\"/>"
                 + lineSeparator
-                + StringUtils.repeat(lineIndenter, 1)
-                + "</head>" + lineSeparator + StringUtils.repeat(lineIndenter, 1)
-                + "<body>" + lineSeparator + StringUtils.repeat(lineIndenter, 2)
+                + lineIndenter
+                + "</head>" + lineSeparator + lineIndenter
+                + "<body>" + lineSeparator + lineIndenter + lineIndenter
                 + "<p>Paragraph 1, line 1. Paragraph 1, line 2.</p>"
                 + lineSeparator
-                + StringUtils.repeat(lineIndenter, 2)
+                + lineIndenter + lineIndenter
                 + "<div class=\"section\">"
                 + lineSeparator
-                + StringUtils.repeat(lineIndenter, 3)
+                + lineIndenter + lineIndenter + lineIndenter
                 + "<h2>Section title</h2>"
                 + lineSeparator
-                + StringUtils.repeat(lineIndenter, 2)
-                + "</div>" + lineSeparator + StringUtils.repeat(lineIndenter, 1)
+                + lineIndenter + lineIndenter
+                + "</div>" + lineSeparator + lineIndenter
                 + "</body>" + lineSeparator + "</html>";
     }
 }

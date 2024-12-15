@@ -20,7 +20,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import org.codehaus.plexus.util.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,7 +75,7 @@ class XmlWriterUtilTest {
     void writeLineBreakXMLWriter() throws Exception {
         XmlWriterUtil.writeLineBreak(xmlWriter);
         writer.close();
-        assertEquals(1, StringUtils.countMatches(output.toString(), XmlWriterUtil.LS));
+        assertEquals(1, TestUtils.countMatches(output.toString(), XmlWriterUtil.LS));
     }
 
     /**
@@ -89,7 +88,7 @@ class XmlWriterUtilTest {
     void writeLineBreakXMLWriterInt() throws Exception {
         XmlWriterUtil.writeLineBreak(xmlWriter, 10);
         writer.close();
-        assertEquals(10, StringUtils.countMatches(output.toString(), XmlWriterUtil.LS));
+        assertEquals(10, TestUtils.countMatches(output.toString(), XmlWriterUtil.LS));
     }
 
     /**
@@ -102,11 +101,8 @@ class XmlWriterUtilTest {
     void writeLineBreakXMLWriterIntInt() throws Exception {
         XmlWriterUtil.writeLineBreak(xmlWriter, 10, 2);
         writer.close();
-        assertEquals(10, StringUtils.countMatches(output.toString(), XmlWriterUtil.LS));
-        assertEquals(
-                1,
-                StringUtils.countMatches(
-                        output.toString(), StringUtils.repeat(" ", 2 * XmlWriterUtil.DEFAULT_INDENTATION_SIZE)));
+        assertEquals(10, TestUtils.countMatches(output.toString(), XmlWriterUtil.LS));
+        assertEquals(1, TestUtils.countMatches(output.toString(), "    ")); //
     }
 
     /**
@@ -119,8 +115,8 @@ class XmlWriterUtilTest {
     void writeLineBreakXMLWriterIntIntInt() throws Exception {
         XmlWriterUtil.writeLineBreak(xmlWriter, 10, 2, 4);
         writer.close();
-        assertEquals(10, StringUtils.countMatches(output.toString(), XmlWriterUtil.LS));
-        assertEquals(1, StringUtils.countMatches(output.toString(), StringUtils.repeat(" ", 2 * 4)));
+        assertEquals(10, TestUtils.countMatches(output.toString(), XmlWriterUtil.LS));
+        assertEquals(1, TestUtils.countMatches(output.toString(), "        "));
     }
 
     /**
@@ -210,7 +206,7 @@ class XmlWriterUtilTest {
      */
     @Test
     void writeCommentXMLWriterStringInt() throws Exception {
-        String indent = StringUtils.repeat(" ", 2 * XmlWriterUtil.DEFAULT_INDENTATION_SIZE);
+        String indent = "    ";
 
         XmlWriterUtil.writeComment(xmlWriter, "hello", 2);
         writer.close();
@@ -252,7 +248,7 @@ class XmlWriterUtilTest {
      */
     @Test
     void writeCommentXMLWriterStringIntInt() throws Exception {
-        String repeat = StringUtils.repeat(" ", 2 * 4);
+        String repeat = "        ";
 
         XmlWriterUtil.writeComment(xmlWriter, "hello", 2, 4);
         writer.close();
@@ -290,7 +286,7 @@ class XmlWriterUtilTest {
      */
     @Test
     void writeCommentXMLWriterStringIntIntInt() throws Exception {
-        String indent = StringUtils.repeat(" ", 2 * 4);
+        String indent = "        ";
 
         XmlWriterUtil.writeComment(xmlWriter, "hello", 2, 4, 50);
         writer.close();
@@ -338,7 +334,7 @@ class XmlWriterUtilTest {
         tearDown();
         setUp();
 
-        String indent = StringUtils.repeat(" ", 2 * 2);
+        String indent = "    ";
 
         XmlWriterUtil.writeCommentText(
                 xmlWriter,
@@ -379,7 +375,7 @@ class XmlWriterUtilTest {
      */
     @Test
     void writeCommentTextXMLWriterStringIntInt() throws Exception {
-        String indent = StringUtils.repeat(" ", 2 * 4);
+        String indent = "        ";
 
         XmlWriterUtil.writeCommentText(xmlWriter, "hello", 2, 4);
         writer.close();
@@ -408,7 +404,7 @@ class XmlWriterUtilTest {
      */
     @Test
     void writeCommentTextXMLWriterStringIntIntInt() throws Exception {
-        String indent = StringUtils.repeat(" ", 2 * 4);
+        String indent = "        ";
 
         XmlWriterUtil.writeCommentText(xmlWriter, "hello", 2, 4, 50);
         writer.close();

@@ -26,11 +26,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.ReaderFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.codehaus.plexus.util.xml.TestUtils.readAllFrom;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -833,7 +833,7 @@ class MXParserTest {
     }
 
     /**
-     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">...</a>
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">Issue 163</a>
      *
      * @throws IOException if IO error.
      *
@@ -854,7 +854,7 @@ class MXParserTest {
     }
 
     /**
-     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">...</a>
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">Issue 163</a>
      *
      * @throws IOException if IO error.
      *
@@ -880,7 +880,7 @@ class MXParserTest {
     }
 
     /**
-     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">...</a>
+     * Issue 163: <a href="https://github.com/codehaus-plexus/plexus-utils/issues/163">Issue 163</a>
      * <p>
      * Another case of bug #163: File encoding information is lost after the input file is copied to a String.
      *
@@ -893,7 +893,7 @@ class MXParserTest {
         try (Reader reader =
                 ReaderFactory.newXmlReader(new File("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
-            String xmlFileContents = IOUtil.toString(reader);
+            String xmlFileContents = readAllFrom(reader);
             parser.setInput(new StringReader(xmlFileContents));
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
