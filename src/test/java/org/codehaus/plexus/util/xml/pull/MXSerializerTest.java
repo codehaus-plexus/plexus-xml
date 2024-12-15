@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MXSerializerTest {
 
     @Test
-    void testSerialize() throws Exception {
+    void serialize() throws Exception {
 
         StringWriter writer = new StringWriter();
 
@@ -33,7 +33,7 @@ class MXSerializerTest {
     }
 
     @Test
-    void testDeserialize() throws Exception {
+    void deserialize() throws Exception {
         MXParser parser = new MXParser();
         parser.setInput(new StringReader(expectedOutput()));
         int eventType = parser.getEventType();
@@ -61,7 +61,7 @@ class MXSerializerTest {
      * Tests MJAVADOC-793.
      */
     @Test
-    public void testWriteNullValues() throws IOException {
+    void writeNullValues() throws IOException {
         // should be no-ops
         new MXSerializer().writeElementContent(null, null);
         new MXSerializer().writeAttributeValue(null, null);

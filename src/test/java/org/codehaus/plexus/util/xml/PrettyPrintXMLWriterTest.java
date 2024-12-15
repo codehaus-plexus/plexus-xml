@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @version $Id: $Id
  * @since 3.4.0
  */
-public class PrettyPrintXMLWriterTest {
+class PrettyPrintXMLWriterTest {
     StringWriter w;
 
     PrettyPrintXMLWriter writer;
@@ -54,7 +54,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>setUp.</p>
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         initWriter();
     }
 
@@ -62,7 +62,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>tearDown.</p>
      */
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         writer = null;
         w = null;
     }
@@ -76,7 +76,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>testDefaultPrettyPrintXMLWriter.</p>
      */
     @Test
-    public void testDefaultPrettyPrintXMLWriter() {
+    void defaultPrettyPrintXMLWriter() {
         writer.startElement(Tag.HTML.toString());
 
         writeXhtmlHead(writer);
@@ -92,7 +92,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>testPrettyPrintXMLWriterWithGivenLineSeparator.</p>
      */
     @Test
-    public void testPrettyPrintXMLWriterWithGivenLineSeparator() {
+    void prettyPrintXMLWriterWithGivenLineSeparator() {
         writer.setLineSeparator("\n");
 
         writer.startElement(Tag.HTML.toString());
@@ -110,7 +110,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>testPrettyPrintXMLWriterWithGivenLineIndenter.</p>
      */
     @Test
-    public void testPrettyPrintXMLWriterWithGivenLineIndenter() {
+    void prettyPrintXMLWriterWithGivenLineIndenter() {
         writer.setLineIndenter("    ");
 
         writer.startElement(Tag.HTML.toString());
@@ -128,7 +128,7 @@ public class PrettyPrintXMLWriterTest {
      * <p>testEscapeXmlAttribute.</p>
      */
     @Test
-    public void testEscapeXmlAttribute() {
+    void escapeXmlAttribute() {
         // Windows
         writer.startElement(Tag.DIV.toString());
         writer.addAttribute("class", "sect\r\nion");
@@ -154,13 +154,14 @@ public class PrettyPrintXMLWriterTest {
      * <p>testendElementAlreadyClosed.</p>
      */
     @Test
-    public void testendElementAlreadyClosed() {
-        assertThrows(NoSuchElementException.class, () -> {
-            writer.startElement(Tag.DIV.toString());
-            writer.addAttribute("class", "someattribute");
-            writer.endElement(); // Tag.DIV closed
-            writer.endElement(); // Tag.DIV already closed, and there is no other outer tag!
-        });
+    void testendElementAlreadyClosed() {
+        writer.startElement(Tag.DIV.toString());
+        writer.addAttribute("class", "someattribute");
+        writer.endElement();
+        assertThrows(
+                NoSuchElementException.class,
+                () -> // Tag.DIV closed
+                writer.endElement());
     }
 
     /**
@@ -173,7 +174,7 @@ public class PrettyPrintXMLWriterTest {
      */
     @Disabled("This test is only relevant on JDK 1.7, which is not supported anymore")
     @Test
-    public void testIssue51DetectJava7ConcatenationBug() throws IOException {
+    void issue51DetectJava7ConcatenationBug() throws IOException {
         File dir = new File("target/test-xml");
         if (!dir.exists()) {
             assertTrue(dir.mkdir(), "cannot create directory test-xml");
