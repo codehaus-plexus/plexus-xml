@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.maven.api.xml.XmlNode;
-import org.apache.maven.internal.xml.XmlNodeImpl;
 import org.codehaus.plexus.util.xml.pull.XmlPullParser;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.junit.jupiter.api.Test;
@@ -229,7 +228,7 @@ class Xpp3DomTest {
         attributes.put(null, "nullKey");
         List<XmlNode> childList = new ArrayList<>();
         childList.add(null);
-        Xpp3Dom dom2 = new Xpp3Dom(new XmlNodeImpl(dom.getName(), null, attributes, childList, null));
+        Xpp3Dom dom2 = new Xpp3Dom(new XmlNode(dom.getName(), null, attributes, childList, null));
 
         assertNotEquals(dom, dom2);
         assertNotEquals(dom2, dom);
