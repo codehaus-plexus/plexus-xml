@@ -152,6 +152,7 @@ class Xpp3DomUtilsTest {
     }
 
     @Test
+    @SuppressWarnings("deprecation")
     void isNotEmptyNegatesIsEmpty() {
         assertEquals(!Xpp3DomUtils.isEmpty(null), Xpp3DomUtils.isNotEmpty(null));
         assertEquals(!Xpp3DomUtils.isEmpty(""), Xpp3DomUtils.isNotEmpty(""));
