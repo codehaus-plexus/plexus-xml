@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>MXSerializerTest xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../../stylesheet.css" />
@@ -20,7 +20,7 @@
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">class</strong> <a name="MXSerializerTest" href="../../../../../../org/codehaus/plexus/util/xml/pull/MXSerializerTest.html#MXSerializerTest">MXSerializerTest</a> {
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>      @Test
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">void</strong> testSerialize() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">void</strong> serialize() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>          StringWriter writer = <strong class="jxr_keyword">new</strong> StringWriter();
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
@@ -41,7 +41,7 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      }
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      @Test
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">void</strong> testDeserialize() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">void</strong> deserialize() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>          MXParser parser = <strong class="jxr_keyword">new</strong> MXParser();
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>          parser.setInput(<strong class="jxr_keyword">new</strong> StringReader(expectedOutput()));
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">int</strong> eventType = parser.getEventType();
@@ -69,7 +69,7 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     * Tests MJAVADOC-793.</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      @Test
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testWriteNullValues() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">void</strong> writeNullValues() <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <em class="jxr_comment">// should be no-ops</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">new</strong> MXSerializer().writeElementContent(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">new</strong> MXSerializer().writeAttributeValue(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>);
@@ -82,6 +82,6 @@
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2001&#x2013;2024 <a href="https://codehaus-plexus.github.io/">Codehaus Plexus</a>. All rights reserved.</div>
+<div id="footer">© 2001–2025 <a href="https://codehaus-plexus.github.io/">Codehaus Plexus</a></div>
 </body>
 </html>

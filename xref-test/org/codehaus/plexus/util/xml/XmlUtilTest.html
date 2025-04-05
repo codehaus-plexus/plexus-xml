@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>XmlUtilTest xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
@@ -33,11 +33,11 @@
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> java.io.Writer;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> java.nio.file.Files;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.util.IOUtil;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.codehaus.plexus.util.StringUtils;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.*;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.codehaus.plexus.util.xml.TestUtils.readAllFrom;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertNotNull;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertTrue;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * Test the {@link org.codehaus.plexus.util.xml.XmlUtil} class.</em>
@@ -76,7 +76,7 @@
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     * @throws java.lang.Exception if any.</em>
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      @Test
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPrettyFormatInputStreamOutputStream() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">void</strong> prettyFormatInputStreamOutputStream() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          File testDocument = <strong class="jxr_keyword">new</strong> File(getBasedir(), <span class="jxr_string">"src/test/resources/testDocument.xhtml"</span>);
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          assertTrue(testDocument.exists());
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  
@@ -97,7 +97,7 @@
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_javadoccomment">     * @throws java.lang.Exception if any.</em>
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      @Test
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPrettyFormatReaderWriter() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>      <strong class="jxr_keyword">void</strong> prettyFormatReaderWriter() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          File testDocument = <strong class="jxr_keyword">new</strong> File(getBasedir(), <span class="jxr_string">"src/test/resources/testDocument.xhtml"</span>);
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          assertTrue(testDocument.exists());
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
@@ -117,47 +117,49 @@
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment">     * @throws java.lang.Exception if any.</em>
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     @Test
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPrettyFormatString() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">void</strong> prettyFormatString() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         File testDocument = <strong class="jxr_keyword">new</strong> File(getBasedir(), <span class="jxr_string">"src/test/resources/testDocument.xhtml"</span>);
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         assertTrue(testDocument.exists());
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> 
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         String content;
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         <strong class="jxr_keyword">try</strong> (Reader reader = <strong class="jxr_keyword">new</strong> XmlStreamReader(testDocument)) {
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>             content = IOUtil.toString(reader);
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>             content = readAllFrom(reader);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         }
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> 
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>         Writer writer = <strong class="jxr_keyword">new</strong> StringWriter();
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         String contentPretty;
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         <strong class="jxr_keyword">try</strong> (Reader reader = <strong class="jxr_keyword">new</strong> XmlStreamReader(testDocument)) {
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>             XmlUtil.prettyFormat(reader, writer);
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>         }
-<a class="jxr_linenumber" name="L125" href="#L125">125</a> 
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         assertNotNull(content);
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>             Writer writer = <strong class="jxr_keyword">new</strong> StringWriter();
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>             XmlUtil.prettyFormat(reader, writer);
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>             contentPretty = writer.toString();
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         }
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> 
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">int</strong> countEOL = StringUtils.countMatches(content, XmlUtil.DEFAULT_LINE_SEPARATOR);
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         assertTrue(countEOL &lt; StringUtils.countMatches(writer.toString(), XmlUtil.DEFAULT_LINE_SEPARATOR));
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>     }
-<a class="jxr_linenumber" name="L131" href="#L131">131</a> 
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">     * &lt;p&gt;testPrettyFormatReaderWriter2.&lt;/p&gt;</em>
-<a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">     * @throws java.lang.Exception if any.</em>
-<a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     @Test
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPrettyFormatReaderWriter2() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>         File testDocument = <strong class="jxr_keyword">new</strong> File(getBasedir(), <span class="jxr_string">"src/test/resources/test.xdoc.xhtml"</span>);
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>         assertTrue(testDocument.exists());
-<a class="jxr_linenumber" name="L141" href="#L141">141</a> 
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">try</strong> (Reader reader = <strong class="jxr_keyword">new</strong> XmlStreamReader(testDocument);
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>                 Writer writer = <strong class="jxr_keyword">new</strong> XmlStreamWriter(getTestOutputFile(<span class="jxr_string">"target/test/prettyFormatTestXdocWriter.xml"</span>))) {
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>             assertNotNull(reader);
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>             assertNotNull(writer);
-<a class="jxr_linenumber" name="L146" href="#L146">146</a> 
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>             XmlUtil.prettyFormat(reader, writer);
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>         }
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>     }
-<a class="jxr_linenumber" name="L150" href="#L150">150</a> }
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         assertNotNull(content);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a> 
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">int</strong> countEOL = TestUtils.countMatches(content, XmlUtil.DEFAULT_LINE_SEPARATOR);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         assertTrue(countEOL &lt; TestUtils.countMatches(contentPretty, XmlUtil.DEFAULT_LINE_SEPARATOR));
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>     }
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> 
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">     * &lt;p&gt;testPrettyFormatReaderWriter2.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">     * @throws java.lang.Exception if any.</em>
+<a class="jxr_linenumber" name="L138" href="#L138">138</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     @Test
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>     <strong class="jxr_keyword">void</strong> prettyFormatReaderWriter2() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>         File testDocument = <strong class="jxr_keyword">new</strong> File(getBasedir(), <span class="jxr_string">"src/test/resources/test.xdoc.xhtml"</span>);
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>         assertTrue(testDocument.exists());
+<a class="jxr_linenumber" name="L143" href="#L143">143</a> 
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>         <strong class="jxr_keyword">try</strong> (Reader reader = <strong class="jxr_keyword">new</strong> XmlStreamReader(testDocument);
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>                 Writer writer = <strong class="jxr_keyword">new</strong> XmlStreamWriter(getTestOutputFile(<span class="jxr_string">"target/test/prettyFormatTestXdocWriter.xml"</span>))) {
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>             assertNotNull(reader);
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>             assertNotNull(writer);
+<a class="jxr_linenumber" name="L148" href="#L148">148</a> 
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>             XmlUtil.prettyFormat(reader, writer);
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>         }
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>     }
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2001&#x2013;2024 <a href="https://codehaus-plexus.github.io/">Codehaus Plexus</a>. All rights reserved.</div>
+<div id="footer">© 2001–2025 <a href="https://codehaus-plexus.github.io/">Codehaus Plexus</a></div>
 </body>
 </html>

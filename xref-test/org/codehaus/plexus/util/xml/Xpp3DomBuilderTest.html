@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>Xpp3DomBuilderTest xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
@@ -42,7 +42,7 @@
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> * @version $Id: $Id</em>
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * @since 3.4.0</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="Xpp3DomBuilderTest" href="../../../../../org/codehaus/plexus/util/xml/Xpp3DomBuilderTest.html#Xpp3DomBuilderTest">Xpp3DomBuilderTest</a> {
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">class</strong> <a name="Xpp3DomBuilderTest" href="../../../../../org/codehaus/plexus/util/xml/Xpp3DomBuilderTest.html#Xpp3DomBuilderTest">Xpp3DomBuilderTest</a> {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LS = System.lineSeparator();
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      <em class="jxr_javadoccomment">/**</em>
@@ -51,7 +51,7 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     * @throws java.lang.Exception if any.</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      @Test
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBuildFromReader() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">void</strong> buildFromReader() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          String domString = createDomString();
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          Xpp3Dom dom = Xpp3DomBuilder.build(<strong class="jxr_keyword">new</strong> StringReader(domString));
@@ -67,7 +67,7 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     * @throws java.lang.Exception if any.</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      @Test
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBuildTrimming() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">void</strong> buildTrimming() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          String domString = createDomString();
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          Xpp3Dom dom = Xpp3DomBuilder.build(<strong class="jxr_keyword">new</strong> StringReader(domString), <strong class="jxr_keyword">true</strong>);
@@ -85,7 +85,7 @@
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">     * @throws java.lang.Exception if any.</em>
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      @Test
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBuildFromXpp3Dom() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">void</strong> buildFromXpp3Dom() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>          Xpp3Dom expectedDom = createExpectedDom();
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          Xpp3Dom dom = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
@@ -131,7 +131,7 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">     * Test we get an error from the parser, and don't hit the IllegalStateException.</em>
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>     @Test
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testUnclosedXml() {
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">void</strong> unclosedXml() {
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>         String domString = <span class="jxr_string">"&lt;newRoot&gt;"</span> + createDomString();
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>             Xpp3DomBuilder.build(<strong class="jxr_keyword">new</strong> StringReader(domString));
@@ -151,7 +151,7 @@
 <a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.</em>
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>     @Test
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testEscapingInContent() <strong class="jxr_keyword">throws</strong> IOException, XmlPullParserException {
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>     <strong class="jxr_keyword">void</strong> escapingInContent() <strong class="jxr_keyword">throws</strong> IOException, XmlPullParserException {
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         Xpp3Dom dom = Xpp3DomBuilder.build(<strong class="jxr_keyword">new</strong> StringReader(getEncodedString()));
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         assertEquals(<span class="jxr_string">"\&quot;text\&quot;"</span>, dom.getChild(<span class="jxr_string">"el"</span>).getValue(), <span class="jxr_string">"Check content value"</span>);
@@ -170,7 +170,7 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> <em class="jxr_javadoccomment">     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.</em>
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>     @Test
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testEscapingInAttributes() <strong class="jxr_keyword">throws</strong> IOException, XmlPullParserException {
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>     <strong class="jxr_keyword">void</strong> escapingInAttributes() <strong class="jxr_keyword">throws</strong> IOException, XmlPullParserException {
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>         String s = getAttributeEncodedString();
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>         Xpp3Dom dom = Xpp3DomBuilder.build(<strong class="jxr_keyword">new</strong> StringReader(s));
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
@@ -189,7 +189,7 @@
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> <em class="jxr_javadoccomment">     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.</em>
 <a class="jxr_linenumber" name="L182" href="#L182">182</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>     @Test
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testInputLocationTracking() <strong class="jxr_keyword">throws</strong> IOException, XmlPullParserException {
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>     <strong class="jxr_keyword">void</strong> inputLocationTracking() <strong class="jxr_keyword">throws</strong> IOException, XmlPullParserException {
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>         Xpp3DomBuilder.InputLocationBuilder ilb = <strong class="jxr_keyword">new</strong> Xpp3DomBuilder.InputLocationBuilder() {
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>             <strong class="jxr_keyword">public</strong> Object toInputLocation(XmlPullParser parser) {
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>                 <strong class="jxr_keyword">return</strong> parser.getLineNumber(); <em class="jxr_comment">// store only line number as a simple Integer</em>
@@ -303,6 +303,6 @@
 <a class="jxr_linenumber" name="L295" href="#L295">295</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2001&#x2013;2024 <a href="https://codehaus-plexus.github.io/">Codehaus Plexus</a>. All rights reserved.</div>
+<div id="footer">© 2001–2025 <a href="https://codehaus-plexus.github.io/">Codehaus Plexus</a></div>
 </body>
 </html>
