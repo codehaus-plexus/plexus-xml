@@ -30,6 +30,14 @@ limitations under the License.
   <description>A collection of various utility classes to ease working with XML.</description>
   <url>https://codehaus-plexus.github.io/plexus-xml/</url>
 
+  <licenses>
+    <license>
+      <name>Apache-2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
   <scm>
     <connection>scm:git:https://github.com/codehaus-plexus/plexus-xml.git</connection>
     <developerConnection>${project.scm.connection}</developerConnection>
