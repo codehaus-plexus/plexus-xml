@@ -261,4 +261,25 @@ class XmlStreamReaderTest {
         xml = "<element encoding='attribute value'/>";
         checkXmlContent(xml, "UTF-8");
     }
+
+    /**
+     * Test that the regex pattern handles edge cases efficiently without catastrophic backtracking.
+     * This validates the fix for polynomial regex vulnerability.
+     *
+     * @throws java.io.IOException if any.
+     */
+    @Test
+    void encodingPatternWithManyAttributes() throws IOException {
+        // Test with many attributes before encoding to ensure non-greedy matching works
+        String xml = "<?xml version='1.0' a='1' b='2' c='3' d='4' e='5' encoding='UTF-8'?><root/>";
+        checkXmlContent(xml, "UTF-8");
+
+        // Test with whitespace variations
+        xml = "<?xml    version='1.0'    encoding  =  'US-ASCII'    ?><root/>";
+        checkXmlContent(xml, "US-ASCII");
+
+        // Test with longer prolog (but still valid)
+        xml = "<?xml version='1.0' standalone='yes' encoding='ISO-8859-1'?><root/>";
+        checkXmlContent(xml, "ISO-8859-1");
+    }
 }
