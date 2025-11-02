@@ -128,11 +128,7 @@ class Xpp3DomBuilderTest {
         try {
             Xpp3DomBuilder.build(new StringReader(domString));
         } catch (XmlPullParserException expected) {
-            // correct
-            assertTrue(true);
         } catch (IOException expected) {
-            // this will do too
-            assertTrue(true);
         }
     }
 
@@ -143,7 +139,7 @@ class Xpp3DomBuilderTest {
      * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.
      */
     @Test
-    void escapingInContent() throws IOException, XmlPullParserException {
+    void escapingInContent() throws Exception {
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(getEncodedString()));
 
         assertEquals("\"text\"", dom.getChild("el").getValue(), "Check content value");
@@ -162,7 +158,7 @@ class Xpp3DomBuilderTest {
      * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.
      */
     @Test
-    void escapingInAttributes() throws IOException, XmlPullParserException {
+    void escapingInAttributes() throws Exception {
         String s = getAttributeEncodedString();
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(s));
 
@@ -181,7 +177,7 @@ class Xpp3DomBuilderTest {
      * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.
      */
     @Test
-    void inputLocationTracking() throws IOException, XmlPullParserException {
+    void inputLocationTracking() throws Exception {
         Xpp3DomBuilder.InputLocationBuilder ilb = new Xpp3DomBuilder.InputLocationBuilder() {
             public Object toInputLocation(XmlPullParser parser) {
                 return parser.getLineNumber(); // store only line number as a simple Integer

@@ -19,7 +19,6 @@ package org.codehaus.plexus.util.xml;
 import javax.swing.text.html.HTML.Tag;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
@@ -173,7 +172,7 @@ class PrettyPrintXMLWriterTest {
      */
     @Disabled("This test is only relevant on JDK 1.7, which is not supported anymore")
     @Test
-    void issue51DetectJava7ConcatenationBug() throws IOException {
+    void issue51DetectJava7ConcatenationBug() throws Exception {
         File dir = new File("target/test-xml");
         if (!dir.exists()) {
             assertTrue(dir.mkdir(), "cannot create directory test-xml");
