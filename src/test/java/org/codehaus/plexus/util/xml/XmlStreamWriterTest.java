@@ -77,7 +77,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void noXmlHeader() throws IOException {
+    void noXmlHeader() throws Exception {
         String xml = "<text>text with no XML header</text>";
         checkXmlContent(xml, "UTF-8");
     }
@@ -88,7 +88,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void empty() throws IOException {
+    void empty() throws Exception {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         XmlStreamWriter writer = new XmlStreamWriter(out);
         writer.flush();
@@ -105,7 +105,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void defaultEncoding() throws IOException {
+    void defaultEncoding() throws Exception {
         checkXmlWriter(TEXT_UNICODE, null);
     }
 
@@ -115,7 +115,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void utf8Encoding() throws IOException {
+    void utf8Encoding() throws Exception {
         checkXmlWriter(TEXT_UNICODE, "UTF-8");
     }
 
@@ -125,7 +125,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void utf16Encoding() throws IOException {
+    void utf16Encoding() throws Exception {
         checkXmlWriter(TEXT_UNICODE, "UTF-16");
     }
 
@@ -135,7 +135,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void utf16beEncoding() throws IOException {
+    void utf16beEncoding() throws Exception {
         checkXmlWriter(TEXT_UNICODE, "UTF-16BE");
     }
 
@@ -145,7 +145,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void utf16leEncoding() throws IOException {
+    void utf16leEncoding() throws Exception {
         checkXmlWriter(TEXT_UNICODE, "UTF-16LE");
     }
 
@@ -155,7 +155,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void latin1Encoding() throws IOException {
+    void latin1Encoding() throws Exception {
         checkXmlWriter(TEXT_LATIN1, "ISO-8859-1");
     }
 
@@ -165,7 +165,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void latin7Encoding() throws IOException {
+    void latin7Encoding() throws Exception {
         checkXmlWriter(TEXT_LATIN7, "ISO-8859-7");
     }
 
@@ -175,7 +175,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void latin15Encoding() throws IOException {
+    void latin15Encoding() throws Exception {
         checkXmlWriter(TEXT_LATIN15, "ISO-8859-15");
     }
 
@@ -185,7 +185,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void euc_jpEncoding() throws IOException {
+    void euc_jpEncoding() throws Exception {
         checkXmlWriter(TEXT_EUC_JP, "EUC-JP");
     }
 
@@ -195,7 +195,7 @@ class XmlStreamWriterTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void ebcdicEncoding() throws IOException {
+    void ebcdicEncoding() throws Exception {
         checkXmlWriter("simple text in EBCDIC", "CP1047");
     }
 }

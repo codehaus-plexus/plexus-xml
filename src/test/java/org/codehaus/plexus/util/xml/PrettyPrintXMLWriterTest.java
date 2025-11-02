@@ -173,7 +173,7 @@ class PrettyPrintXMLWriterTest {
      */
     @Disabled("This test is only relevant on JDK 1.7, which is not supported anymore")
     @Test
-    void issue51DetectJava7ConcatenationBug() throws IOException {
+    void issue51DetectJava7ConcatenationBug() throws Exception {
         File dir = new File("target/test-xml");
         if (!dir.exists()) {
             assertTrue(dir.mkdir(), "cannot create directory test-xml");

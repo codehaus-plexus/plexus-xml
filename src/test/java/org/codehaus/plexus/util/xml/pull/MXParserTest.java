@@ -122,7 +122,7 @@ class MXParserTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void entityReplacementMap() throws XmlPullParserException, IOException {
+    void entityReplacementMap() throws Exception {
         EntityReplacementMap erm = new EntityReplacementMap(new String[][] {{"abc", "CDE"}, {"EFG", "HIJ"}});
         MXParser parser = new MXParser(erm);
 
@@ -856,13 +856,12 @@ class MXParserTest {
      * @since 3.4.1
      */
     @Test
-    void encodingISO88591NewXmlReader() throws IOException {
+    void encodingISO88591NewXmlReader() throws Exception {
         try (Reader reader = new XmlStreamReader(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);
         }
@@ -876,14 +875,13 @@ class MXParserTest {
      * @since 3.4.1
      */
     @Test
-    void encodingISO88591InputStream() throws IOException {
+    void encodingISO88591InputStream() throws Exception {
         try (InputStream input =
                 Files.newInputStream(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(input, null);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);
         }
@@ -899,7 +897,7 @@ class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    void encodingISO88591StringReader() throws IOException {
+    void encodingISO88591StringReader() throws Exception {
         String xmlFileContents;
         try (Reader reader = new XmlStreamReader(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             xmlFileContents = readAllFrom(reader);
@@ -911,7 +909,6 @@ class MXParserTest {
                     parser.setInput(new StringReader(xmlFileContents));
                     while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                         ;
-                    assertTrue(true);
                 },
                 "should not raise exception: ");
     }
@@ -926,7 +923,7 @@ class MXParserTest {
      * @since 3.5.2
      */
     @Test
-    void encodingISO88591NewReader() throws IOException {
+    void encodingISO88591NewReader() throws Exception {
         // NOTE: if using Files.newBufferedReader(path, StandardCharsets.UTF-8), the reader will throw an exception
         // because the decoder created by new InputStreamReader() is lenient while the one created by
         // Files.newBufferedReader() is not.
@@ -937,7 +934,6 @@ class MXParserTest {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);
         }
@@ -953,14 +949,13 @@ class MXParserTest {
      * @since 3.5.2
      */
     @Test
-    void encodingISO88591InputStreamEncoded() throws IOException {
+    void encodingISO88591InputStreamEncoded() throws Exception {
         try (InputStream input =
                 Files.newInputStream(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(input, StandardCharsets.UTF_8.name());
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);
         }
@@ -974,13 +969,12 @@ class MXParserTest {
      * @since 3.4.1
      */
     @Test
-    void encodingUTF8NewXmlReader() throws IOException {
+    void encodingUTF8NewXmlReader() throws Exception {
         try (Reader reader = new XmlStreamReader(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
                 ;
-            assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);
         }
@@ -1130,7 +1124,7 @@ class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    void docdeclTextWithEntitiesUnix() throws IOException {
+    void docdeclTextWithEntitiesUnix() throws Exception {
         testDocdeclTextWithEntities("test-entities-UNIX.xml");
     }
 
@@ -1146,7 +1140,7 @@ class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    void docdeclTextWithEntitiesDOS() throws IOException {
+    void docdeclTextWithEntitiesDOS() throws Exception {
         testDocdeclTextWithEntities("test-entities-DOS.xml");
     }
 
@@ -1183,7 +1177,7 @@ class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    void docdeclTextWithEntitiesInAttributesUnix() throws IOException {
+    void docdeclTextWithEntitiesInAttributesUnix() throws Exception {
         testDocdeclTextWithEntitiesInAttributes("test-entities-in-attr-UNIX.xml");
     }
 
@@ -1199,7 +1193,7 @@ class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    void docdeclTextWithEntitiesInAttributesDOS() throws IOException {
+    void docdeclTextWithEntitiesInAttributesDOS() throws Exception {
         testDocdeclTextWithEntitiesInAttributes("test-entities-in-attr-DOS.xml");
     }
 
@@ -1254,7 +1248,7 @@ class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    void entityRefTextUnix() throws IOException {
+    void entityRefTextUnix() throws Exception {
         testEntityRefText("\n");
     }
 
@@ -1268,7 +1262,7 @@ class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    void entityRefTextDOS() throws IOException {
+    void entityRefTextDOS() throws Exception {
         testEntityRefText("\r\n");
     }
 
@@ -1333,7 +1327,7 @@ class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    void entityReplacement() throws IOException {
+    void entityReplacement() throws Exception {
         String input = "<p><!-- a pagebreak: --><!-- PB -->&#160;&nbsp;<unknown /></p>";
 
         assertDoesNotThrow(
@@ -1376,7 +1370,7 @@ class MXParserTest {
      * @since 3.4.2
      */
     @Test
-    void replacementInPCArrayWithShorterCharArray() throws IOException {
+    void replacementInPCArrayWithShorterCharArray() throws Exception {
         String input = "<!DOCTYPE test [<!ENTITY foo \"&#x159;\"><!ENTITY tritPos  \"&#x1d7ed;\">]>"
                 + "<section name=\"&amp;&foo;&tritPos;\"><p>&amp;&foo;&tritPos;</p></section>";
 
@@ -1419,7 +1413,7 @@ class MXParserTest {
      * Ensures emoji can be parsed correctly
      */
     @Test
-    void unicode() throws IOException {
+    void unicode() throws Exception {
         String input = "<project><!--ALL TEH BOMS!  \uD83D\uDCA3  --></project>";
 
         try {
@@ -1478,7 +1472,7 @@ class MXParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {" ", "\n", "\r", "\r\n", "  ", "\n "})
-    void blankAtBeginning(String ws) throws XmlPullParserException, IOException {
+    void blankAtBeginning(String ws) throws Exception {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><test>nnn</test>";
 
         MXParser parser = new MXParser();

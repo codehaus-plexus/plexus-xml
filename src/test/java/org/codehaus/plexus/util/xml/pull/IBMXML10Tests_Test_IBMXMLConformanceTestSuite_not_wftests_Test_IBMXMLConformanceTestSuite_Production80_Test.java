@@ -44,7 +44,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testibm_not_wf_P80_ibm80n01xml() throws IOException {
+    void testibm_not_wf_P80_ibm80n01xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P80/ibm80n01.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -66,7 +66,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testibm_not_wf_P80_ibm80n02xml() throws IOException {
+    void testibm_not_wf_P80_ibm80n02xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P80/ibm80n02.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -88,7 +88,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testibm_not_wf_P80_ibm80n03xml() throws IOException {
+    void testibm_not_wf_P80_ibm80n03xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P80/ibm80n03.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -111,7 +111,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testibm_not_wf_P80_ibm80n04xml() throws IOException {
+    void testibm_not_wf_P80_ibm80n04xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P80/ibm80n04.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -133,7 +133,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testibm_not_wf_P80_ibm80n05xml() throws IOException {
+    void testibm_not_wf_P80_ibm80n05xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P80/ibm80n05.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -155,7 +155,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testibm_not_wf_P80_ibm80n06xml() throws IOException {
+    void testibm_not_wf_P80_ibm80n06xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P80/ibm80n06.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)

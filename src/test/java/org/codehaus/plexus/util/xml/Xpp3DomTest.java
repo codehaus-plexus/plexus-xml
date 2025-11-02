@@ -220,7 +220,7 @@ class Xpp3DomTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void equalsIsNullSafe() throws XmlPullParserException, IOException {
+    void equalsIsNullSafe() throws Exception {
         String testDom = "<configuration><items thing='blah'><item>one</item><item>two</item></items></configuration>";
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(testDom));
 
@@ -242,7 +242,7 @@ class Xpp3DomTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void shouldOverwritePluginConfigurationSubItemsByDefault() throws XmlPullParserException, IOException {
+    void shouldOverwritePluginConfigurationSubItemsByDefault() throws Exception {
         String parentConfigStr = "<configuration><items><item>one</item><item>two</item></items></configuration>";
         Xpp3Dom parentConfig =
                 Xpp3DomBuilder.build(new StringReader(parentConfigStr), new FixedInputLocationBuilder("parent"));
@@ -268,7 +268,7 @@ class Xpp3DomTest {
      * @throws java.io.IOException if any.
      */
     @Test
-    void shouldMergePluginConfigurationSubItemsWithMergeAttributeSet() throws XmlPullParserException, IOException {
+    void shouldMergePluginConfigurationSubItemsWithMergeAttributeSet() throws Exception {
         String parentConfigStr = "<configuration><items><item>one</item><item>two</item></items></configuration>";
         Xpp3Dom parentConfig =
                 Xpp3DomBuilder.build(new StringReader(parentConfigStr), new FixedInputLocationBuilder("parent"));
@@ -342,7 +342,7 @@ class Xpp3DomTest {
      * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if any.
      */
     @Test
-    void dupeChildren() throws IOException, XmlPullParserException {
+    void dupeChildren() throws Exception {
         String dupes = "<configuration><foo>x</foo><foo>y</foo></configuration>";
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(dupes));
         assertNotNull(dom);
@@ -482,7 +482,7 @@ class Xpp3DomTest {
     }
 
     @Test
-    void preserveDominantBlankValue() throws XmlPullParserException, IOException {
+    void preserveDominantBlankValue() throws Exception {
         String lhs = "<parameter xml:space=\"preserve\"> </parameter>";
 
         String rhs = "<parameter>recessive</parameter>";
@@ -497,7 +497,7 @@ class Xpp3DomTest {
     }
 
     @Test
-    void preserveDominantEmptyNode() throws XmlPullParserException, IOException {
+    void preserveDominantEmptyNode() throws Exception {
         String lhs = "<parameter></parameter>";
 
         String rhs = "<parameter>recessive</parameter>";
