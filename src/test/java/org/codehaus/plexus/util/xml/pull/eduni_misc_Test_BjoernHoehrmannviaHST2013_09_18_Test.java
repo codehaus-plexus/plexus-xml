@@ -46,7 +46,7 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testhst_bh_001() throws IOException {
+    void testhst_bh_001() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "001.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -67,7 +67,7 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testhst_bh_002() throws IOException {
+    void testhst_bh_002() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "002.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -88,7 +88,7 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testhst_bh_003() throws IOException {
+    void testhst_bh_003() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "003.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -109,7 +109,7 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testhst_bh_004() throws IOException {
+    void testhst_bh_004() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "004.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -140,7 +140,6 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
                 ;
             fail("xmlns:xml is an attribute as far as validation is concerned and must be declared");
         } catch (XmlPullParserException e) {
-            assertTrue(true);
         }
     }
 
@@ -163,7 +162,6 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
                 ;
             fail("xmlns:foo is an attribute as far as validation is concerned and must be declared");
         } catch (XmlPullParserException e) {
-            assertTrue(true);
         }
     }
 
@@ -177,7 +175,7 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testhst_lhs_007() throws IOException {
+    void testhst_lhs_007() throws Exception {
         try (InputStream is = new FileInputStream(new File(testResourcesDir, "007.xml"))) {
             parser.setInput(is, null);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -198,7 +196,7 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testhst_lhs_008() throws IOException {
+    void testhst_lhs_008() throws Exception {
         try (InputStream is = new FileInputStream(new File(testResourcesDir, "008.xml"))) {
             parser.setInput(is, null);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
@@ -219,7 +217,7 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
      * @throws java.io.IOException if there is an I/O error
      */
     @Test
-    void testhst_lhs_009() throws IOException {
+    void testhst_lhs_009() throws Exception {
         try (InputStream is = new FileInputStream(new File(testResourcesDir, "009.xml"))) {
             parser.setInput(is, null);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
