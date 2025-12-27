@@ -179,8 +179,8 @@ class Xpp3DomBuilderTest {
     @Test
     void inputLocationTracking() throws Exception {
         Xpp3DomBuilder.InputLocationBuilder ilb = new Xpp3DomBuilder.InputLocationBuilder() {
-            public Object toInputLocation(XmlPullParser parser) {
-                return parser.getLineNumber(); // store only line number as a simple Integer
+            public Object toInputLocation(javax.xml.stream.XMLStreamReader parser) {
+                return parser.getLocation().getLineNumber(); // store only line number as a simple Integer
             }
         };
         Xpp3Dom dom = Xpp3DomBuilder.build(new StringReader(createDomString()), true, ilb);
