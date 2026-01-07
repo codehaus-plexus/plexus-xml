@@ -16,10 +16,13 @@ package org.codehaus.plexus.util.xml;
  * limitations under the License.
  */
 
+import javax.xml.stream.XMLStreamException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
+import org.apache.maven.api.xml.XmlService;
 import org.apache.maven.internal.xml.XmlNodeBuilder;
 import org.codehaus.plexus.util.xml.pull.XmlPullParser;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
@@ -49,7 +52,15 @@ public class Xpp3DomBuilder {
     public static Xpp3Dom build(InputStream is, String encoding, boolean trim)
             throws XmlPullParserException, IOException {
         try (InputStream closeMe = is) {
-            return new Xpp3Dom(XmlNodeBuilder.build(is, encoding, trim));
+            try {
+                if (trim) {
+                    return new Xpp3Dom(XmlService.read(is, null));
+                } else {
+                    return new Xpp3Dom(XmlNodeBuilder.build(is, encoding, trim));
+                }
+            } catch (XMLStreamException e) {
+                throw new XmlPullParserException(e.getMessage(), null, e);
+            }
         }
     }
 
@@ -63,8 +74,27 @@ public class Xpp3DomBuilder {
     public static Xpp3Dom build(Reader reader, boolean trim, InputLocationBuilder locationBuilder)
             throws XmlPullParserException, IOException {
         try (Reader closeMe = reader) {
-            return new Xpp3Dom(XmlNodeBuilder.build(
-                    reader, trim, locationBuilder != null ? locationBuilder::toInputLocation : null));
+            if (trim) {
+                try {
+                    XmlService.InputLocationBuilder xlb =
+                            locationBuilder != null ? locationBuilder::toInputLocation : null;
+                    return new Xpp3Dom(XmlService.read(reader, xlb));
+                } catch (XMLStreamException e) {
+                    throw new XmlPullParserException(e.getMessage(), null, e);
+                }
+            } else {
+                org.apache.maven.internal.xml.XmlNodeBuilder.InputLocationBuilder xlb = locationBuilder != null
+                        ? parser -> {
+                            try {
+                                return locationBuilder.toInputLocation(
+                                        new XmlPullParserToXMLStreamReaderAdapter((XmlPullParser) parser));
+                            } catch (XMLStreamException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        : null;
+                return new Xpp3Dom(XmlNodeBuilder.build(reader, trim, xlb));
+            }
         }
     }
 
@@ -81,8 +111,26 @@ public class Xpp3DomBuilder {
      */
     public static Xpp3Dom build(XmlPullParser parser, boolean trim, InputLocationBuilder locationBuilder)
             throws XmlPullParserException, IOException {
-        return new Xpp3Dom(
-                XmlNodeBuilder.build(parser, trim, locationBuilder != null ? locationBuilder::toInputLocation : null));
+        if (trim) {
+            try {
+                XmlService.InputLocationBuilder xlb = locationBuilder != null ? locationBuilder::toInputLocation : null;
+                return new Xpp3Dom(XmlService.read(new XmlPullParserToXMLStreamReaderAdapter(parser), xlb));
+            } catch (XMLStreamException e) {
+                throw new XmlPullParserException(e.getMessage(), null, e);
+            }
+        } else {
+            org.apache.maven.internal.xml.XmlNodeBuilder.InputLocationBuilder xlb = locationBuilder != null
+                    ? p -> {
+                        try {
+                            return locationBuilder.toInputLocation(
+                                    new XmlPullParserToXMLStreamReaderAdapter((XmlPullParser) p));
+                        } catch (XMLStreamException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    : null;
+            return new Xpp3Dom(XmlNodeBuilder.build(parser, trim, xlb));
+        }
     }
 
     /**
@@ -91,6 +139,6 @@ public class Xpp3DomBuilder {
      * @since 3.2.0
      */
     public interface InputLocationBuilder {
-        Object toInputLocation(XmlPullParser parser);
+        Object toInputLocation(javax.xml.stream.XMLStreamReader parser);
     }
 }

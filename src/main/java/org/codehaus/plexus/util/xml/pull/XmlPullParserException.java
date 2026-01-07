@@ -9,12 +9,6 @@ package org.codehaus.plexus.util.xml.pull;
  * @author <a href="http://www.extreme.indiana.edu/~aslom/">Aleksander Slominski</a>
  */
 public class XmlPullParserException extends Exception {
-    /**
-     * @deprecated use generic getCause() method
-     */
-    @Deprecated
-    protected Throwable detail;
-
     protected int row = -1;
 
     protected int column = -1;
@@ -43,19 +37,8 @@ public class XmlPullParserException extends Exception {
             this.row = parser.getLineNumber();
             this.column = parser.getColumnNumber();
         }
-        this.detail = chain;
     }
 
-    /**
-     * @deprecated Use the generic <code>getCause()</code> method
-     * @return the cause
-     */
-    @Deprecated
-    public Throwable getDetail() {
-        return getCause();
-    }
-
-    // public void setDetail(Throwable cause) { this.detail = cause; }
     public int getLineNumber() {
         return row;
     }

@@ -24,7 +24,6 @@ import java.util.Map;
 
 import org.apache.maven.api.xml.XmlNode;
 import org.apache.maven.internal.xml.XmlNodeImpl;
-import org.codehaus.plexus.util.xml.pull.XmlPullParser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -516,7 +515,7 @@ class Xpp3DomTest {
             this.location = location;
         }
 
-        public Object toInputLocation(XmlPullParser parser) {
+        public Object toInputLocation(javax.xml.stream.XMLStreamReader parser) {
             return location;
         }
     }
