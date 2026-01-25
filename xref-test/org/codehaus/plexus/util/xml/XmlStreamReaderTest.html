@@ -121,7 +121,7 @@
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>     @Test
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>     <strong class="jxr_keyword">void</strong> noXmlHeader() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>     <strong class="jxr_keyword">void</strong> noXmlHeader() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>         String xml = <span class="jxr_string">"&lt;text&gt;text with no XML header&lt;/text&gt;"</span>;
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         checkXmlContent(xml, <span class="jxr_string">"UTF-8"</span>);
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         checkXmlContent(xml, <span class="jxr_string">"UTF-8"</span>, BOM_UTF8);
@@ -133,7 +133,7 @@
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>     @Test
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">void</strong> defaultEncoding() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">void</strong> defaultEncoding() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         checkXmlStreamReader(TEXT_UNICODE, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"UTF-8"</span>);
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>         checkXmlStreamReader(TEXT_UNICODE, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"UTF-8"</span>, BOM_UTF8);
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>     }
@@ -144,7 +144,7 @@
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     @Test
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">void</strong> utf8Encoding() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     <strong class="jxr_keyword">void</strong> utf8Encoding() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         checkXmlStreamReader(TEXT_UNICODE, <span class="jxr_string">"UTF-8"</span>);
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>         checkXmlStreamReader(TEXT_UNICODE, <span class="jxr_string">"UTF-8"</span>, BOM_UTF8);
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>     }
@@ -155,7 +155,7 @@
 <a class="jxr_linenumber" name="L147" href="#L147">147</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     @Test
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>     <strong class="jxr_keyword">void</strong> utf16Encoding() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>     <strong class="jxr_keyword">void</strong> utf16Encoding() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>         checkXmlStreamReader(TEXT_UNICODE, <span class="jxr_string">"UTF-16"</span>, <span class="jxr_string">"UTF-16BE"</span>, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>         checkXmlStreamReader(TEXT_UNICODE, <span class="jxr_string">"UTF-16"</span>, <span class="jxr_string">"UTF-16LE"</span>, BOM_UTF16LE);
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         checkXmlStreamReader(TEXT_UNICODE, <span class="jxr_string">"UTF-16"</span>, <span class="jxr_string">"UTF-16BE"</span>, BOM_UTF16BE);
@@ -167,7 +167,7 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>     @Test
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">void</strong> utf16beEncoding() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">void</strong> utf16beEncoding() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         checkXmlStreamReader(TEXT_UNICODE, <span class="jxr_string">"UTF-16BE"</span>);
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>     }
 <a class="jxr_linenumber" name="L165" href="#L165">165</a> 
@@ -177,7 +177,7 @@
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L170" href="#L170">170</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>     @Test
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>     <strong class="jxr_keyword">void</strong> utf16leEncoding() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>     <strong class="jxr_keyword">void</strong> utf16leEncoding() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         checkXmlStreamReader(TEXT_UNICODE, <span class="jxr_string">"UTF-16LE"</span>);
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>     }
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> 
@@ -187,7 +187,7 @@
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>     @Test
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">void</strong> latin1Encoding() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">void</strong> latin1Encoding() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>         checkXmlStreamReader(TEXT_LATIN1, <span class="jxr_string">"ISO-8859-1"</span>);
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>     }
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> 
@@ -197,7 +197,7 @@
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>     @Test
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">void</strong> latin7Encoding() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     <strong class="jxr_keyword">void</strong> latin7Encoding() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>         checkXmlStreamReader(TEXT_LATIN7, <span class="jxr_string">"ISO-8859-7"</span>);
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>     }
 <a class="jxr_linenumber" name="L195" href="#L195">195</a> 
@@ -207,7 +207,7 @@
 <a class="jxr_linenumber" name="L199" href="#L199">199</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>     @Test
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>     <strong class="jxr_keyword">void</strong> latin15Encoding() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>     <strong class="jxr_keyword">void</strong> latin15Encoding() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>         checkXmlStreamReader(TEXT_LATIN15, <span class="jxr_string">"ISO-8859-15"</span>);
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>     }
 <a class="jxr_linenumber" name="L205" href="#L205">205</a> 
@@ -217,7 +217,7 @@
 <a class="jxr_linenumber" name="L209" href="#L209">209</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L210" href="#L210">210</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>     @Test
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>     <strong class="jxr_keyword">void</strong> euc_jpEncoding() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>     <strong class="jxr_keyword">void</strong> euc_jpEncoding() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>         checkXmlStreamReader(TEXT_EUC_JP, <span class="jxr_string">"EUC-JP"</span>);
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>     }
 <a class="jxr_linenumber" name="L215" href="#L215">215</a> 
@@ -227,7 +227,7 @@
 <a class="jxr_linenumber" name="L219" href="#L219">219</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L220" href="#L220">220</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>     @Test
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>     <strong class="jxr_keyword">void</strong> ebcdicEncoding() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>     <strong class="jxr_keyword">void</strong> ebcdicEncoding() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>         checkXmlStreamReader(<span class="jxr_string">"simple text in EBCDIC"</span>, <span class="jxr_string">"CP1047"</span>);
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>     }
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> 
@@ -250,7 +250,7 @@
 <a class="jxr_linenumber" name="L242" href="#L242">242</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
 <a class="jxr_linenumber" name="L243" href="#L243">243</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>     @Test
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>     <strong class="jxr_keyword">void</strong> encodingAttribute() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>     <strong class="jxr_keyword">void</strong> encodingAttribute() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>         String xml = <span class="jxr_string">"&lt;?xml version='1.0' encoding='US-ASCII'?&gt;&lt;element encoding='attribute value'/&gt;"</span>;
 <a class="jxr_linenumber" name="L247" href="#L247">247</a>         checkXmlContent(xml, <span class="jxr_string">"US-ASCII"</span>);
 <a class="jxr_linenumber" name="L248" href="#L248">248</a> 
@@ -269,9 +269,30 @@
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>         xml = <span class="jxr_string">"&lt;element encoding='attribute value'/&gt;"</span>;
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>         checkXmlContent(xml, <span class="jxr_string">"UTF-8"</span>);
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>     }
-<a class="jxr_linenumber" name="L264" href="#L264">264</a> }
+<a class="jxr_linenumber" name="L264" href="#L264">264</a> 
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> <em class="jxr_javadoccomment">     * Test that the regex pattern handles edge cases efficiently without catastrophic backtracking.</em>
+<a class="jxr_linenumber" name="L267" href="#L267">267</a> <em class="jxr_javadoccomment">     * This validates the fix for polynomial regex vulnerability.</em>
+<a class="jxr_linenumber" name="L268" href="#L268">268</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L269" href="#L269">269</a> <em class="jxr_javadoccomment">     * @throws java.io.IOException if any.</em>
+<a class="jxr_linenumber" name="L270" href="#L270">270</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>     @Test
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>     <strong class="jxr_keyword">void</strong> encodingPatternWithManyAttributes() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>         <em class="jxr_comment">// Test with many attributes before encoding to ensure non-greedy matching works</em>
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>         String xml = <span class="jxr_string">"&lt;?xml version='1.0' a='1' b='2' c='3' d='4' e='5' encoding='UTF-8'?&gt;&lt;root/&gt;"</span>;
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>         checkXmlContent(xml, <span class="jxr_string">"UTF-8"</span>);
+<a class="jxr_linenumber" name="L276" href="#L276">276</a> 
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>         <em class="jxr_comment">// Test with whitespace variations</em>
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>         xml = <span class="jxr_string">"&lt;?xml    version='1.0'    encoding  =  'US-ASCII'    ?&gt;&lt;root/&gt;"</span>;
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>         checkXmlContent(xml, <span class="jxr_string">"US-ASCII"</span>);
+<a class="jxr_linenumber" name="L280" href="#L280">280</a> 
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>         <em class="jxr_comment">// Test with longer prolog (but still valid)</em>
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>         xml = <span class="jxr_string">"&lt;?xml version='1.0' standalone='yes' encoding='ISO-8859-1'?&gt;&lt;root/&gt;"</span>;
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>         checkXmlContent(xml, <span class="jxr_string">"ISO-8859-1"</span>);
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>     }
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> }
 </pre>
 <hr/>
-<div id="footer">© 2001–2025 <a href="https://codehaus-plexus.github.io/">Codehaus Plexus</a></div>
+<div id="footer">© 2001–2026 <a href="https://codehaus-plexus.github.io/">Codehaus Plexus</a></div>
 </body>
 </html>
