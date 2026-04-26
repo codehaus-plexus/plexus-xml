@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.maven.api.xml.XmlNode;
+import org.apache.maven.api.xml.XmlService;
 import org.apache.maven.internal.xml.XmlNodeImpl;
 import org.codehaus.plexus.util.xml.pull.XmlSerializer;
 
@@ -33,26 +34,26 @@ import org.codehaus.plexus.util.xml.pull.XmlSerializer;
 public class Xpp3Dom implements Serializable {
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    public static final String CHILDREN_COMBINATION_MODE_ATTRIBUTE = XmlNode.CHILDREN_COMBINATION_MODE_ATTRIBUTE;
+    public static final String CHILDREN_COMBINATION_MODE_ATTRIBUTE = XmlService.CHILDREN_COMBINATION_MODE_ATTRIBUTE;
 
-    public static final String CHILDREN_COMBINATION_MERGE = XmlNode.CHILDREN_COMBINATION_MERGE;
+    public static final String CHILDREN_COMBINATION_MERGE = XmlService.CHILDREN_COMBINATION_MERGE;
 
-    public static final String CHILDREN_COMBINATION_APPEND = XmlNode.CHILDREN_COMBINATION_APPEND;
+    public static final String CHILDREN_COMBINATION_APPEND = XmlService.CHILDREN_COMBINATION_APPEND;
 
     /**
      * This default mode for combining children DOMs during merge means that where element names match, the process will
      * try to merge the element data, rather than putting the dominant and recessive elements (which share the same
      * element name) as siblings in the resulting DOM.
      */
-    public static final String DEFAULT_CHILDREN_COMBINATION_MODE = XmlNode.DEFAULT_CHILDREN_COMBINATION_MODE;
+    public static final String DEFAULT_CHILDREN_COMBINATION_MODE = XmlService.DEFAULT_CHILDREN_COMBINATION_MODE;
 
-    public static final String SELF_COMBINATION_MODE_ATTRIBUTE = XmlNode.SELF_COMBINATION_MODE_ATTRIBUTE;
+    public static final String SELF_COMBINATION_MODE_ATTRIBUTE = XmlService.SELF_COMBINATION_MODE_ATTRIBUTE;
 
-    public static final String SELF_COMBINATION_OVERRIDE = XmlNode.SELF_COMBINATION_OVERRIDE;
+    public static final String SELF_COMBINATION_OVERRIDE = XmlService.SELF_COMBINATION_OVERRIDE;
 
-    public static final String SELF_COMBINATION_MERGE = XmlNode.SELF_COMBINATION_MERGE;
+    public static final String SELF_COMBINATION_MERGE = XmlService.SELF_COMBINATION_MERGE;
 
-    public static final String SELF_COMBINATION_REMOVE = XmlNode.SELF_COMBINATION_REMOVE;
+    public static final String SELF_COMBINATION_REMOVE = XmlService.SELF_COMBINATION_REMOVE;
 
     /**
      * This default mode for combining a DOM node during merge means that where element names match, the process will
@@ -60,11 +61,11 @@ public class Xpp3Dom implements Serializable {
      * dominant one. This means that wherever the dominant element doesn't provide the value or a particular attribute,
      * that value or attribute will be set from the recessive DOM node.
      */
-    public static final String DEFAULT_SELF_COMBINATION_MODE = XmlNode.DEFAULT_SELF_COMBINATION_MODE;
+    public static final String DEFAULT_SELF_COMBINATION_MODE = XmlService.DEFAULT_SELF_COMBINATION_MODE;
 
-    public static final String ID_COMBINATION_MODE_ATTRIBUTE = XmlNode.ID_COMBINATION_MODE_ATTRIBUTE;
+    public static final String ID_COMBINATION_MODE_ATTRIBUTE = XmlService.ID_COMBINATION_MODE_ATTRIBUTE;
 
-    public static final String KEYS_COMBINATION_MODE_ATTRIBUTE = XmlNode.KEYS_COMBINATION_MODE_ATTRIBUTE;
+    public static final String KEYS_COMBINATION_MODE_ATTRIBUTE = XmlService.KEYS_COMBINATION_MODE_ATTRIBUTE;
 
     private ChildrenTracking childrenTracking;
     private XmlNode dom;
@@ -122,7 +123,7 @@ public class Xpp3Dom implements Serializable {
     // ----------------------------------------------------------------------
 
     public String getName() {
-        return dom.getName();
+        return dom.name();
     }
 
     // ----------------------------------------------------------------------
@@ -130,11 +131,11 @@ public class Xpp3Dom implements Serializable {
     // ----------------------------------------------------------------------
 
     public String getValue() {
-        return dom.getValue();
+        return dom.value();
     }
 
     public void setValue(String value) {
-        update(new XmlNodeImpl(dom.getName(), value, dom.getAttributes(), dom.getChildren(), dom.getInputLocation()));
+        update(new XmlNodeImpl(dom.name(), value, dom.attributes(), dom.children(), dom.inputLocation()));
     }
 
     // ----------------------------------------------------------------------
@@ -142,11 +143,11 @@ public class Xpp3Dom implements Serializable {
     // ----------------------------------------------------------------------
 
     public String[] getAttributeNames() {
-        return dom.getAttributes().keySet().toArray(EMPTY_STRING_ARRAY);
+        return dom.attributes().keySet().toArray(EMPTY_STRING_ARRAY);
     }
 
     public String getAttribute(String name) {
-        return dom.getAttribute(name);
+        return dom.attribute(name);
     }
 
     /**
@@ -157,11 +158,10 @@ public class Xpp3Dom implements Serializable {
      */
     public boolean removeAttribute(String name) {
         if (name != null && !name.isEmpty()) {
-            Map<String, String> attrs = new HashMap<>(dom.getAttributes());
+            Map<String, String> attrs = new HashMap<>(dom.attributes());
             boolean ret = attrs.remove(name) != null;
             if (ret) {
-                update(new XmlNodeImpl(
-                        dom.getName(), dom.getValue(), attrs, dom.getChildren(), dom.getInputLocation()));
+                update(new XmlNodeImpl(dom.name(), dom.value(), attrs, dom.children(), dom.inputLocation()));
             }
             return ret;
         }
@@ -181,9 +181,9 @@ public class Xpp3Dom implements Serializable {
         if (null == name) {
             throw new NullPointerException("Attribute name can not be null");
         }
-        Map<String, String> attrs = new HashMap<>(dom.getAttributes());
+        Map<String, String> attrs = new HashMap<>(dom.attributes());
         attrs.put(name, value);
-        update(new XmlNodeImpl(dom.getName(), dom.getValue(), attrs, dom.getChildren(), dom.getInputLocation()));
+        update(new XmlNodeImpl(dom.name(), dom.value(), attrs, dom.children(), dom.inputLocation()));
     }
 
     // ----------------------------------------------------------------------
@@ -191,46 +191,46 @@ public class Xpp3Dom implements Serializable {
     // ----------------------------------------------------------------------
 
     public Xpp3Dom getChild(int i) {
-        return new Xpp3Dom(dom.getChildren().get(i), this);
+        return new Xpp3Dom(dom.children().get(i), this);
     }
 
     public Xpp3Dom getChild(String name) {
-        XmlNode child = dom.getChild(name);
+        XmlNode child = dom.child(name);
         return child != null ? new Xpp3Dom(child, this) : null;
     }
 
     public void addChild(Xpp3Dom xpp3Dom) {
-        List<XmlNode> children = new ArrayList<>(dom.getChildren());
+        List<XmlNode> children = new ArrayList<>(dom.children());
         children.add(xpp3Dom.dom);
         xpp3Dom.childrenTracking = this::replace;
-        update(new XmlNodeImpl(dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation()));
+        update(new XmlNodeImpl(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
     }
 
     public Xpp3Dom[] getChildren() {
-        return dom.getChildren().stream().map(d -> new Xpp3Dom(d, this)).toArray(Xpp3Dom[]::new);
+        return dom.children().stream().map(d -> new Xpp3Dom(d, this)).toArray(Xpp3Dom[]::new);
     }
 
     public Xpp3Dom[] getChildren(String name) {
-        return dom.getChildren().stream()
-                .filter(c -> c.getName().equals(name))
+        return dom.children().stream()
+                .filter(c -> c.name().equals(name))
                 .map(d -> new Xpp3Dom(d, this))
                 .toArray(Xpp3Dom[]::new);
     }
 
     public int getChildCount() {
-        return dom.getChildren().size();
+        return dom.children().size();
     }
 
     public void removeChild(int i) {
-        List<XmlNode> children = new ArrayList<>(dom.getChildren());
+        List<XmlNode> children = new ArrayList<>(dom.children());
         children.remove(i);
-        update(new XmlNodeImpl(dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation()));
+        update(new XmlNodeImpl(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
     }
 
     public void removeChild(Xpp3Dom child) {
-        List<XmlNode> children = new ArrayList<>(dom.getChildren());
+        List<XmlNode> children = new ArrayList<>(dom.children());
         children.remove(child.dom);
-        update(new XmlNodeImpl(dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation()));
+        update(new XmlNodeImpl(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
     }
 
     // ----------------------------------------------------------------------
@@ -252,7 +252,7 @@ public class Xpp3Dom implements Serializable {
      * @return input location
      */
     public Object getInputLocation() {
-        return dom.getInputLocation();
+        return dom.inputLocation();
     }
 
     /**
@@ -260,7 +260,7 @@ public class Xpp3Dom implements Serializable {
      * @param inputLocation input location to set
      */
     public void setInputLocation(Object inputLocation) {
-        update(new XmlNodeImpl(dom.getName(), dom.getValue(), dom.getAttributes(), dom.getChildren(), inputLocation));
+        update(new XmlNodeImpl(dom.name(), dom.value(), dom.attributes(), dom.children(), inputLocation));
     }
 
     // ----------------------------------------------------------------------
@@ -407,9 +407,9 @@ public class Xpp3Dom implements Serializable {
     }
 
     private boolean replace(Object prevChild, Object newChild) {
-        List<XmlNode> children = new ArrayList<>(dom.getChildren());
+        List<XmlNode> children = new ArrayList<>(dom.children());
         children.replaceAll(d -> d == prevChild ? (XmlNode) newChild : d);
-        update(new XmlNodeImpl(dom.getName(), dom.getValue(), dom.getAttributes(), children, dom.getInputLocation()));
+        update(new XmlNodeImpl(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
         return true;
     }
 
