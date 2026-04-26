@@ -49,7 +49,7 @@ public class Xpp3DomBuilder {
     public static Xpp3Dom build(InputStream is, String encoding, boolean trim)
             throws XmlPullParserException, IOException {
         try (InputStream closeMe = is) {
-            return new Xpp3Dom(XmlNodeBuilder.build(is, encoding, trim));
+            return buildWithDeprecatedTrim(is, encoding, trim);
         }
     }
 
@@ -63,8 +63,7 @@ public class Xpp3DomBuilder {
     public static Xpp3Dom build(Reader reader, boolean trim, InputLocationBuilder locationBuilder)
             throws XmlPullParserException, IOException {
         try (Reader closeMe = reader) {
-            return new Xpp3Dom(XmlNodeBuilder.build(
-                    reader, trim, locationBuilder != null ? locationBuilder::toInputLocation : null));
+            return buildWithDeprecatedTrim(reader, trim, locationBuilder);
         }
     }
 
@@ -81,8 +80,7 @@ public class Xpp3DomBuilder {
      */
     public static Xpp3Dom build(XmlPullParser parser, boolean trim, InputLocationBuilder locationBuilder)
             throws XmlPullParserException, IOException {
-        return new Xpp3Dom(
-                XmlNodeBuilder.build(parser, trim, locationBuilder != null ? locationBuilder::toInputLocation : null));
+        return buildWithDeprecatedTrim(parser, trim, locationBuilder);
     }
 
     /**
@@ -92,5 +90,26 @@ public class Xpp3DomBuilder {
      */
     public interface InputLocationBuilder {
         Object toInputLocation(XmlPullParser parser);
+    }
+
+    @SuppressWarnings("deprecation")
+    private static Xpp3Dom buildWithDeprecatedTrim(Reader reader, boolean trim, InputLocationBuilder locationBuilder)
+            throws XmlPullParserException, IOException {
+        return new Xpp3Dom(
+                XmlNodeBuilder.build(reader, trim, locationBuilder != null ? locationBuilder::toInputLocation : null));
+    }
+
+    @SuppressWarnings("deprecation")
+    private static Xpp3Dom buildWithDeprecatedTrim(
+            XmlPullParser parser, boolean trim, InputLocationBuilder locationBuilder)
+            throws XmlPullParserException, IOException {
+        return new Xpp3Dom(
+                XmlNodeBuilder.build(parser, trim, locationBuilder != null ? locationBuilder::toInputLocation : null));
+    }
+
+    @SuppressWarnings("deprecation")
+    private static Xpp3Dom buildWithDeprecatedTrim(InputStream is, String encoding, boolean trim)
+            throws XmlPullParserException, IOException {
+        return new Xpp3Dom(XmlNodeBuilder.build(is, encoding, trim));
     }
 }
