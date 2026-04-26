@@ -319,7 +319,7 @@ public class Xpp3Dom implements Serializable {
         if (recessive == null) {
             return;
         }
-        dominant.dom = dominant.dom.merge(recessive.dom, childMergeOverride);
+        dominant.dom = XmlService.merge(dominant.dom, recessive.dom, childMergeOverride);
     }
 
     /**
