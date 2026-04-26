@@ -25,7 +25,6 @@ import java.util.Map;
 
 import org.apache.maven.api.xml.XmlNode;
 import org.apache.maven.api.xml.XmlService;
-import org.apache.maven.internal.xml.XmlNodeImpl;
 import org.codehaus.plexus.util.xml.pull.XmlSerializer;
 
 /**
@@ -71,7 +70,7 @@ public class Xpp3Dom implements Serializable {
     private XmlNode dom;
 
     public Xpp3Dom(String name) {
-        this.dom = new XmlNodeImpl(name);
+        this.dom = XmlNode.newBuilder().name(name).build();
     }
 
     /**
@@ -80,7 +79,7 @@ public class Xpp3Dom implements Serializable {
      * @param name The name of the Dom.
      */
     public Xpp3Dom(String name, Object inputLocation) {
-        this.dom = new XmlNodeImpl(name, null, null, null, inputLocation);
+        this.dom = XmlNode.newBuilder().name(name).inputLocation(inputLocation).build();
     }
 
     /**
@@ -97,7 +96,8 @@ public class Xpp3Dom implements Serializable {
      * @param name The name of the Dom.
      */
     public Xpp3Dom(Xpp3Dom src, String name) {
-        this.dom = new XmlNodeImpl(src.dom, name);
+        this.dom = XmlNode.newInstance(
+                name, src.dom.value(), src.dom.attributes(), src.dom.children(), src.dom.inputLocation());
     }
 
     public Xpp3Dom(XmlNode dom) {
@@ -135,7 +135,7 @@ public class Xpp3Dom implements Serializable {
     }
 
     public void setValue(String value) {
-        update(new XmlNodeImpl(dom.name(), value, dom.attributes(), dom.children(), dom.inputLocation()));
+        update(XmlNode.newInstance(dom.name(), value, dom.attributes(), dom.children(), dom.inputLocation()));
     }
 
     // ----------------------------------------------------------------------
@@ -161,7 +161,7 @@ public class Xpp3Dom implements Serializable {
             Map<String, String> attrs = new HashMap<>(dom.attributes());
             boolean ret = attrs.remove(name) != null;
             if (ret) {
-                update(new XmlNodeImpl(dom.name(), dom.value(), attrs, dom.children(), dom.inputLocation()));
+                update(XmlNode.newInstance(dom.name(), dom.value(), attrs, dom.children(), dom.inputLocation()));
             }
             return ret;
         }
@@ -183,7 +183,7 @@ public class Xpp3Dom implements Serializable {
         }
         Map<String, String> attrs = new HashMap<>(dom.attributes());
         attrs.put(name, value);
-        update(new XmlNodeImpl(dom.name(), dom.value(), attrs, dom.children(), dom.inputLocation()));
+        update(XmlNode.newInstance(dom.name(), dom.value(), attrs, dom.children(), dom.inputLocation()));
     }
 
     // ----------------------------------------------------------------------
@@ -203,7 +203,7 @@ public class Xpp3Dom implements Serializable {
         List<XmlNode> children = new ArrayList<>(dom.children());
         children.add(xpp3Dom.dom);
         xpp3Dom.childrenTracking = this::replace;
-        update(new XmlNodeImpl(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
+        update(XmlNode.newInstance(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
     }
 
     public Xpp3Dom[] getChildren() {
@@ -224,13 +224,13 @@ public class Xpp3Dom implements Serializable {
     public void removeChild(int i) {
         List<XmlNode> children = new ArrayList<>(dom.children());
         children.remove(i);
-        update(new XmlNodeImpl(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
+        update(XmlNode.newInstance(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
     }
 
     public void removeChild(Xpp3Dom child) {
         List<XmlNode> children = new ArrayList<>(dom.children());
         children.remove(child.dom);
-        update(new XmlNodeImpl(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
+        update(XmlNode.newInstance(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
     }
 
     // ----------------------------------------------------------------------
@@ -260,7 +260,7 @@ public class Xpp3Dom implements Serializable {
      * @param inputLocation input location to set
      */
     public void setInputLocation(Object inputLocation) {
-        update(new XmlNodeImpl(dom.name(), dom.value(), dom.attributes(), dom.children(), inputLocation));
+        update(XmlNode.newInstance(dom.name(), dom.value(), dom.attributes(), dom.children(), inputLocation));
     }
 
     // ----------------------------------------------------------------------
@@ -409,7 +409,7 @@ public class Xpp3Dom implements Serializable {
     private boolean replace(Object prevChild, Object newChild) {
         List<XmlNode> children = new ArrayList<>(dom.children());
         children.replaceAll(d -> d == prevChild ? (XmlNode) newChild : d);
-        update(new XmlNodeImpl(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
+        update(XmlNode.newInstance(dom.name(), dom.value(), dom.attributes(), children, dom.inputLocation()));
         return true;
     }
 
