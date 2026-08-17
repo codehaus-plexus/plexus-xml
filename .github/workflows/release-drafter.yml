@@ -9,6 +9,7 @@ jobs:
     steps:
       - uses: release-drafter/release-drafter@v7.7.0
         with:
-          config-name: 'release-drafter-3.x.yml' # located in .github/ in default branch
+          # Resolved against .github/ on the branch this workflow runs on, not on the default branch.
+          config-name: 'release-drafter-3.x.yml'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
