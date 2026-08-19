@@ -1,1 +1,1 @@
-moduleSearchIndex = [];updateSearchResults();
+moduleSearchIndex = [{"l":"org.codehaus.plexus.util.xml"}];updateSearchResults();

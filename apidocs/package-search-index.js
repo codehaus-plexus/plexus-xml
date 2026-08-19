@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"org.codehaus.plexus.util.xml"},{"l":"org.codehaus.plexus.util.xml.pull"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"m":"org.codehaus.plexus.util.xml","l":"org.codehaus.plexus.util.xml"},{"m":"org.codehaus.plexus.util.xml","l":"org.codehaus.plexus.util.xml.pull"}];updateSearchResults();
