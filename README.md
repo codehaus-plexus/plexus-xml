@@ -31,7 +31,6 @@ you want **`3.x`**.
 <dependency>
   <groupId>org.codehaus.plexus</groupId>
   <artifactId>plexus-xml</artifactId>
-  <version>4.1.1</version>
 </dependency>
 ```
 
