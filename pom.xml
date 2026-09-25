@@ -58,7 +58,7 @@ limitations under the License.
   <properties>
     <javaVersion>17</javaVersion>
     <jmhVersion>1.37</jmhVersion>
-    <mavenXmlVersion>4.0.0-rc-6</mavenXmlVersion>
+    <mavenXmlVersion>4.0.0-rc-7</mavenXmlVersion>
     <project.build.outputTimestamp>2026-08-19T07:21:40Z</project.build.outputTimestamp>
   </properties>
 
