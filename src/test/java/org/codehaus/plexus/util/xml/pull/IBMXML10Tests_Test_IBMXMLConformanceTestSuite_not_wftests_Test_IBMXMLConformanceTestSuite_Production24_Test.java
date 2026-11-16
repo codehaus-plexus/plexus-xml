@@ -47,8 +47,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P24_ibm24n01xml() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P24/ibm24n01.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests VersionInfo with a required field missing. The VersionNum is     missing in the VersionInfo in the XMLDecl.");
         } catch (XmlPullParserException e) {
@@ -70,8 +69,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P24_ibm24n02xml() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P24/ibm24n02.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests VersionInfo with a required field missing. The white space is     missing between the key word \"xml\" and the VersionInfo in the XMLDecl.");
         } catch (XmlPullParserException e) {
@@ -92,8 +90,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P24_ibm24n03xml() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P24/ibm24n03.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests VersionInfo with a required field missing. The \"=\"      (equal sign) is missing between the key word \"version\" and the VersionNum.");
         } catch (XmlPullParserException e) {
@@ -114,8 +111,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P24_ibm24n04xml() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P24/ibm24n04.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests VersionInfo with wrong field ordering. The VersionNum     occurs before \"=\" and \"version\".");
         } catch (XmlPullParserException e) {
@@ -136,8 +132,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P24_ibm24n05xml() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P24/ibm24n05.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests VersionInfo with wrong field ordering. The \"=\" occurs     after \"version\" and the VersionNum.");
         } catch (XmlPullParserException e) {
@@ -158,8 +153,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P24_ibm24n06xml() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P24/ibm24n06.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests VersionInfo with the wrong key word \"Version\".");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("expected v in version and not V"));
@@ -179,8 +173,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P24_ibm24n07xml() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P24/ibm24n07.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests VersionInfo with the wrong key word \"versioN\".");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("expected n in version and not N"));
@@ -200,8 +193,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P24_ibm24n08xml() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P24/ibm24n08.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests VersionInfo with mismatched quotes around the VersionNum.      version = '1.0\" is used as the VersionInfo.");
         } catch (XmlPullParserException e) {
@@ -222,8 +214,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P24_ibm24n09xml() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P24/ibm24n09.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests VersionInfo with mismatched quotes around the VersionNum.      The closing bracket for the VersionNum is missing.");
         } catch (XmlPullParserException e) {
