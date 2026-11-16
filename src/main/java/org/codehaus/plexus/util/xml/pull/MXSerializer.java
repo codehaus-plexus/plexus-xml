@@ -51,7 +51,7 @@ public class MXSerializer implements XmlSerializer {
 
     protected boolean attributeUseApostrophe;
 
-    protected String indentationString = null; // " ";
+    protected String indentationString; // " ";
 
     protected String lineSeparator = "\n";
 
@@ -61,21 +61,21 @@ public class MXSerializer implements XmlSerializer {
 
     protected int autoDeclaredPrefixes;
 
-    protected int depth = 0;
+    protected int depth;
 
     // element stack
-    protected String elNamespace[] = new String[2];
+    protected String[] elNamespace = new String[2];
 
-    protected String elName[] = new String[elNamespace.length];
+    protected String[] elName = new String[elNamespace.length];
 
-    protected int elNamespaceCount[] = new int[elNamespace.length];
+    protected int[] elNamespaceCount = new int[elNamespace.length];
 
     // namespace stack
-    protected int namespaceEnd = 0;
+    protected int namespaceEnd;
 
-    protected String namespacePrefix[] = new String[8];
+    protected String[] namespacePrefix = new String[8];
 
-    protected String namespaceUri[] = new String[namespacePrefix.length];
+    protected String[] namespaceUri = new String[namespacePrefix.length];
 
     protected boolean finished;
 
@@ -96,9 +96,9 @@ public class MXSerializer implements XmlSerializer {
     // buffer output if needed to write escaped String see text(String)
     private static final int BUF_LEN = Runtime.getRuntime().freeMemory() > 1000000L ? 8 * 1024 : 256;
 
-    protected char buf[] = new char[BUF_LEN];
+    protected char[] buf = new char[BUF_LEN];
 
-    protected static final String precomputedPrefixes[];
+    protected static final String[] precomputedPrefixes;
 
     static {
         precomputedPrefixes = new String[32]; // arbitrary number ...
@@ -107,7 +107,7 @@ public class MXSerializer implements XmlSerializer {
         }
     }
 
-    private boolean checkNamesInterned = false;
+    private boolean checkNamesInterned;
 
     private void checkInterning(String name) {
         if (namesInterned && name != name.intern()) {
@@ -170,10 +170,14 @@ public class MXSerializer implements XmlSerializer {
         String[] arr = null;
         // reuse arr local variable slot
         arr = new String[newSize];
-        if (needsCopying) System.arraycopy(elName, 0, arr, 0, elStackSize);
+        if (needsCopying) {
+            System.arraycopy(elName, 0, arr, 0, elStackSize);
+        }
         elName = arr;
         arr = new String[newSize];
-        if (needsCopying) System.arraycopy(elNamespace, 0, arr, 0, elStackSize);
+        if (needsCopying) {
+            System.arraycopy(elNamespace, 0, arr, 0, elStackSize);
+        }
         elNamespace = arr;
 
         final int[] iarr = new int[newSize];
@@ -265,7 +269,9 @@ public class MXSerializer implements XmlSerializer {
      * recomputes buffer after user requested changes.
      */
     protected void rebuildIndentationBuf() {
-        if (doIndent == false) return;
+        if (!doIndent) {
+            return;
+        }
         final int maxIndent = 65; // hardcoded maximum indentation size in characters
         int bufSize = 0;
         offsetNewLine = 0;
@@ -300,7 +306,7 @@ public class MXSerializer implements XmlSerializer {
     // if(doIndent) writeIndent();
     protected void writeIndent() throws IOException {
         final int start = writeLineSeparator ? 0 : offsetNewLine;
-        final int level = (depth > maxIndentLevel) ? maxIndentLevel : depth;
+        final int level = depth > maxIndentLevel ? maxIndentLevel : depth;
         out.write(indentationBuf, start, (level * indentationJump) + offsetNewLine);
     }
 
@@ -361,7 +367,9 @@ public class MXSerializer implements XmlSerializer {
 
     @Override
     public void setOutput(OutputStream os, String encoding) throws IOException {
-        if (os == null) throw new IllegalArgumentException("output stream can not be null");
+        if (os == null) {
+            throw new IllegalArgumentException("output stream can not be null");
+        }
         reset();
         if (encoding != null) {
             out = new OutputStreamWriter(os, encoding);
@@ -423,7 +431,9 @@ public class MXSerializer implements XmlSerializer {
 
     @Override
     public void setPrefix(String prefix, String namespace) throws IOException {
-        if (startTagIncomplete) closeStartTag();
+        if (startTagIncomplete) {
+            closeStartTag();
+        }
         // assert prefix != null;
         // assert namespace != null;
         if (prefix == null) {
@@ -487,8 +497,9 @@ public class MXSerializer implements XmlSerializer {
                 final String prefix = namespacePrefix[i];
                 // now check that prefix is still in scope
                 for (int p = namespaceEnd - 1; p > i; --p) {
-                    if (prefix == namespacePrefix[p])
+                    if (prefix == namespacePrefix[p]) {
                         continue; // too bad - prefix is redeclared with different namespace
+                    }
                 }
                 return prefix;
             }
@@ -562,12 +573,16 @@ public class MXSerializer implements XmlSerializer {
         }
         //// assert namespace != null;
 
-        if (checkNamesInterned && namesInterned) checkInterning(namespace);
-        elNamespace[depth] = (namesInterned || namespace == null) ? namespace : namespace.intern();
+        if (checkNamesInterned && namesInterned) {
+            checkInterning(namespace);
+        }
+        elNamespace[depth] = namesInterned || namespace == null ? namespace : namespace.intern();
         // assert name != null;
         // elName[ depth ] = name;
-        if (checkNamesInterned && namesInterned) checkInterning(name);
-        elName[depth] = (namesInterned || name == null) ? name : name.intern();
+        if (checkNamesInterned && namesInterned) {
+            checkInterning(name);
+        }
+        elName[depth] = namesInterned || name == null ? name : name.intern();
         if (out == null) {
             throw new IllegalStateException("setOutput() must called set before serialization can start");
         }
@@ -609,7 +624,7 @@ public class MXSerializer implements XmlSerializer {
             } else {
                 // make sure that default namespace can be declared
                 for (int i = namespaceEnd - 1; i >= 0; --i) {
-                    if (namespacePrefix[i] == "") {
+                    if ("".equals(namespacePrefix[i])) {
                         final String uri = namespaceUri[i];
                         if (uri == null) {
                             // declare default namespace
@@ -697,7 +712,7 @@ public class MXSerializer implements XmlSerializer {
                 writeIndent();
                 out.write(" ");
             }
-            if (namespacePrefix[i] != "") {
+            if (!"".equals(namespacePrefix[i])) {
                 out.write(" xmlns:");
                 out.write(namespacePrefix[i]);
                 out.write('=');
@@ -776,24 +791,36 @@ public class MXSerializer implements XmlSerializer {
     @Override
     public XmlSerializer text(String text) throws IOException {
         // assert text != null;
-        if (startTagIncomplete || setPrefixCalled) closeStartTag();
-        if (doIndent && seenTag) seenTag = false;
+        if (startTagIncomplete || setPrefixCalled) {
+            closeStartTag();
+        }
+        if (doIndent && seenTag) {
+            seenTag = false;
+        }
         writeElementContent(text, out);
         return this;
     }
 
     @Override
     public XmlSerializer text(char[] buf, int start, int len) throws IOException {
-        if (startTagIncomplete || setPrefixCalled) closeStartTag();
-        if (doIndent && seenTag) seenTag = false;
+        if (startTagIncomplete || setPrefixCalled) {
+            closeStartTag();
+        }
+        if (doIndent && seenTag) {
+            seenTag = false;
+        }
         writeElementContent(buf, start, len, out);
         return this;
     }
 
     @Override
     public void cdsect(String text) throws IOException {
-        if (startTagIncomplete || setPrefixCalled || seenBracket) closeStartTag();
-        if (doIndent && seenTag) seenTag = false;
+        if (startTagIncomplete || setPrefixCalled || seenBracket) {
+            closeStartTag();
+        }
+        if (doIndent && seenTag) {
+            seenTag = false;
+        }
         out.write("<![CDATA[");
         out.write(text); // escape?
         out.write("]]>");
@@ -801,8 +828,12 @@ public class MXSerializer implements XmlSerializer {
 
     @Override
     public void entityRef(String text) throws IOException {
-        if (startTagIncomplete || setPrefixCalled || seenBracket) closeStartTag();
-        if (doIndent && seenTag) seenTag = false;
+        if (startTagIncomplete || setPrefixCalled || seenBracket) {
+            closeStartTag();
+        }
+        if (doIndent && seenTag) {
+            seenTag = false;
+        }
         out.write('&');
         out.write(text); // escape?
         out.write(';');
@@ -810,8 +841,12 @@ public class MXSerializer implements XmlSerializer {
 
     @Override
     public void processingInstruction(String text) throws IOException {
-        if (startTagIncomplete || setPrefixCalled || seenBracket) closeStartTag();
-        if (doIndent && seenTag) seenTag = false;
+        if (startTagIncomplete || setPrefixCalled || seenBracket) {
+            closeStartTag();
+        }
+        if (doIndent && seenTag) {
+            seenTag = false;
+        }
         out.write("<?");
         out.write(text); // escape?
         out.write("?>");
@@ -819,8 +854,12 @@ public class MXSerializer implements XmlSerializer {
 
     @Override
     public void comment(String text) throws IOException {
-        if (startTagIncomplete || setPrefixCalled || seenBracket) closeStartTag();
-        if (doIndent && seenTag) seenTag = false;
+        if (startTagIncomplete || setPrefixCalled || seenBracket) {
+            closeStartTag();
+        }
+        if (doIndent && seenTag) {
+            seenTag = false;
+        }
         out.write("<!--");
         out.write(text); // escape?
         out.write("-->");
@@ -828,8 +867,12 @@ public class MXSerializer implements XmlSerializer {
 
     @Override
     public void docdecl(String text) throws IOException {
-        if (startTagIncomplete || setPrefixCalled || seenBracket) closeStartTag();
-        if (doIndent && seenTag) seenTag = false;
+        if (startTagIncomplete || setPrefixCalled || seenBracket) {
+            closeStartTag();
+        }
+        if (doIndent && seenTag) {
+            seenTag = false;
+        }
         out.write("<!DOCTYPE ");
         out.write(text); // escape?
         out.write(">");
@@ -837,8 +880,12 @@ public class MXSerializer implements XmlSerializer {
 
     @Override
     public void ignorableWhitespace(String text) throws IOException {
-        if (startTagIncomplete || setPrefixCalled || seenBracket) closeStartTag();
-        if (doIndent && seenTag) seenTag = false;
+        if (startTagIncomplete || setPrefixCalled || seenBracket) {
+            closeStartTag();
+        }
+        if (doIndent && seenTag) {
+            seenTag = false;
+        }
         if (text.length() == 0) {
             throw new IllegalArgumentException("empty string is not allowed for ignorable whitespace" + getLocation());
         }
@@ -847,7 +894,9 @@ public class MXSerializer implements XmlSerializer {
 
     @Override
     public void flush() throws IOException {
-        if (!finished && startTagIncomplete) closeStartTag();
+        if (!finished && startTagIncomplete) {
+            closeStartTag();
+        }
         out.flush();
     }
 
@@ -865,23 +914,31 @@ public class MXSerializer implements XmlSerializer {
         for (int i = 0; i < value.length(); i++) {
             char ch = value.charAt(i);
             if (ch == '&') {
-                if (i > pos) out.write(value.substring(pos, i));
+                if (i > pos) {
+                    out.write(value.substring(pos, i));
+                }
                 out.write("&amp;");
                 pos = i + 1;
             }
             if (ch == '<') {
-                if (i > pos) out.write(value.substring(pos, i));
+                if (i > pos) {
+                    out.write(value.substring(pos, i));
+                }
                 out.write("&lt;");
                 pos = i + 1;
             } else if (ch == quot) {
-                if (i > pos) out.write(value.substring(pos, i));
+                if (i > pos) {
+                    out.write(value.substring(pos, i));
+                }
                 out.write(quotEntity);
                 pos = i + 1;
             } else if (ch < 32) {
                 // in XML 1.0 only legal character are #x9 | #xA | #xD
                 // and they must be escaped otherwise in attribute value they are normalized to spaces
                 if (ch == 13 || ch == 10 || ch == 9) {
-                    if (i > pos) out.write(value.substring(pos, i));
+                    if (i > pos) {
+                        out.write(value.substring(pos, i));
+                    }
                     out.write("&#");
                     out.write(Integer.toString(ch));
                     out.write(';');
@@ -927,15 +984,21 @@ public class MXSerializer implements XmlSerializer {
                 }
             } else {
                 if (ch == '&') {
-                    if (i > pos) out.write(text.substring(pos, i));
+                    if (i > pos) {
+                        out.write(text.substring(pos, i));
+                    }
                     out.write("&amp;");
                     pos = i + 1;
                 } else if (ch == '<') {
-                    if (i > pos) out.write(text.substring(pos, i));
+                    if (i > pos) {
+                        out.write(text.substring(pos, i));
+                    }
                     out.write("&lt;");
                     pos = i + 1;
                 } else if (seenBracketBracket && ch == '>') {
-                    if (i > pos) out.write(text.substring(pos, i));
+                    if (i > pos) {
+                        out.write(text.substring(pos, i));
+                    }
                     out.write("&gt;");
                     pos = i + 1;
                 } else if (ch < 32) {
@@ -951,7 +1014,9 @@ public class MXSerializer implements XmlSerializer {
                         // pos = i + 1;
                     } else {
                         // skip special char
-                        if (i > pos) out.write(text.substring(pos, i));
+                        if (i > pos) {
+                            out.write(text.substring(pos, i));
+                        }
                         pos = i + 1;
                     }
                 }
@@ -1040,8 +1105,10 @@ public class MXSerializer implements XmlSerializer {
     }
 
     // simple utility method -- good for debugging
-    protected static final String printable(String s) {
-        if (s == null) return "null";
+    protected static String printable(String s) {
+        if (s == null) {
+            return "null";
+        }
         StringBuilder retval = new StringBuilder(s.length() + 16);
         retval.append("'");
         char ch;
@@ -1052,7 +1119,7 @@ public class MXSerializer implements XmlSerializer {
         return retval.toString();
     }
 
-    protected static final String printable(char ch) {
+    protected static String printable(char ch) {
         StringBuilder retval = new StringBuilder();
         addPrintable(retval, ch);
         return retval.toString();

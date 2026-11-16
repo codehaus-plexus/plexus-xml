@@ -236,7 +236,7 @@ public class XmlUtil {
                 }
             } else if (eventType == XmlPullParser.TEXT) {
                 String text = parser.getText();
-                if (!text.trim().equals("")) {
+                if (!"".equals(text.trim())) {
                     text = StringUtils.removeDuplicateWhitespace(text);
                     writer.writeText(text);
                 }

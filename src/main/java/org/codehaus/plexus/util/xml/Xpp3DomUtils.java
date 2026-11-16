@@ -129,7 +129,7 @@ public class Xpp3DomUtils {
      */
     @Deprecated
     public static boolean isNotEmpty(String str) {
-        return (str != null && str.length() > 0);
+        return str != null && str.length() > 0;
     }
 
     /**
@@ -137,6 +137,6 @@ public class Xpp3DomUtils {
      */
     @Deprecated
     public static boolean isEmpty(String str) {
-        return (str == null || str.length() == 0);
+        return str == null || str.length() == 0;
     }
 }

@@ -74,7 +74,7 @@ public class XmlReader extends Reader {
 
     private static final String EBCDIC = "CP1047";
 
-    private static String _staticDefaultEncoding = null;
+    private static String _staticDefaultEncoding;
 
     private Reader _reader;
 
@@ -299,7 +299,7 @@ public class XmlReader extends Reader {
      */
     public XmlReader(InputStream is, String httpContentType, boolean lenient, String defaultEncoding)
             throws IOException, XmlStreamReaderException {
-        _defaultEncoding = (defaultEncoding == null) ? _staticDefaultEncoding : defaultEncoding;
+        _defaultEncoding = defaultEncoding == null ? _staticDefaultEncoding : defaultEncoding;
         try {
             doHttpStream(is, httpContentType, lenient);
         } catch (XmlStreamReaderException ex) {
@@ -363,7 +363,7 @@ public class XmlReader extends Reader {
                 encoding = ex.getContentTypeEncoding();
             }
             if (encoding == null) {
-                encoding = (_defaultEncoding == null) ? UTF_8 : _defaultEncoding;
+                encoding = _defaultEncoding == null ? UTF_8 : _defaultEncoding;
             }
             prepareReader(ex.getInputStream(), encoding);
         }
@@ -426,25 +426,25 @@ public class XmlReader extends Reader {
         String encoding;
         if (bomEnc == null) {
             if (xmlGuessEnc == null || xmlEnc == null) {
-                encoding = (_defaultEncoding == null) ? UTF_8 : _defaultEncoding;
-            } else if (xmlEnc.equals(UTF_16) && (xmlGuessEnc.equals(UTF_16BE) || xmlGuessEnc.equals(UTF_16LE))) {
+                encoding = _defaultEncoding == null ? UTF_8 : _defaultEncoding;
+            } else if (UTF_16.equals(xmlEnc) && (UTF_16BE.equals(xmlGuessEnc) || UTF_16LE.equals(xmlGuessEnc))) {
                 encoding = xmlGuessEnc;
             } else {
                 encoding = xmlEnc;
             }
-        } else if (bomEnc.equals(UTF_8)) {
-            if (xmlGuessEnc != null && !xmlGuessEnc.equals(UTF_8)) {
+        } else if (UTF_8.equals(bomEnc)) {
+            if (xmlGuessEnc != null && !UTF_8.equals(xmlGuessEnc)) {
                 throw new XmlStreamReaderException(
                         RAW_EX_1.format(new Object[] {bomEnc, xmlGuessEnc, xmlEnc}), bomEnc, xmlGuessEnc, xmlEnc, is);
             }
-            if (xmlEnc != null && !xmlEnc.equals(UTF_8)) {
+            if (xmlEnc != null && !UTF_8.equals(xmlEnc)) {
                 throw new XmlStreamReaderException(
                         RAW_EX_1.format(new Object[] {bomEnc, xmlGuessEnc, xmlEnc}), bomEnc, xmlGuessEnc, xmlEnc, is);
             }
             encoding = UTF_8;
-        } else if (bomEnc.equals(UTF_16BE) || bomEnc.equals(UTF_16LE)) {
+        } else if (UTF_16BE.equals(bomEnc) || UTF_16LE.equals(bomEnc)) {
             if (xmlGuessEnc != null && !xmlGuessEnc.equals(bomEnc)
-                    || xmlEnc != null && !xmlEnc.equals(UTF_16) && !xmlEnc.equals(bomEnc)) {
+                    || xmlEnc != null && !UTF_16.equals(xmlEnc) && !xmlEnc.equals(bomEnc)) {
                 throw new XmlStreamReaderException(
                         RAW_EX_1.format(new Object[] {bomEnc, xmlGuessEnc, xmlEnc}), bomEnc, xmlGuessEnc, xmlEnc, is);
             }
@@ -477,9 +477,9 @@ public class XmlReader extends Reader {
                     if (appXml) {
                         encoding = calculateRawEncoding(bomEnc, xmlGuessEnc, xmlEnc, is);
                     } else {
-                        encoding = (_defaultEncoding == null) ? US_ASCII : _defaultEncoding;
+                        encoding = _defaultEncoding == null ? US_ASCII : _defaultEncoding;
                     }
-                } else if (bomEnc != null && (cTEnc.equals(UTF_16BE) || cTEnc.equals(UTF_16LE))) {
+                } else if (bomEnc != null && (UTF_16BE.equals(cTEnc) || UTF_16LE.equals(cTEnc))) {
                     throw new XmlStreamReaderException(
                             HTTP_EX_1.format(new Object[] {cTMime, cTEnc, bomEnc, xmlGuessEnc, xmlEnc}),
                             cTMime,
@@ -488,7 +488,7 @@ public class XmlReader extends Reader {
                             xmlGuessEnc,
                             xmlEnc,
                             is);
-                } else if (cTEnc.equals(UTF_16)) {
+                } else if (UTF_16.equals(cTEnc)) {
                     if (bomEnc != null && bomEnc.startsWith(UTF_16)) {
                         encoding = bomEnc;
                     } else {
@@ -523,7 +523,7 @@ public class XmlReader extends Reader {
         String mime = null;
         if (httpContentType != null) {
             int i = httpContentType.indexOf(";");
-            mime = ((i == -1) ? httpContentType : httpContentType.substring(0, i)).trim();
+            mime = (i == -1 ? httpContentType : httpContentType.substring(0, i)).trim();
         }
         return mime;
     }
@@ -538,8 +538,8 @@ public class XmlReader extends Reader {
             if (i > -1) {
                 String postMime = httpContentType.substring(i + 1);
                 Matcher m = CHARSET_PATTERN.matcher(postMime);
-                encoding = (m.find()) ? m.group(1) : null;
-                encoding = (encoding != null) ? encoding.toUpperCase(Locale.ENGLISH) : null;
+                encoding = m.find() ? m.group(1) : null;
+                encoding = encoding != null ? encoding.toUpperCase(Locale.ENGLISH) : null;
             }
         }
         return encoding;
@@ -647,17 +647,17 @@ public class XmlReader extends Reader {
     // indicates if the MIME type belongs to the APPLICATION XML family
     private static boolean isAppXml(String mime) {
         return mime != null
-                && (mime.equals("application/xml")
-                        || mime.equals("application/xml-dtd")
-                        || mime.equals("application/xml-external-parsed-entity")
+                && ("application/xml".equals(mime)
+                        || "application/xml-dtd".equals(mime)
+                        || "application/xml-external-parsed-entity".equals(mime)
                         || (mime.startsWith("application/") && mime.endsWith("+xml")));
     }
 
     // indicates if the MIME type belongs to the TEXT XML family
     private static boolean isTextXml(String mime) {
         return mime != null
-                && (mime.equals("text/xml")
-                        || mime.equals("text/xml-external-parsed-entity")
+                && ("text/xml".equals(mime)
+                        || "text/xml-external-parsed-entity".equals(mime)
                         || (mime.startsWith("text/") && mime.endsWith("+xml")));
     }
 

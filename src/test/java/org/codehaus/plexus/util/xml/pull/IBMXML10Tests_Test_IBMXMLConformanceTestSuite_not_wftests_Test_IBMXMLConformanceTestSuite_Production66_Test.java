@@ -46,8 +46,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n01xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n01.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#002f\" is      used as the referred character in the CharRef in the EntityDecl in the DTD.");
         } catch (XmlPullParserException e) {
@@ -68,8 +67,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n02xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n02.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with the semicolon character missing. The semicolon      character is missing at the end of the CharRef in the attribute value in     the STag of element \"root\".");
         } catch (XmlPullParserException e) {
@@ -90,8 +88,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n03xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n03.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"49\" is      used as the referred character in the CharRef in the EntityDecl in the DTD.");
         } catch (XmlPullParserException e) {
@@ -112,8 +109,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n04xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n04.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#5~0\" is      used as the referred character in the attribute value in the EmptyElemTag     of the element \"root\".");
         } catch (XmlPullParserException e) {
@@ -136,8 +132,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n05xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n05.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#x002g\" is     used as the referred character in the CharRef in the EntityDecl in the DTD.");
         } catch (XmlPullParserException e) {
@@ -158,8 +153,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n06xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n06.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#x006G\" is     used as the referred character in the attribute value in the EmptyElemTag      of the element \"root\".");
         } catch (XmlPullParserException e) {
@@ -180,8 +174,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n07xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n07.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#0=2f\" is      used as the referred character in the CharRef in the EntityDecl in the DTD.");
         } catch (XmlPullParserException e) {
@@ -202,8 +195,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n08xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n08.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#56.0\" is      used as the referred character in the attribute value in the EmptyElemTag      of the element \"root\".");
         } catch (XmlPullParserException e) {
@@ -224,8 +216,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n09xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n09.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#x00/2f\"      is used as the referred character in the CharRef in the EntityDecl in the      DTD.");
         } catch (XmlPullParserException e) {
@@ -246,8 +237,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n10xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n10.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#51)\" is      used as the referred character in the attribute value in the EmptyElemTag      of the element \"root\".");
         } catch (XmlPullParserException e) {
@@ -268,8 +258,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n11xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n11.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#00 2f\"     is used as the referred character in the CharRef in the EntityDecl in the      DTD.");
         } catch (XmlPullParserException e) {
@@ -290,8 +279,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n12xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n12.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#x0000\"      is used as the referred character in the attribute value in the EmptyElemTag     of the element \"root\".");
         } catch (XmlPullParserException e) {
@@ -312,8 +300,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n13xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n13.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#x001f\"      is used as the referred character in the attribute value in the EmptyElemTag     of the element \"root\".");
         } catch (XmlPullParserException e) {
@@ -334,8 +321,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n14xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n14.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#xfffe\"      is used as the referred character in the attribute value in the EmptyElemTag     of the element \"root\".");
         } catch (XmlPullParserException e) {
@@ -356,8 +342,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P66_ibm66n15xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P66/ibm66n15.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail(
                     "Tests CharRef with an illegal character referred to. The \"#xffff\"      is used as the referred character in the attribute value in the EmptyElemTag     of the element \"root\".");
         } catch (XmlPullParserException e) {
