@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -132,7 +133,8 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
      *
      * NOTE: This test is SKIPPED as MXParser do not supports DOCDECL parsing.
      */
-    // @Test
+    @Test
+    @Disabled("MXParser does not support DOCDECL parsing")
     public void testhst_bh_005() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "005.xml"))) {
             parser.setInput(reader);
@@ -154,7 +156,8 @@ public class eduni_misc_Test_BjoernHoehrmannviaHST2013_09_18_Test {
      *
      * NOTE: This test is SKIPPED as MXParser do not supports DOCDECL parsing.
      */
-    // @Test
+    @Test
+    @Disabled("MXParser does not support DOCDECL parsing")
     public void testhst_bh_006() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "006.xml"))) {
             parser.setInput(reader);
