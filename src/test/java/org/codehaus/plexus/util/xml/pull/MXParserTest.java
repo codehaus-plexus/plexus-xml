@@ -870,8 +870,7 @@ class MXParserTest {
                 ReaderFactory.newXmlReader(new File("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);
@@ -891,8 +890,7 @@ class MXParserTest {
                 Files.newInputStream(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(input, null);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);
@@ -920,8 +918,7 @@ class MXParserTest {
             MXParser parser = new MXParser();
             String xmlFileContents = readAllFrom(reader);
             parser.setInput(new StringReader(xmlFileContents));
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);
@@ -947,8 +944,7 @@ class MXParserTest {
                 StandardCharsets.UTF_8)) {
             MXParser parser = new MXParser();
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);
@@ -970,8 +966,7 @@ class MXParserTest {
                 Files.newInputStream(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(input, StandardCharsets.UTF_8.name());
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);
@@ -990,8 +985,7 @@ class MXParserTest {
         try (Reader reader = new XmlStreamReader(new File("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             assertTrue(true);
         } catch (XmlPullParserException e) {
             fail("should not raise exception: " + e);

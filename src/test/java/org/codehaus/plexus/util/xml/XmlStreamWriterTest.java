@@ -66,7 +66,7 @@ class XmlStreamWriterTest {
 
     private static void checkXmlWriter(String text, String encoding) throws IOException {
         String xml = createXmlContent(text, encoding);
-        String effectiveEncoding = (encoding == null) ? "UTF-8" : encoding;
+        String effectiveEncoding = encoding == null ? "UTF-8" : encoding;
         checkXmlContent(xml, effectiveEncoding);
     }
 

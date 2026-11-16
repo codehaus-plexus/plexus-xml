@@ -77,7 +77,7 @@ import java.util.StringTokenizer;
  * @since 1.0
  *
  */
-class StringUtils {
+final class StringUtils {
     /**
      * <p>
      * <code>StringUtils</code> instances should NOT be constructed in standard programming. Instead, the class should
@@ -100,7 +100,7 @@ class StringUtils {
      * @return <code>true</code> if the String is <code>null</code>, or length zero
      */
     public static boolean isEmpty(String str) {
-        return ((str == null) || (str.isEmpty()));
+        return (str == null) || (str.isEmpty());
     }
 
     // Splitting
