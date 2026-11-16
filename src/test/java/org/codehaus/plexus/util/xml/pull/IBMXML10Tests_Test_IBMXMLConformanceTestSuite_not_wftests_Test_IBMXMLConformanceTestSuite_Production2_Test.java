@@ -56,8 +56,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n01xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n01.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x00");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x0 found in comment"));
@@ -77,8 +76,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n02xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n02.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x01");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x1 found in comment"));
@@ -98,8 +96,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n03xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n03.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x02");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x2 found in comment"));
@@ -119,8 +116,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n04xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n04.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x03");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x3 found in comment"));
@@ -140,8 +136,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n05xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n05.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x04");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x4 found in comment"));
@@ -161,8 +156,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n06xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n06.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x05");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x5 found in comment"));
@@ -182,8 +176,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n07xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n07.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x06");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x6 found in comment"));
@@ -203,8 +196,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n08xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n08.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x07");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x7 found in comment"));
@@ -224,8 +216,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n09xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n09.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x08");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x8 found in comment"));
@@ -245,8 +236,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n10xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n10.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x0B");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0xb found in comment"));
@@ -266,8 +256,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n11xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n11.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x0C");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0xc found in comment"));
@@ -287,8 +276,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n12xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n12.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x0E");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0xe found in comment"));
@@ -308,8 +296,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n13xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n13.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x0F");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0xf found in comment"));
@@ -329,8 +316,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n14xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n14.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x10");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x10 found in comment"));
@@ -350,8 +336,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n15xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n15.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x11");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x11 found in comment"));
@@ -371,8 +356,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n16xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n16.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x12");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x12 found in comment"));
@@ -392,8 +376,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n17xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n17.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x13");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x13 found in comment"));
@@ -413,8 +396,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n18xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n18.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x14");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x14 found in comment"));
@@ -434,8 +416,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n19xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n19.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x15");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x15 found in comment"));
@@ -455,8 +436,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n20xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n20.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x16");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x16 found in comment"));
@@ -476,8 +456,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n21xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n21.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x17");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x17 found in comment"));
@@ -497,8 +476,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n22xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n22.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x18");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x18 found in comment"));
@@ -518,8 +496,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n23xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n23.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x19");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x19 found in comment"));
@@ -539,8 +516,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n24xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n24.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x1A");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x1a found in comment"));
@@ -560,8 +536,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n25xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n25.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x1B");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x1b found in comment"));
@@ -581,8 +556,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n26xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n26.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x1C");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x1c found in comment"));
@@ -602,8 +576,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n27xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n27.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x1D");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x1d found in comment"));
@@ -623,8 +596,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n28xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n28.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x1E");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x1e found in comment"));
@@ -644,8 +616,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     void testibm_not_wf_P02_ibm02n29xml() throws Exception {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P02/ibm02n29.xml"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #x1F");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0x1f found in comment"));
@@ -670,8 +641,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
                 Paths.get(testResourcesDir.getCanonicalPath(), "not-wf/P02/ibm02n30.xml"),
                 Charset.forName("ISO-8859-15"))) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #xD800");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0xd800 found in comment"));
@@ -695,8 +665,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
         try (FileInputStream is = new FileInputStream(new File(testResourcesDir, "not-wf/P02/ibm02n31.xml"));
                 InputStreamReader reader = new InputStreamReader(is, "ISO-8859-15")) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #xDFFF");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0xdfff found in comment"));
@@ -717,8 +686,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
         try (FileInputStream is = new FileInputStream(new File(testResourcesDir, "not-wf/P02/ibm02n32.xml"));
                 InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #xFFFE");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0xfffe found in comment"));
@@ -739,8 +707,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
         try (FileInputStream is = new FileInputStream(new File(testResourcesDir, "not-wf/P02/ibm02n33.xml"));
                 InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
             parser.setInput(reader);
-            while (parser.nextToken() != XmlPullParser.END_DOCUMENT)
-                ;
+            while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
             fail("Tests a comment which contains an illegal Char: #xFFFF");
         } catch (XmlPullParserException e) {
             assertTrue(e.getMessage().contains("Illegal character 0xffff found in comment"));

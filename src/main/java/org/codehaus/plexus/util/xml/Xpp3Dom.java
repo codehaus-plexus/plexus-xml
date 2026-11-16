@@ -272,7 +272,7 @@ public class Xpp3Dom implements Serializable {
         // document - not the desired behaviour!
         SerializerXMLWriter xmlWriter = new SerializerXMLWriter(namespace, serializer);
         Xpp3DomWriter.write(xmlWriter, this);
-        if (xmlWriter.getExceptions().size() > 0) {
+        if (!xmlWriter.getExceptions().isEmpty()) {
             throw (IOException) xmlWriter.getExceptions().get(0);
         }
     }
@@ -392,11 +392,11 @@ public class Xpp3Dom implements Serializable {
     }
 
     public static boolean isNotEmpty(String str) {
-        return ((str != null) && (str.length() > 0));
+        return (str != null) && (str.length() > 0);
     }
 
     public static boolean isEmpty(String str) {
-        return ((str == null) || (str.trim().length() == 0));
+        return (str == null) || (str.trim().length() == 0);
     }
 
     private void update(XmlNode dom) {

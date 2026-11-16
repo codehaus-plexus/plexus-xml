@@ -85,7 +85,7 @@ public class XmlStreamWriter extends Writer {
 
         // try to determine encoding
         if (xmlProlog.length() >= 5) {
-            if (xmlProlog.substring(0, 5).equals("<?xml")) {
+            if ("<?xml".equals(xmlProlog.substring(0, 5))) {
                 // try to extract encoding from XML prolog
                 int xmlPrologEnd = xmlProlog.indexOf("?>");
                 if (xmlPrologEnd > 0) {

@@ -16,17 +16,17 @@ package org.codehaus.plexus.util.xml.pull;
  * limitations under the License.
  */
 public class EntityReplacementMap {
-    final String entityName[];
+    final String[] entityName;
 
-    final char[] entityNameBuf[];
+    final char[][] entityNameBuf;
 
-    final String entityReplacement[];
+    final String[] entityReplacement;
 
-    final char[] entityReplacementBuf[];
+    final char[][] entityReplacementBuf;
 
     int entityEnd;
 
-    final int entityNameHash[];
+    final int[] entityNameHash;
 
     public EntityReplacementMap(String[][] replacements) {
         int length = replacements.length;
@@ -73,8 +73,10 @@ public class EntityReplacementMap {
      * simplistic implementation of hash function that has <b>constant</b> time to compute - so it also means
      * diminishing hash quality for long strings but for XML parsing it should be good enough ...
      */
-    private static int fastHash(char ch[], int off, int len) {
-        if (len == 0) return 0;
+    private static int fastHash(char[] ch, int off, int len) {
+        if (len == 0) {
+            return 0;
+        }
         // assert len >0
         int hash = ch[off]; // hash at beginning
         // try {
@@ -83,11 +85,15 @@ public class EntityReplacementMap {
         // aie.printStackTrace(); //should never happen ...
         // throw new RuntimeException("this is violation of pre-condition");
         // }
-        if (len > 16) hash = (hash << 7) + ch[off + (len / 4)]; // 1/4 from beginning
-        if (len > 8) hash = (hash << 7) + ch[off + (len / 2)]; // 1/2 of string size ...
-        // notice that hash is at most done 3 times <<7 so shifted by 21 bits 8 bit value
-        // so max result == 29 bits so it is quite just below 31 bits for long (2^32) ...
-        // assert hash >= 0;
+        if (len > 16) {
+            hash = (hash << 7) + ch[off + (len / 4)]; // 1/4 from beginning
+        }
+        if (len > 8) {
+            hash = (hash << 7) + ch[off + (len / 2)]; // 1/2 of string size ...
+            // notice that hash is at most done 3 times <<7 so shifted by 21 bits 8 bit value
+            // so max result == 29 bits so it is quite just below 31 bits for long (2^32) ...
+            // assert hash >= 0;
+        }
         return hash;
     }
 
