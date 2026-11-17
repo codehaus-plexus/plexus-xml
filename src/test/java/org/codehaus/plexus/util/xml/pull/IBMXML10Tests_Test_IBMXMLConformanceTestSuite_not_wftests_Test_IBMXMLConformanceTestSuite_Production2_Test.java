@@ -9,7 +9,7 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -637,7 +637,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
     @Disabled("test file is malformed in the original suite")
     public void testibm_not_wf_P02_ibm02n30xml() throws Exception {
         try (BufferedReader reader = Files.newBufferedReader(
-                Paths.get(testResourcesDir.getCanonicalPath(), "not-wf/P02/ibm02n30.xml"),
+                Path.of(testResourcesDir.getCanonicalPath(), "not-wf/P02/ibm02n30.xml"),
                 Charset.forName("ISO-8859-15"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
