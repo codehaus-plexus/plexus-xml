@@ -25,7 +25,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.codehaus.plexus.util.xml.XmlStreamReader;
 import org.junit.jupiter.api.Test;
@@ -880,7 +880,7 @@ class MXParserTest {
      */
     @Test
     void encodingISO88591NewXmlReader() throws Exception {
-        try (Reader reader = new XmlStreamReader(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
+        try (Reader reader = new XmlStreamReader(Path.of("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
@@ -899,7 +899,7 @@ class MXParserTest {
     @Test
     void encodingISO88591InputStream() throws Exception {
         try (InputStream input =
-                Files.newInputStream(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
+                Files.newInputStream(Path.of("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(input, null);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
@@ -920,7 +920,7 @@ class MXParserTest {
     @Test
     void encodingISO88591StringReader() throws Exception {
         String xmlFileContents;
-        try (Reader reader = new XmlStreamReader(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
+        try (Reader reader = new XmlStreamReader(Path.of("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             xmlFileContents = readAllFrom(reader);
         }
 
@@ -948,7 +948,7 @@ class MXParserTest {
         // because the decoder created by new InputStreamReader() is lenient while the one created by
         // Files.newBufferedReader() is not.
         try (Reader reader = new InputStreamReader(
-                Files.newInputStream(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml")),
+                Files.newInputStream(Path.of("src/test/resources/xml", "test-encoding-ISO-8859-1.xml")),
                 StandardCharsets.UTF_8)) {
             MXParser parser = new MXParser();
             parser.setInput(reader);
@@ -970,7 +970,7 @@ class MXParserTest {
     @Test
     void encodingISO88591InputStreamEncoded() throws Exception {
         try (InputStream input =
-                Files.newInputStream(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
+                Files.newInputStream(Path.of("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(input, StandardCharsets.UTF_8.name());
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
@@ -988,7 +988,7 @@ class MXParserTest {
      */
     @Test
     void encodingUTF8NewXmlReader() throws Exception {
-        try (Reader reader = new XmlStreamReader(Paths.get("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
+        try (Reader reader = new XmlStreamReader(Path.of("src/test/resources/xml", "test-encoding-ISO-8859-1.xml"))) {
             MXParser parser = new MXParser();
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
@@ -1215,7 +1215,7 @@ class MXParserTest {
     }
 
     private void testDocdeclTextWithEntitiesInAttributes(String filename) throws IOException {
-        try (InputStream input = Files.newInputStream(Paths.get("src/test/resources/xml", filename))) {
+        try (InputStream input = Files.newInputStream(Path.of("src/test/resources/xml", filename))) {
             MXParser parser = new MXParser();
             parser.setInput(input, null);
             parser.defineEntityReplacementText("nbsp", "&#160;");

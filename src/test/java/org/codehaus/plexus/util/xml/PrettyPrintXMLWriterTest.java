@@ -21,7 +21,6 @@ import javax.swing.text.html.HTML.Tag;
 import java.io.File;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.NoSuchElementException;
 
@@ -181,7 +180,7 @@ class PrettyPrintXMLWriterTest {
 
         int iterations = 20000;
 
-        try (Writer osw = Files.newBufferedWriter(xmlFile.toPath(), StandardCharsets.UTF_8)) {
+        try (Writer osw = Files.newBufferedWriter(xmlFile.toPath())) {
             writer = new PrettyPrintXMLWriter(osw);
             for (int i = 0; i < iterations; ++i) {
                 writer.startElement(Tag.DIV.toString() + i);
