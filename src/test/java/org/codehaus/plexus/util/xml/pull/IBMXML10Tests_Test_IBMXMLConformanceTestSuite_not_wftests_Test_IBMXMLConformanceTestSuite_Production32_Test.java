@@ -2,6 +2,7 @@ package org.codehaus.plexus.util.xml.pull;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -212,7 +213,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      */
     @Test
     @Disabled("MXParser does not support parsing inside DOCTYPEDECL")
-    public void testibm_not_wf_P32_ibm32n09xml() throws Exception {
+    public void testibm_not_wf_P32_ibm32n09xml() throws IOException {
         try (Reader reader = new FileReader(new File(testResourcesDir, "not-wf/P32/ibm32n09.xml"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}

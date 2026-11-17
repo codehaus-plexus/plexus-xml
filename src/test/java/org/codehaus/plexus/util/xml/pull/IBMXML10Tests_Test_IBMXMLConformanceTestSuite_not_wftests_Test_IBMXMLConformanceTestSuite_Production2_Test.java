@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -635,9 +636,9 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      */
     @Test
     @Disabled("test file is malformed in the original suite")
-    public void testibm_not_wf_P02_ibm02n30xml() throws Exception {
+    public void testibm_not_wf_P02_ibm02n30xml() throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(
-                Path.of(testResourcesDir.getCanonicalPath(), "not-wf/P02/ibm02n30.xml"),
+                Paths.get(testResourcesDir.getCanonicalPath(), "not-wf/P02/ibm02n30.xml"),
                 Charset.forName("ISO-8859-15"))) {
             parser.setInput(reader);
             while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {}
@@ -660,7 +661,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      */
     @Test
     @Disabled("test file is malformed in the original suite")
-    public void testibm_not_wf_P02_ibm02n31xml() throws Exception {
+    public void testibm_not_wf_P02_ibm02n31xml() throws IOException {
         try (FileInputStream is = new FileInputStream(new File(testResourcesDir, "not-wf/P02/ibm02n31.xml"));
                 InputStreamReader reader = new InputStreamReader(is, "ISO-8859-15")) {
             parser.setInput(reader);
