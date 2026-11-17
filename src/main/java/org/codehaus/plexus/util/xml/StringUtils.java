@@ -227,7 +227,7 @@ final class StringUtils {
         }
 
         if (ls == null) {
-            ls = System.getProperty("line.separator");
+            ls = System.lineSeparator();
         }
 
         if (!("\n".equals(ls) || "\r".equals(ls) || "\r\n".equals(ls))) {

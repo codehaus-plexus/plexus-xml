@@ -24,7 +24,7 @@ package org.codehaus.plexus.util.xml;
  */
 public class XmlWriterUtil {
     /** The vm line separator */
-    public static final String LS = System.getProperty("line.separator");
+    public static final String LS = System.lineSeparator();
 
     /** The default line indenter size i.e. 2. */
     public static final int DEFAULT_INDENTATION_SIZE = 2;

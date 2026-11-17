@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @since 3.4.0
  */
 class Xpp3DomWriterTest {
-    private static final String LS = System.getProperty("line.separator");
+    private static final String LS = System.lineSeparator();
 
     /**
      * <p>testWriter.</p>

@@ -515,6 +515,7 @@ class Xpp3DomTest {
             this.location = location;
         }
 
+        @Override
         public Object toInputLocation(XmlPullParser parser) {
             return location;
         }
