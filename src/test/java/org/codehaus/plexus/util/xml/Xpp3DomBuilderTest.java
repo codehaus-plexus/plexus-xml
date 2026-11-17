@@ -179,6 +179,7 @@ class Xpp3DomBuilderTest {
     @Test
     void inputLocationTracking() throws Exception {
         Xpp3DomBuilder.InputLocationBuilder ilb = new Xpp3DomBuilder.InputLocationBuilder() {
+            @Override
             public Object toInputLocation(XmlPullParser parser) {
                 return parser.getLineNumber(); // store only line number as a simple Integer
             }

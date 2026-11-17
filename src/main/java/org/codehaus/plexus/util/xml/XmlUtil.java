@@ -40,7 +40,7 @@ public class XmlUtil {
     public static final int DEFAULT_INDENTATION_SIZE = 2;
 
     /** The default line separator ("\n" on UNIX) */
-    public static final String DEFAULT_LINE_SEPARATOR = System.getProperty("line.separator");
+    public static final String DEFAULT_LINE_SEPARATOR = System.lineSeparator();
 
     /**
      * Determines if a given File shall be handled as XML.

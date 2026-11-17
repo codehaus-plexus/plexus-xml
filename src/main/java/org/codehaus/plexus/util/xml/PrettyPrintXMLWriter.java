@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  */
 public class PrettyPrintXMLWriter implements XMLWriter {
     /** Line separator ("\n" on UNIX) */
-    protected static final String LS = System.getProperty("line.separator");
+    protected static final String LS = System.lineSeparator();
 
     private PrintWriter writer;
 
