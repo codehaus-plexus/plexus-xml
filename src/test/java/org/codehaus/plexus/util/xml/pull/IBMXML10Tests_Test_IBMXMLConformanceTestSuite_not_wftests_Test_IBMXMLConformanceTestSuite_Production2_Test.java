@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
@@ -636,7 +635,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      */
     @Test
     @Disabled("test file is malformed in the original suite")
-    public void testibm_not_wf_P02_ibm02n30xml() throws IOException {
+    public void testibm_not_wf_P02_ibm02n30xml() throws Exception {
         try (BufferedReader reader = Files.newBufferedReader(
                 Paths.get(testResourcesDir.getCanonicalPath(), "not-wf/P02/ibm02n30.xml"),
                 Charset.forName("ISO-8859-15"))) {
@@ -661,7 +660,7 @@ class IBMXML10Tests_Test_IBMXMLConformanceTestSuite_not_wftests_Test_IBMXMLConfo
      */
     @Test
     @Disabled("test file is malformed in the original suite")
-    public void testibm_not_wf_P02_ibm02n31xml() throws IOException {
+    public void testibm_not_wf_P02_ibm02n31xml() throws Exception {
         try (FileInputStream is = new FileInputStream(new File(testResourcesDir, "not-wf/P02/ibm02n31.xml"));
                 InputStreamReader reader = new InputStreamReader(is, "ISO-8859-15")) {
             parser.setInput(reader);
