@@ -304,12 +304,7 @@ public class MXParser implements XmlPullParser {
         }
         // assert len >0
         int hash = ch[off]; // hash at beginning
-        // try {
         hash = (hash << 7) + ch[off + len - 1]; // hash at the end
-        // } catch(ArrayIndexOutOfBoundsException aie) {
-        // aie.printStackTrace(); //should never happen ...
-        // throw new RuntimeException("this is violation of pre-condition");
-        // }
         if (len > 16) {
             hash = (hash << 7) + ch[off + (len / 4)]; // 1/4 from beginning
         }
