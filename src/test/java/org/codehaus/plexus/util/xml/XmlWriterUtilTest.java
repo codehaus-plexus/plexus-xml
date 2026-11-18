@@ -48,9 +48,7 @@ class XmlWriterUtilTest {
      */
     @BeforeEach
     void setUp() throws Exception {
-        output = new ByteArrayOutputStream();
-        writer = WriterFactory.newXmlWriter(output);
-        xmlWriter = new PrettyPrintXMLWriter(writer);
+        resetWriter();
     }
 
     /**
@@ -63,6 +61,13 @@ class XmlWriterUtilTest {
         xmlWriter = null;
         writer = null;
         output = null;
+    }
+
+    /** Recreate a fresh writer and output stream between sections of a single test. */
+    private void resetWriter() throws Exception {
+        output = new ByteArrayOutputStream();
+        writer = WriterFactory.newXmlWriter(output);
+        xmlWriter = new PrettyPrintXMLWriter(writer);
     }
 
     /**
@@ -147,8 +152,7 @@ class XmlWriterUtilTest {
         writer.close();
         assertEquals("<!-- ========== -->" + XmlWriterUtil.LS, output.toString());
 
-        tearDown();
-        setUp();
+        resetWriter();
 
         XmlWriterUtil.writeCommentLineBreak(xmlWriter, 10);
         writer.close();
@@ -171,8 +175,7 @@ class XmlWriterUtilTest {
         assertEquals(output.toString(), sb.toString());
         assertEquals(output.toString().length(), XmlWriterUtil.DEFAULT_COLUMN_LINE - 1 + XmlWriterUtil.LS.length());
 
-        tearDown();
-        setUp();
+        resetWriter();
 
         XmlWriterUtil.writeComment(
                 xmlWriter, "hellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
@@ -183,8 +186,7 @@ class XmlWriterUtilTest {
         assertEquals(output.toString(), sb.toString());
         assertTrue(output.toString().length() >= XmlWriterUtil.DEFAULT_COLUMN_LINE);
 
-        tearDown();
-        setUp();
+        resetWriter();
 
         XmlWriterUtil.writeComment(xmlWriter, "hello\nworld");
         writer.close();
@@ -222,8 +224,7 @@ class XmlWriterUtilTest {
                         + XmlWriterUtil.LS.length()
                         + 2 * XmlWriterUtil.DEFAULT_INDENTATION_SIZE);
 
-        tearDown();
-        setUp();
+        resetWriter();
 
         XmlWriterUtil.writeComment(xmlWriter, "hello\nworld", 2);
         writer.close();
@@ -260,8 +261,7 @@ class XmlWriterUtilTest {
         assertEquals(
                 output.toString().length(), XmlWriterUtil.DEFAULT_COLUMN_LINE - 1 + XmlWriterUtil.LS.length() + 2 * 4);
 
-        tearDown();
-        setUp();
+        resetWriter();
 
         XmlWriterUtil.writeComment(xmlWriter, "hello\nworld", 2, 4);
         writer.close();
@@ -296,8 +296,7 @@ class XmlWriterUtilTest {
         assertEquals(output.toString(), sb.toString());
         assertEquals(output.toString().length(), 50 - 1 + XmlWriterUtil.LS.length() + 2 * 4);
 
-        tearDown();
-        setUp();
+        resetWriter();
 
         XmlWriterUtil.writeComment(xmlWriter, "hello", 2, 4, 10);
         writer.close();
@@ -331,8 +330,7 @@ class XmlWriterUtilTest {
         assertEquals(
                 output.toString().length(), 3 * (80 - 1 + XmlWriterUtil.LS.length()) + 2 * XmlWriterUtil.LS.length());
 
-        tearDown();
-        setUp();
+        resetWriter();
 
         String indent = "    ";
 
