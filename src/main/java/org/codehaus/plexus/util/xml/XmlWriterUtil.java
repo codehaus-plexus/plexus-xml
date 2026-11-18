@@ -77,13 +77,8 @@ public class XmlWriterUtil {
     public static void writeLineBreak(XMLWriter writer, int repeat, int indent, int indentSize) {
         writeLineBreak(writer, repeat);
 
-        if (indent < 0) {
-            indent = 0;
-        }
-
-        if (indentSize < 0) {
-            indentSize = 0;
-        }
+        indent = Math.max(0, indent);
+        indentSize = Math.max(0, indentSize);
 
         writer.writeText(StringUtils.repeat(" ", indent * indentSize));
     }
