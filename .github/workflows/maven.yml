@@ -27,8 +27,7 @@ jobs:
         # Works with Java 17+
         matrix-exclude: >
             [
-              {"jdk": "8"},
-              {"jdk": "11"}
+              {"jdk": "8"}
             ]
 
   deploy:
