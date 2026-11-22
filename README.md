@@ -2,7 +2,7 @@
 
 [![Maven Central 4.x](https://img.shields.io/maven-central/v/org.codehaus.plexus/plexus-xml.svg?label=Maven%20Central%204.x&versionPrefix=4.)](https://central.sonatype.com/artifact/org.codehaus.plexus/plexus-xml/versions)
 [![Maven Central 3.x](https://img.shields.io/maven-central/v/org.codehaus.plexus/plexus-xml.svg?label=Maven%20Central%203.x&versionPrefix=3.)](https://central.sonatype.com/artifact/org.codehaus.plexus/plexus-xml/versions)
-[![GitHub CI](https://github.com/codehaus-plexus/plexus-xml/actions/workflows/maven.yml/badge.svg)](https://github.com/codehaus-plexus/plexus-xml/actions)
+[![GitHub CI](https://github.com/codehaus-plexus/plexus-xml/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/codehaus-plexus/plexus-xml/actions/workflows/maven.yml?query=branch%3Amaster)
 [![Reproducible Builds](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/jvm-repo-rebuild/reproducible-central/master/content/org/codehaus/plexus/plexus-xml/badge.json)](https://github.com/jvm-repo-rebuild/reproducible-central/blob/master/content/org/codehaus/plexus/plexus-xml/README.md)
 
 Plexus XML contains the XML classes that [`plexus-utils`](https://github.com/codehaus-plexus/plexus-utils) shipped up to its 3.x
@@ -35,7 +35,7 @@ Maintained. Two lines are released from this repository, and they are not interc
 
 `4.x` rebuilds `Xpp3Dom` on top of `XmlNode` from Maven 4's
 [`maven-api-xml`](https://maven.apache.org/ref/4-LATEST/api/maven-api-xml/), and depends on `maven-api-xml`
-and `maven-xml`. Don't use it in a plugin or extension that must run in Maven 3: Maven 3 exports its own
+(compile scope) and `maven-xml` (runtime scope, which provides the `XmlService` implementation). Don't use it in a plugin or extension that must run in Maven 3: Maven 3 exports its own
 `Xpp3Dom` class to plugins, and that class lacks the `XmlNode` constructor that `Xpp3DomBuilder` 4.x calls.
 
 If upgrading `plexus-utils` from 3 to 4 gave you a `NoClassDefFoundError` on `Xpp3Dom` and
@@ -55,7 +55,7 @@ badges at the top of this page show the current version of each line.
 
 ## Requirements
 
-Java 17 for `4.x`. Java 8 for `3.x`.
+Java 17 for `4.x`. Java 8 for `3.x`. Both lines set the automatic module name `org.codehaus.plexus.util.xml`.
 
 ## Documentation
 
@@ -82,7 +82,8 @@ mvn spotless:apply
 
 ## Contributing
 
-See [CONTRIBUTING.md](https://github.com/codehaus-plexus/.github/blob/master/CONTRIBUTING.md), and report
+Conventions for contributors and agents are in [AGENTS.md](AGENTS.md); see also
+[CONTRIBUTING.md](https://github.com/codehaus-plexus/.github/blob/master/CONTRIBUTING.md), and report
 bugs in the [issue tracker](https://github.com/codehaus-plexus/plexus-xml/issues). Changes for Maven 3 users
 go to the `3.x` branch.
 
