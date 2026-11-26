@@ -10,7 +10,7 @@ the POM sets both through `mavenXmlVersion`, and `javaVersion` 17.
 
 - CI calls the shared `codehaus-plexus/.github` `maven.yml@master` workflow, which runs
   `mvn verify javadoc:javadoc` on Linux, Windows and macOS. This repository's workflow excludes JDK 8
-  and 11 from the matrix because the code needs Java 17; change that exclusion together with the Java
+  from the matrix because the code needs Java 17; change that exclusion together with the Java
   floor. A push to master also deploys a snapshot.
 - Unit tests use JUnit 5 (`junit-jupiter-api` and `junit-jupiter-params`) and run through Surefire
   with `childDelegation` on, so the test classes are used, not Surefire's own `plexus-utils`. There
